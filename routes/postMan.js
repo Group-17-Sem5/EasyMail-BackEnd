@@ -1,5 +1,22 @@
-const express =require('express');
-const postMan=require('../models/postManModel');
-
+const express = require('express');
+const PostMan=require('../models/postMan.model');
 const router=express.Router();
+router.route('/register').post((req, res) => {
+    console.log('Registering');
+    const postMan=new PostMan({
+        username: req.body.username,
+        password: req.body.password,
+        email: req.body.email,
+    });
+    postMan
+    .save()
+    .then(() => {
+        console.log('postMan registered');
+        res.status(200).json('Ok');
+    }).catch((err) => {
+        res.status(403).json({msg:err});
+    });
+
+});
+
 module.exports =router;
