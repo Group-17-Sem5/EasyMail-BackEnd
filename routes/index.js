@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-
 // All routes of Postman
-const userRoutes = require('./api/users');
+const postManRoutes = require('./api/postMan');
 
-//user routes
-router.use('/users', userRoutes);
+
+
+//postMan routes
+router.use('/postMan', postManRoutes);
 
 //user event routes
-router.use('/events', userRoutes);
+// router.use('/events', postManRoutes);
 
-//user event membership routes
-router.use('/memberships', userRoutes);
+// //user event membership routes
+// router.use('/memberships', postManRoutes);
 
 module.exports = router;
