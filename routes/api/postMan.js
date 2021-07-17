@@ -1,5 +1,5 @@
 const express = require('express');
-const PostMan=require('../models/postMan.model');
+const PostMan=require('../../models/postMan.model');
 const router=express.Router();
 router.route('/register').post((req, res) => {
     console.log('Registering');
@@ -17,6 +17,14 @@ router.route('/register').post((req, res) => {
         res.status(403).json({msg:err});
     });
 
+});
+router.route('/delete/:userName').delete((req,res) => {
+    console.log('deleting');
+
+});
+router.route('/update/:userName').patch((req,res) => {
+    console.log('deleting');
+    
 });
 
 module.exports =router;
