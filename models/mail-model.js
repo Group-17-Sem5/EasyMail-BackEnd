@@ -2,22 +2,25 @@ const mongoose =require('mongoose');
 const Schema= mongoose.Schema;
 
 
-const PostMan= Schema({
-    username:{
+const Mail= Schema({
+    mailID:{
         type:String, 
         required: true,
         unique: true,
-    },password:{
+    },description:{
         type:String, 
         required: true,
-    },email:{
+    },status:{
         type:String, 
         required: true,
-    },mobileNumber:{
+    },location:{
+        type:String, 
+        required: true,
+    },postManID:{
         type:String, 
         required: true,
     }
 });
 
 
-module.exports =mongoose.model("PostMan",PostMan);
+module.exports =mongoose.model("Mail",Mail);
