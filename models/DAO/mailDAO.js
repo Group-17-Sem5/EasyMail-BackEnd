@@ -26,14 +26,14 @@ class MailDAO{
         //     return mail;
         //    });
         
-        const mails = await Mail.find();
+        const mailsList = await Mail.find();
        
         // const mailMap = {};
         // mails.forEach((mail) => {
         //     mailMap[mailID] = mail;
         // });
         //const mails=[{mailID:"d",location:"jsdhf",postManID:"kusdf",status:"sjdufg",description:"fadf"},{mailID:"da",location:"jsdhf",postManID:"kusdf",status:"sjdufg",description:"fadf"}]
-        return mails;
+        return mailsList;
     }
 
     static async readOneEntity(mailId){
