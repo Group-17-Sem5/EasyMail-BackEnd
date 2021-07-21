@@ -1,6 +1,7 @@
 const config = require('../../config/DB');
 const Mail = require('../mail-model');
 const express=require('express');
+const { connection } = require('mongoose');
 class MailDAO{
     constructor(){
         try {
@@ -36,9 +37,9 @@ class MailDAO{
     }
 
     static async readOneEntity(mailId){
-        Mail.findOne({mailID:mailId},(err,results) => {
-
-        });
+        console.log(mailId);
+        const mail =await Mail.findOne({mailID: mailId});
+        return mail;
     }
 
     static async updateOneEntity(){

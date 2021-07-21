@@ -42,9 +42,30 @@ postManController.getPosts = async (req, res, next) => {
 postManController.cancelDelivery = async (req, res, next) => {};
 postManController.getAPost= async (req, res, next) => {
     console.log('getting a post');
-   Mail.findOne({mailID: req.params.ID},(err, result) => {
-        if(err) res.status(500).json({msg: err});
-        res.json({data: result,mailID: req.params.ID});
-   });
+
+    try {
+        const mail = await postManServices.getMail(req.params.id);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(mail !== null){
+        const response = {
+            err: 0,
+            obj: mail,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "No Mails Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+   
 };
 module.exports = postManController;

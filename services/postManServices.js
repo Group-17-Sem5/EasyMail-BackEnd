@@ -38,16 +38,21 @@ class PostManService{
         }
 
     }
-    async getMail() {
+    async getMail(mailId) {
         try {
 
             var mail = "";
             
-            var mail = await MailDAO.readOneEntity();
-            
+            var mail = await MailDAO.readOneEntity(mailId);
+            let mailID = mail.mailID;
+                let discription = mail.discription;
+                let status= mail.status;
+                let location =mail.location;
+                let postManID=mail.postManID;
+                var OneMail = { mailID, discription,status,location,postManID };
             
 
-            return mail;
+            return OneMail;
             //    [
             //        {
             //            route_id:1,
