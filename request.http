@@ -1,0 +1,29 @@
+###
+GET  http://localhost:8000/users HTTP/1.1
+###
+POST http://localhost:8000/users/addUser HTTP/1.1
+content-type: application/json
+
+{
+    "name":"kajanan3", 
+    "address":"jaffna", 
+    "mobile":"0768466549", 
+    "NIC":"981751671V", 
+    "username":"kaja3", 
+    "password":"kaja", 
+    "type":"clerk"
+} 
+###
+PUT http://localhost:8000/users/editUser/60f87be2ddb31720b0a5b89d HTTP/1.1
+content-type: application/json
+
+{
+    "name":"kaja", 
+    "address":"jaffna2", 
+    "mobile":"0768466549", 
+    "NIC":"981751691V", 
+    "username":"kaja2"
+} 
+###
+DELETE http://localhost:8000/users/deleteUser/60f8770a412cce1d8463b436 HTTP/1.1
+###

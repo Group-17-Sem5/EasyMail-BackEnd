@@ -1,18 +1,48 @@
-const express=require('express');
-http = require('http');
-const HttpStatus = require('http-status');
+const express = require('express');
 const mongoose = require('mongoose');
-const routes= require('./routes/index');
+const session = require('express-session');
+// const passport = require('passport');
+const dotenv = require('dotenv');
+const cors = require('cors');
+
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/easyMail', {useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});
-const Port =process.env.port || 5000;
-const connection =mongoose.connection;
-connection.once("open", () => {
-    console.log("mongoDB connected");
-});
-app.use(express.json());
-app.route("/").get((req,res)=>res.json('First Api Sandaru'));
-app.use('/api',routes);
+dotenv.config();
 
-app.listen(Port,()=>console.log('listning to port '+Port ));
+// Passport config
+// require('./config/passport')(passport);
+
+// DB Config
+// const db = require('./config/keys').MongoURI;
+
+//Connect to Mongo
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(console.log);
+
+// Bodyparser
+//parse url-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended: false }));
+//parse JSON bodies (as sent by API clients)
+app.use(express.json());
+
+// for cross origin request
+app.use(cors())
+
+// Express session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+
+// Passport middleware
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+//Routes
+app.use('/', require('./routes/index'))
+
+const PORT = process.env.PORT || 8000;
+
+app.listen(PORT, console.log(`Server started on port ${PORT}`))
