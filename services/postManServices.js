@@ -77,6 +77,16 @@ class PostManService{
         }
 
     }
+    async confirmPostDelivery(mailID){
+       try {
+            var result = await MailDAO.updateOneEntity(mailID,true);
+            console.log(result);
+            return result;
+       } catch (error) {
+        console.log('Error when confirming mail');
+    }
+
+    }
 
 
 }

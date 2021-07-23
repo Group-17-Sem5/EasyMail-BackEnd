@@ -11,7 +11,34 @@ postManController.searchAddress= async (req, res, next) => {
 postManController.addAddress = async (req, res, next) => {};
 postManController.removeAddress = async (req, res, next) => {};
 postManController.changeAddress = async (req, res, next) => {};
-postManController.confirmPostDelivery = async (req, res, next) => {};
+
+
+
+postManController.confirmPostDelivery = async (req, res, next) => {
+    console.log('Confirming the post delivery'+req.params.id);
+    try {
+        const result = await postManServices.confirmPostDelivery(req.params.id);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(result==='done'){
+        const response = {
+            err: 0,
+            obj: mail_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "No Mails Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
 
 postManController.getPosts = async (req, res, next) => {
     console.log('getting all mails');
