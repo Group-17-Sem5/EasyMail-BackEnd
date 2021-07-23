@@ -7,18 +7,34 @@ const Mail= Schema({
         type:String, 
         required: true,
         unique: true,
-    },description:{
+    },addressID:{
         type:String, 
         required: true,
-    },status:{
+    },sourceBranchID:{
         type:String, 
         required: true,
-    },location:{
+    },receivingBranchID:{
+        type:String, 
+        required: true,
+    },
+    lastAppearedBranch:{
         type:String, 
         required: true,
     },postManID:{
         type:String, 
         required: true,
+    },senderID:{
+        type:String,
+        required:false,
+    },receiverID:{
+        type:String,
+        required:false,
+    },isAssigned:{
+        type:Boolean,
+        required:true,
+    },isDelivered:{
+        type: Boolean,
+        required:true,
     }
 });
 

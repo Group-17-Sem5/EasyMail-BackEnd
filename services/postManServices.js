@@ -6,20 +6,25 @@ class PostManService{
 
     }
     //methods 
-    async getMailList() {
+    async getMailList(postManId) {
         try {
 
             var mailList = [];
             
-            var mails = await MailDAO.readAllEntity();
+            var mails = await MailDAO.readAllEntity(postManId);
             
             mails.forEach(mail => {
                 let mailID = mail.mailID;
-                let discription = mail.discription;
-                let status= mail.status;
-                let location =mail.location;
+                let addressID = mail.addressID;
+                let isAssigned= mail.isAssigned;
+                let isDelivered =mail.isDelivered;
                 let postManID=mail.postManID;
-                var OneMail = { mailID, discription,status,location,postManID };
+                let lastAppearedBranch = mail.lastAppearedBranch;
+                let sourceBranchID=mail.sourceBranchID;
+                let receivingBranchID=mail.receivingBranchID;
+                let senderID=mail.senderID;
+                let receiverID=mail.receiverID;
+                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
                 mailList.push(OneMail);
             });
 
@@ -45,11 +50,17 @@ class PostManService{
             
             var mail = await MailDAO.readOneEntity(mailId);
             let mailID = mail.mailID;
-                let discription = mail.discription;
-                let status= mail.status;
-                let location =mail.location;
-                let postManID=mail.postManID;
-                var OneMail = { mailID, discription,status,location,postManID };
+            let addressID = mail.addressID;
+            let isAssigned= mail.isAssigned;
+            let isDelivered =mail.isDelivered;
+            let postManID=mail.postManID;
+            let lastAppearedBranch = mail.lastAppearedBranch;
+            let sourceBranchID=mail.sourceBranchID;
+            let receivingBranchID=mail.receivingBranchID;
+            let senderID=mail.senderID;
+            let receiverID=mail.receiverID;
+            var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
+           
             
 
             return OneMail;

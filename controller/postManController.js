@@ -16,7 +16,7 @@ postManController.confirmPostDelivery = async (req, res, next) => {};
 postManController.getPosts = async (req, res, next) => {
     console.log('getting all mails');
     try {
-        const mail_list = await postManServices.getMailList();
+        const mail_list = await postManServices.getMailList(req.params.postManId);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(mail_list.length > 0){
         const response = {

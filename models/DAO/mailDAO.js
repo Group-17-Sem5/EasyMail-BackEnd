@@ -15,7 +15,7 @@ class MailDAO{
 
     }
 
-    static async readAllEntity(){
+    static async readAllEntity(postManId){
         // Mail.find({}, function (err, mails) {
         //     console.log(mails);
         //     return res.send(mails);
@@ -26,7 +26,7 @@ class MailDAO{
         //     return mail;
         //    });
         
-        const mailsList = await Mail.find();
+        const mailsList = await Mail.find({postManID: postManId});
        
         // const mailMap = {};
         // mails.forEach((mail) => {
