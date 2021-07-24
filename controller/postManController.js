@@ -18,11 +18,11 @@ postManController.confirmPostDelivery = async (req, res, next) => {
     console.log('Confirming the post delivery'+req.params.id);
     try {
         const result = await postManServices.confirmPostDelivery(req.params.id);
-        //const mail_list= [{"email":"sfg","df":"df"}];
-        if(result==='done'){
+        console.log(result);
+        if(result['ok']===1){
         const response = {
             err: 0,
-            obj: mail_list,//should get object list
+            obj: {},//should get object list
             msg: ""
         }
         return res.json(response);
@@ -66,7 +66,31 @@ postManController.getPosts = async (req, res, next) => {
     }
 
 };
-postManController.cancelDelivery = async (req, res, next) => {};
+postManController.cancelDelivery = async (req, res, next) => {
+    console.log('Cancelling the post delivery'+req.params.id);
+    try {
+        const result = await postManServices.cancelPostDelivery(req.params.id);
+        console.log(result);
+        if(result['ok']===1){
+        const response = {
+            err: 0,
+            obj: {},//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "No Mails Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
 postManController.getAPost= async (req, res, next) => {
     console.log('getting a post');
 
