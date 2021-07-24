@@ -5,6 +5,29 @@ let postManServices= new PostManService();
 
 
 postManController.searchAddress= async (req, res, next) => {
+    console.log('getting all addresses');
+    try {
+        const address_list = await postManServices.getAddressList();
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(address_list.length > 0){
+        const response = {
+            err: 0,
+            obj: address_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "No Addresses Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
     
 
 };

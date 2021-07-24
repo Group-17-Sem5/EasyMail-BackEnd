@@ -1,6 +1,8 @@
 const PostManDAO = require('../models/DAO/postManDAO');
-const MailDAO= require('../models/DAO/mailDAO')
+const MailDAO= require('../models/DAO/mailDAO');
+const AddressDAO= require('../models/DAO/addressDAO');
 const mail= require('../models/mail-model');
+const address= require('../models/address-model');
 class PostManService{
     constructor(){
 
@@ -95,6 +97,40 @@ class PostManService{
        } catch (error) {
         console.log('Error when cancelling mail');
         }
+    }
+    async getAddressList(){
+        try {
+
+            var addressList = [];
+            
+            var addresses = await AddressDAO.readAllEntity();
+            
+            addresses.forEach(address => {
+                //console.log(address);
+                let addressID = address.addressID;
+                let description = address.description;
+                let location=address.location;
+                let branchID=address.branchID;
+                let userIDList = address.userIDList;
+
+                var OneAddress = { addressID,location,description,userIDList,branchID };
+                addressList.push(OneAddress);
+            });
+
+            return addressList;
+        
+            //    [
+            //        {
+            //            route_id:1,
+            //            discription: Colombo,panadura
+            //        },
+            //             ..........
+            //    ]
+
+        } catch (error) {
+            console.log('Error when finding Addresses');
+        }
+
     }
 
 
