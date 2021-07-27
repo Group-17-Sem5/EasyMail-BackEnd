@@ -3,6 +3,8 @@ const MailDAO= require('../models/DAO/mailDAO');
 const AddressDAO= require('../models/DAO/addressDAO');
 const mail= require('../models/mail-model');
 const address= require('../models/address-model');
+const config= require('../config/config');
+const jwt=require('jsonwebtoken');
 class PostManService{
     constructor(){
 
@@ -129,6 +131,61 @@ class PostManService{
 
         } catch (error) {
             console.log('Error when finding Addresses');
+        }
+
+    }    
+    async login(req) {
+        try {
+
+            var postMan = "";
+            // var result=json();
+            var postMan = await PostManDAO.readOneEntity(req.username);
+                if(postMan){
+                    //console.log(postMan);
+                    if (postMan.password===req.password){
+                        console.log('Password is correct');
+                        let token= jwt.sign({username:req.username},config.key,{expiresIn:"6h"});
+                        //console.log(token);
+                        return {
+                            err:0,
+                            token: token,
+                            msg:"Success",
+                        };
+                    }else{
+                        console.log('password is incorrect');
+                        return {
+                            err:1,
+                            msg:'password is incorrect'
+                        };
+                        
+                    }
+                }else{
+                    console.log('Check the user name again');
+                    return {
+                        err:1,
+                        msg:'check the user name'
+                    };
+                }
+            //var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
+            
+            //return result;
+
+            //return postMan;
+            //    [
+            //        {
+            //            route_id:1,
+            //            discription: Colombo,panadura
+            //        },
+            //             ..........
+            //    ]
+
+        } 
+        catch (error) {
+            console.log('Error when finding PostMan');
+            return {
+                err:1,
+                msg:'Something wend wrong'
+            };
         }
 
     }

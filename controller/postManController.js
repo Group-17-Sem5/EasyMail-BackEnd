@@ -3,7 +3,32 @@ const Mail =require('../models/mail-model');
 const postManController={};
 let postManServices= new PostManService();
 
-
+postManController.login= async (req, res, next) => {
+    console.log('logging in');
+    try {
+        const state = await postManServices.login(req.body);
+        //console.log(state);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(state.err==0){
+        const response = {
+            err: 0,
+            obj: state.token,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: state.msg
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+}
 postManController.searchAddress= async (req, res, next) => {
     console.log('getting all addresses');
     try {

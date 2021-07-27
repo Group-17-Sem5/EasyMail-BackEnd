@@ -3,6 +3,7 @@ http = require('http');
 const HttpStatus = require('http-status');
 //const mongoose = require('mongoose');
 const routes= require('./routes/index');
+
 const app = express();
 //const config = require('./config/DB');
 //mongoose.connect('mongodb://localhost:27017/easyMail', {useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});

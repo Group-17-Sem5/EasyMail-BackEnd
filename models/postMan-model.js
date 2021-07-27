@@ -10,12 +10,24 @@ const PostMan= Schema({
     },password:{
         type:String, 
         required: true,
-    },email:{
+    },area:{
         type:String, 
         required: true,
     },mobileNumber:{
         type:String, 
         required: true,
+    },branchID:{
+        type:String,
+        required:true,
+    },normalPostIDList:{
+        type:String,
+        required:false,
+    },completedPostIDList:{
+        type:String,
+        required:false,
+    },cancelledPostIDList:{
+        type:String,
+        required:false,
     }
 });
 
