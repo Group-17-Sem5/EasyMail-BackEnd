@@ -1,0 +1,71 @@
+const Postman = require('../../services/postMaster/PostmanService')
+const SendMail = require('../../config/Mail')
+const bcrypt = require('bcrypt')
+const {randomId} = require('../../config/Random')
+
+
+const getAllPostman = (req,res) => {
+    Postman.findAll()
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        res.send(err)
+    })
+}
+
+const createPostman =async (req,res) => {
+    const { username,email,mobileNumber,area } = req.body
+    const password = randomId(10)
+    const hashPassword = await bcrypt.hash(password,10)
+    Postman.createPostman(username,hashPassword,email,mobileNumber,area)
+    .then(result=>{
+        res.json(result)
+        SendMail(email,password)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const deletePostman = (req,res) => {
+    const {id} = req.params
+    Postman.deletePostman(id)
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const updatePostman = (req,res) => {
+    const {id} = req.params
+    const {username,email,mobileNumber,area} = req.body
+    Postman.updatePostman(id,username,email,mobileNumber,area)
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const getPostman = (req,res) => {
+    const {id} = req.params
+    Postman.getPostman(id)
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+module.exports= {
+    getAllPostman,
+    createPostman,
+    deletePostman,
+    updatePostman,
+    getPostman
+}
