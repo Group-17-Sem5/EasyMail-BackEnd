@@ -13,7 +13,7 @@ const Port =process.env.port || 5000;
 //     console.log("mongoDB connected");
 // });
 app.use(express.json());
-app.route("/").get((req,res)=>res.json('First Api Sandaru'));
+app.route("/").get((req,res)=>res.json('First Api'));
 app.use('/api',routes);
 
 app.listen(Port,()=>console.log('listning to port '+Port ));

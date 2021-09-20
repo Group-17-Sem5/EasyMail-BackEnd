@@ -57,4 +57,5 @@ router.get('/posts/search/:id',authorization, postManController.getAPost);
 router.put('/posts/confirm/:id',authorization,postManController.confirmPostDelivery);
 router.put('/posts/cancel/:id',authorization, postManController.cancelDelivery);
 
+
 module.exports =router;
