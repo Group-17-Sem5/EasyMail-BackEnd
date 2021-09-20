@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 const bcrypt = require('bcrypt')
 
-const PostmasterSchema = new Shema({
+const ClerkSchema = new Shema({
     username: {
         type: String,
         required: true,
@@ -28,12 +28,12 @@ const PostmasterSchema = new Shema({
     }
 },{ timestamps: true })
 
-PostmasterSchema.methods.isValidPassword = async function (password) {
-    const postmaster = this;
-    const compare = await bcrypt.compare(password, postmaster.password);
+ClerkSchema.methods.isValidPassword = async function (password) {
+    const clerk = this;
+    const compare = await bcrypt.compare(password, clerk.password);
 
     return compare;
 }
 
-const  PostMaster = mongoose.model('Postmaster', PostmasterSchema);
-module.exports = PostMaster;
+const  Clerk = mongoose.model('Clerk', ClerkSchema);
+module.exports = Clerk;

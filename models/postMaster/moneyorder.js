@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
-const PostSchema = new Shema({
+const MoneyorderSchema = new Shema({
     // addressID: {
     //     type: mongoose.Types.ObjectId,
     //     ref: 'Address'
@@ -11,10 +11,6 @@ const PostSchema = new Shema({
         ref: 'Branch'
     },
     sourceBranchID: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Branch'
-    },
-    receivingBranchID: {
         type: mongoose.Types.ObjectId,
         ref: 'Branch'
     },
@@ -34,8 +30,11 @@ const PostSchema = new Shema({
     postManID: {
         type: mongoose.Types.ObjectId,
         ref: 'Postman' 
+    },amount: {
+        type: Number,
+        required: true
     }
 },{ timestamps: true })
 
-const  Post = mongoose.model('Post', PostSchema);
-module.exports = Post;
+const  Moneyorder = mongoose.model('Moneyorder', MoneyorderSchema);
+module.exports = Moneyorder;

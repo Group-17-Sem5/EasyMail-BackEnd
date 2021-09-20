@@ -36,7 +36,7 @@ const deleteBranch = (req,res) => {
 const updateBranch = (req,res) => {
     const {id} = req.params
     const {branchName,mobileNumber,address} = req.body
-    Branch.updatePostman(id,branchName,mobileNumber,address)
+    Branch.updateBranch(id,branchName,mobileNumber,address)
     .then(result=>{
         res.json(result)
     })

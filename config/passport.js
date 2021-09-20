@@ -3,10 +3,8 @@ const jwt = require('jsonwebtoken');
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
-
-// services
-const Postmaster = require('../services/postMaster/postmasterService')
-const Admin = require('../services/postMaster/adminService')
+const Postmaster = require('../services/admin/PostmasterService')
+const Admin = require('../services/admin/AdminService')
 
 module.exports = function (passport) {
 
@@ -41,7 +39,7 @@ module.exports = function (passport) {
 
 
                     if (!email || !password) {
-                        return done(null, false, { error: true, email: false, password: false, message: 'Invalid credentials' });
+                        return done(null, false, { error: true, email: false, password: false, message: 'Invalid details' });
                     }
 
 
@@ -52,13 +50,14 @@ module.exports = function (passport) {
                         if (!validate) {
                             return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password' });
                         }
-                        const user = { _id: null, type: 'admin', name: 'Admin' };
+                        const user = { _id: admin._id, type: 'admin', name: 'Admin' };
                         return done(null, user, { message: 'Logged in Successfully as admin' });
                     }
 
 
 
                     const postmaster = await Postmaster.findByEmail( email);
+                    // console.log(postmaster)
                     if (!postmaster) {
                         return done(null, false, { error: true, email: false, password: true, message: 'User not found' });
                     }
@@ -69,7 +68,7 @@ module.exports = function (passport) {
                     if (!validate) {
                         return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password' });
                     }
-                    const user = { _id: postmaster._id, type: 'postmaster', name: postmaster.username }
+                    const user = { _id: postmaster._id, type: 'postmaster', name: postmaster.username,email: postmaster.email,branchId:postmaster.branchId }
                     return done(null, user, { message: 'Logged in Successfully' });
                 } catch (error) {
                     return done(error);

@@ -4,21 +4,21 @@ exports.findAll = () => {
     return Branch.find()
 }
 
-exports.createPostman = ( branchName,mobileNumber,address) => {
-    const branch = new Branch({ branchName,mobileNumber,address})
+exports.createBranch = (branchName,mobileNumber,address ) => {
+    const branch = new Branch({branchName,mobileNumber,address })
     return branch.save()
 }
 
-exports.deletePostman = (id) => {
+exports.deleteBranch = (id) => {
     return Branch.findByIdAndDelete(id)
 }
 
-exports.updatePostman = (id,branchName,mobileNumber,address) => {
+exports.updateBranch = (id,branchName,mobileNumber,address ) => {
     return Branch.updateOne({_id:id},{
-        $set: {id,branchName,mobileNumber,address}
+        $set: {branchName,mobileNumber,address }
     })
 }
 
-exports.getPostman = (id) => {
+exports.getBranch = (id) => {
     return Branch.findById(id)
 }

@@ -1,10 +1,10 @@
 const nodemailer = require('nodemailer');
 const {google} = require('googleapis')
-
-const CLIENT_ID ='286130904377-d8husd5264fmupvmciavvmk9vnfb66pp.apps.googleusercontent.com'
-const CLEINT_SECRET = '7daExD37I7mmaqQogaHVWP8W'
-const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
-const REFRESH_TOKEN = '1//04bUvoMMBw465CgYIARAAGAQSNwF-L9Irdekj1MLJCUHBplMSBtVa7_Sn-ydx_M0fqA4NPokRmEE0ahWpdDexw30yX-QMMgfrAyQ'
+//get these from .env file
+const CLIENT_ID = process.env.CLIENT_ID 
+const CLEINT_SECRET = process.env.CLEINT_SECRET 
+const REDIRECT_URI = process.env.REDIRECT_URI
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
 
 const oAuth2Client = new google.auth.OAuth2(
@@ -46,7 +46,7 @@ const oAuth2Client = new google.auth.OAuth2(
   }
   
   sendMail()
-    .then((result) => console.log('Email sent...', result))
+    .then((result) => console.log('Email sent...'))
     .catch((error) => console.log(error.message));
 
 module.exports = sendMail
