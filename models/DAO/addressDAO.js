@@ -28,7 +28,9 @@ class AddressDAO{
          return addressesList;
     }
 
-    static async readOneEntity(userID){
+    static async readOneEntity(addressID){
+        const address= await Address.findOne({addressID:addressID});
+        return address;
         
     }
 
