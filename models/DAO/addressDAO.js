@@ -32,11 +32,15 @@ class AddressDAO{
         
     }
 
-    static async updateOneEntity(){
-        
+    static async updateOneEntity(details){
+        const status= await Address.updateOne({addressID:details.addressID}, { $set: { "description" : details.description, "location" : details.location},returnNewDocument : true  });
+        return status;
     }
 
-    static async deleteOneEntity(){
+    static async deleteOneEntity(detail){
+        const address =await Address.deleteOne({addressID:detail.addressID});
+      
+        return address;
         
     }
 }

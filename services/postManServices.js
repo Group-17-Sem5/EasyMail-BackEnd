@@ -205,6 +205,44 @@ class PostManService{
             };
         }
     }
+    async removeAddress(addressID){
+        try{
+            var address=await AddressDAO.deleteOneEntity(addressID);
+            return{
+                err:0,
+                obj:address
+            };
+        }catch (error) {
+            console.log('Error when finding address');
+            return {
+                err:1,
+                msg:'Something wend wrong'
+            };
+        }
+    }
+    async changeAddress(details){
+        try{
+            var state=await AddressDAO.updateOneEntity(details);
+            if (state.ok==0){
+                return{
+                    err:1,
+                    msg:'there is no address in that name'
+                }
+            }else{
+                return{
+                err:0,
+                msg:"Successfully updated"
+                };
+            }
+            
+        }catch (error) {
+            console.log('Error when finding address');
+            return {
+                err:1,
+                msg:'Something went wrong'
+            };
+        }
+    }
 
 
 }

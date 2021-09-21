@@ -82,8 +82,58 @@ postManController.addAddress = async (req, res, next) => {
     next(err);
     }
 };
-postManController.removeAddress = async (req, res, next) => {};
-postManController.changeAddress = async (req, res, next) => {};
+postManController.removeAddress = async (req, res, next) => {
+    console.log("removing the address");
+    try {
+        const state = await postManServices.removeAddress(req.body);
+        //console.log(state);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(state.err==0){
+        const response = {
+            err: 0,
+            obj: state.obj,//should get object list
+            msg: "successfully removed"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: state.msg
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
+postManController.changeAddress = async (req, res, next) => {
+    console.log('changing the address location');
+    try {
+        const state = await postManServices.changeAddress(req.body);
+        //console.log(state);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(state.err==0){
+        const response = {
+            err: 0,
+            obj: state.obj,//should get object list
+            msg: "successfully changed"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: state.msg
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
 
 
 
