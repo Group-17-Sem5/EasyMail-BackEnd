@@ -13,6 +13,9 @@ const User= Schema({
     },addressID:{
         type:String, 
         required: true,
+    },addressDescription:{
+        type:String,
+        required: true,
     },phoneNumber:{
         type:String, 
         required: true,

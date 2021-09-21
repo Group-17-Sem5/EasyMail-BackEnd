@@ -1,5 +1,6 @@
 const config = require('../../config/DB');
 const Mail = require('../mail-model');
+const address=require('../address-model');
 const express=require('express');
 const { connection } = require('mongoose');
 class QueryDAO{
@@ -29,6 +30,14 @@ class QueryDAO{
 
     static async deleteOneEntity(){
         
+    }
+    static async removeUserFromAddress(addressID,userID){
+        //const result= address.findOneAndUpdate({addressID: addressID},{userIDList:userIDList.remove(userID)})
+        print(result);
+    }
+    static async addUserToAddress(addressID,userID){
+        //const result =address.findOneAndUpdate({addressID: addressID},{userIDList:userIDLit.remove(userID)})
+
     }
 }
 module.exports = QueryDAO;

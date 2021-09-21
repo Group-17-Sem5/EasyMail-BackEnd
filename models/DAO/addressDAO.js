@@ -10,8 +10,16 @@ class AddressDAO{
         }
     }
 
-    static async createOneEntity(){
-
+    static async createOneEntity(addressDetails){
+        const address = Address.create({
+            addressID:addressDetails.addressID,
+            description:addressDetails.description,
+            branchID:addressDetails.branchID,
+            location:addressDetails.location,
+            branchID:addressDetails.branchID,
+            userIDList:[]
+        });
+        return address;
     }
 
     static async readAllEntity(){
@@ -20,7 +28,7 @@ class AddressDAO{
          return addressesList;
     }
 
-    static async readOneEntity(userId){
+    static async readOneEntity(userID){
         
     }
 

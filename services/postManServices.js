@@ -189,6 +189,22 @@ class PostManService{
         }
 
     }
+    async addAddress(details){
+        try{
+            var address= await AddressDAO.createOneEntity(details);
+            return {
+                err:0,
+                obj:address
+            
+            };
+        }catch (error) {
+            console.log('Error when finding PostMan');
+            return {
+                err:1,
+                msg:'Something wend wrong'
+            };
+        }
+    }
 
 
 }

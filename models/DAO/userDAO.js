@@ -10,8 +10,23 @@ class UserDAO{
         }
     }
 
-    static async createOneEntity(){
+    static async createOneEntity(userDetail){
+        console.log('Creating anew user');
+        const user =await User.create({
+            username: userDetail.username,
+            password: userDetail.password,
+            addressID: userDetail.addressID,
+            branchID:userDetail.branchID,
+            phoneNumber:userDetail.phoneNumber,
+            addressDescription: userDetail.addressDescription,
+            receivedPostIDList:[],
+            sentPostIDList:[],
+            sentMoneyOrdersList:[],
+            receivedMoneyOrdersList:[]});
+        //console.log(user);
 
+        
+        return user;
     }
 
     static async readAllEntitySent(){

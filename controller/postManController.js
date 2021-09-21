@@ -56,7 +56,32 @@ postManController.searchAddress= async (req, res, next) => {
     
 
 };
-postManController.addAddress = async (req, res, next) => {};
+postManController.addAddress = async (req, res, next) => {
+    console.log("adding a new address...");
+    try {
+        const state = await postManServices.addAddress(req.body);
+        //console.log(state);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(state.err==0){
+        const response = {
+            err: 0,
+            obj: state.obj,//should get object list
+            msg: "successfully added"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: state.msg
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
 postManController.removeAddress = async (req, res, next) => {};
 postManController.changeAddress = async (req, res, next) => {};
 

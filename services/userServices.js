@@ -51,11 +51,51 @@ class UserService{
             var user = "";
             // var result=json();
             var user = await UserDAO.readOneEntity(req.username);
-                if(postMan){
+                if(user){
                     //console.log(postMan);
-                    if (postMan.password===req.password){
+                    if (user.password===req.password){
                         console.log('Password is correct');
                         let token= jwt.sign({username:req.username},config.key,{expiresIn:"6h"});
+                        //console.log(token);
+                        return {
+                            err:0,
+                            token: token,
+                            msg:"Success",
+                        };
+                    }else{
+                        console.log('password is incorrect');
+                        return {
+                            err:1,
+                            msg:'password is incorrect'
+                        };
+                        
+                    }
+                }else{
+                    console.log('Check the user name again');
+                    return {
+                        err:1,
+                        msg:'check the user name'
+                    };
+                }
+        } 
+        catch (error) {
+            console.log('Error when finding user');
+            return {
+                err:1,
+                msg:'Something wend wrong'
+            };
+        }
+
+    }
+    async register(details){
+
+        try {
+         let user=await UserDAO.createOneEntity(details);
+                if(user){
+                    console.log(user);
+                    if (user.password===details.password){
+                        console.log('Password is correct');
+                        let token= jwt.sign({username:details.username},config.key,{expiresIn:"6h"});
                         //console.log(token);
                         return {
                             err:0,
@@ -124,8 +164,12 @@ class UserService{
             console.log('Error when finding mail');
         }
     }
-    async changeMyAddress(details){
+    async changeMyAddress(details,userID){
+        console.log(details.oldAddressID);
+        await QueryDAO.removeUserFromAddress(details.oldAddressID,userID);
         console.log(details.addressDescription,details.addressID);
+        var result= await QueryDAO.addUserToAddress(details.addressID,userID);
+        return result;
     }
     async getMyMoneyOrdersList(userID){
         var moneyOrderList = [];
@@ -140,7 +184,7 @@ class UserService{
             console.log("error when finding the mail");
         }
     }
-    async register(details){}
+    
 
 }
 module.exports = UserService;
