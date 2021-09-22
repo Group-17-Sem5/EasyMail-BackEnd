@@ -3,7 +3,7 @@ const Schema= mongoose.Schema;
 
 
 const User= Schema({
-    username:{
+    username:{    //! user name cannot be same
         type:String, 
         required: true,
         unique: true,

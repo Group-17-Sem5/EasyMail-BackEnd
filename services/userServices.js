@@ -176,9 +176,9 @@ class UserService{
         return moneyOrderList;
     }
     async trackMyCourier(userID){}
-    async getMail(mailID){
+    async getMail(userID,mailID){
         try{
-            var mail = await MailDAO.readOneEntity(mailID);
+            var mail = await QueryDAO.readOneEntityByReceiver(userID,mailID);
             return mail;
         }catch(error){
             console.log("error when finding the mail");

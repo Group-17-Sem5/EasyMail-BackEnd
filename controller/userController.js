@@ -83,7 +83,7 @@ userController.changeAddress = async (req, res, next) => {
     }
 };
 userController.searchReceivedMails= async (req, res, next) => {
-    console.log('getting all addresses');
+    console.log('getting all mails ');
     try {
         const received_mails = await userServices.getReceivedMailsList(req.params.userID);
         //const mail_list= [{"email":"sfg","df":"df"}];
@@ -112,7 +112,7 @@ userController.searchReceivedMails= async (req, res, next) => {
 
 
 userController.searchSentMails= async (req, res, next) => {
-    console.log('getting all addresses');
+    console.log('getting all sent Mails');
     try {
         const sent_mails = await userServices.getSentMailsList(req.params.userID);
         //const mail_list= [{"email":"sfg","df":"df"}];
@@ -194,7 +194,7 @@ userController.getAPost= async (req, res, next) => {
     console.log('getting a post details');
 
     try {
-        const mail = await userServices.getMail(req.params.mailID);
+        const mail = await userServices.getMail(req.params.userID,req.body.mailID);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(mail !== null){
         const response = {

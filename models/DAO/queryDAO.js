@@ -1,6 +1,6 @@
 const config = require('../../config/DB');
 const Mail = require('../mail-model');
-const address=require('../address-model');
+const Address=require('../address-model');
 const express=require('express');
 const { connection } = require('mongoose');
 class QueryDAO{
@@ -32,12 +32,20 @@ class QueryDAO{
         
     }
     static async removeUserFromAddress(addressID,userID){
-        //const result= address.findOneAndUpdate({addressID: addressID},{userIDList:userIDList.remove(userID)})
-        print(result);
+        const status= await Address.updateOne({addressID:addressID}, { $pull: { "userIDList" : userID},returnNewDocument : true  });
+        console.log(status);
+        //!check later
+        
     }
     static async addUserToAddress(addressID,userID){
-        //const result =address.findOneAndUpdate({addressID: addressID},{userIDList:userIDLit.remove(userID)})
-
+        //const result = Address.findOneAndUpdate({addressID: addressID},{userIDList:userIDLit.remove(userID)})
+        return "";
+        //!check Later
+    }
+    static async readOneEntityByReceiver(userID,mailID){
+        const mail = await Mail.findOne({receiverID: userID,mailID:mailID});
+       
+        return mail;
     }
 }
 module.exports = QueryDAO;
