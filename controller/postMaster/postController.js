@@ -1,11 +1,8 @@
-const Postmaster = require('../../services/admin/PostmasterService')
-const SendMail = require('../../config/Mail')
-const bcrypt = require('bcrypt')
-const {randomId} = require('../../config/Random')
+const Post = require('../../services/postmaster/PostService')
 
 
 const getAll = (req,res) => {
-    Postmaster.findAll()
+    Post.findAll()
     .then(result=>{
         res.json(result)
     })
@@ -15,13 +12,11 @@ const getAll = (req,res) => {
 }
 
 const create =async (req,res) => {
-    const { username,mobileNumber,branchId,email } = req.body
-    const password = randomId(10)
-    const hashPassword = await bcrypt.hash(password,10)
-    Postmaster.create(username,hashPassword,mobileNumber,branchId,email)
+    const sourceBranchID = req.user.branchId
+    const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
+    Post.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID)
     .then(result=>{
         res.json(result)
-        SendMail(email,password)
     })
     .catch(err=>{
         console.log(err)
@@ -30,7 +25,7 @@ const create =async (req,res) => {
 
 const del = (req,res) => {
     const {id} = req.params
-    Postmaster.del(id)
+    Post.del(id)
     .then(result=>{
         res.json(result)
     })
@@ -41,8 +36,8 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const {username,mobileNumber,email} = req.body
-    Postmaster.update(id,username,mobileNumber,email)
+    const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
+    Post.update(id,lastAppearedBranchID,senderID,receiverID,postManID)
     .then(result=>{
         res.json(result)
     })
@@ -53,7 +48,7 @@ const update = (req,res) => {
 
 const getOne = (req,res) => {
     const {id} = req.params
-    Postmaster.getOne(id)
+    Post.getOne(id)
     .then(result=>{
         res.json(result)
     })

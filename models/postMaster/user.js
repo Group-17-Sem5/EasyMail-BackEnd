@@ -4,7 +4,6 @@ const Shema = mongoose.Schema
 const UserSchema = new Shema({
     email: {
         type: String,
-        required: true,
         unique: true
     },
     password: {
@@ -15,9 +14,14 @@ const UserSchema = new Shema({
         type: Number,
         required: true
     },
-    address: {
+    addressId: {
         type: mongoose.Types.ObjectId,
-        ref: 'Branch'
+        ref: 'Address',
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
     }
 },{ timestamps: true })
 

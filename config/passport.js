@@ -7,7 +7,7 @@ const Postmaster = require('../services/admin/PostmasterService')
 const Admin = require('../services/admin/AdminService')
 
 module.exports = function (passport) {
-
+    
 
     passport.use(
         new JWTstrategy(
