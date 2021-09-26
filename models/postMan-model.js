@@ -16,6 +16,15 @@ const PostMan= Schema({
     },mobileNumber:{
         type:String, 
         required: true,
+    },area: {
+        type: String,
+        required: true
+    },branchId: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Branch',
+    },status: {
+        type: Boolean,
+        default: true
     }
 });
 
