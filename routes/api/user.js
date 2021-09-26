@@ -17,7 +17,7 @@ router.post('/register',userController.register);
 
 //posts ,money orders and couriers
 router.get('/mailbox/:userID',authorization,userController.searchReceivedMails);
-router.get('/mailbox/search/:userID',authorization, userController.getAPost);
+router.get('/mailbox/search/:mailID',authorization, userController.getAPost);
 router.get('/sent-mails/:userID',authorization,userController.searchSentMails);
 router.get('/money-order/:userID',authorization, userController.getMoneyOrdersList); //!check later
 router.get('couriers/:userID',authorization,userController.trackCourier);  //!check later

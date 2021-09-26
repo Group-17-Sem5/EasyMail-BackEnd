@@ -1,6 +1,7 @@
 const express=require('express');
-http = require('http');
+const http = require('http')
 const HttpStatus = require('http-status');
+const bcrypt = require("bcrypt");
 //const mongoose = require('mongoose');
 const routes= require('./routes/index');
 

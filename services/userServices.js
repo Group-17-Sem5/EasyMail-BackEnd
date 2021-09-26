@@ -5,6 +5,7 @@ const UserDAO= require('../models/DAO/userDAO');
 const QueryDAO= require('../models/DAO/queryDAO');
 const config= require('../config/config');
 const jwt=require('jsonwebtoken');
+const bcrypt = require("bcrypt");
 class UserService{
     constructor(){
 
@@ -53,7 +54,8 @@ class UserService{
             var user = await UserDAO.readOneEntity(req.username);
                 if(user){
                     //console.log(postMan);
-                    if (user.password===req.password){
+                    const cmp = await bcrypt.compare(req.password, user.password);
+                    if (cmp){
                         console.log('Password is correct');
                         let token= jwt.sign({username:req.username},config.key,{expiresIn:"6h"});
                         //console.log(token);
@@ -93,7 +95,8 @@ class UserService{
          let user=await UserDAO.createOneEntity(details);
                 if(user){
                     console.log(user);
-                    if (user.password===details.password){
+                    const cmp = await bcrypt.compare(details.password, user.password);
+                    if (cmp){
                         console.log('Password is correct');
                         let token= jwt.sign({username:details.username},config.key,{expiresIn:"6h"});
                         //console.log(token);

@@ -194,7 +194,7 @@ userController.getAPost= async (req, res, next) => {
     console.log('getting a post details');
 
     try {
-        const mail = await userServices.getMail(req.params.userID,req.body.mailID);
+        const mail = await userServices.getMail(req.params.mailID);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(mail !== null){
         const response = {

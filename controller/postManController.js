@@ -59,7 +59,7 @@ postManController.searchAddress= async (req, res, next) => {
 postManController.getOneAddress = async (req, res, next) => {
     console.log("getting the address");
     try{
-        const address=await postManServices.getOneAddress(req.body.addressID);
+        const address=await postManServices.getOneAddress(req.params.addressID);
         if(address==null){
             const response = {
                 err: 1,//should get object list

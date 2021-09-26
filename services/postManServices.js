@@ -4,6 +4,7 @@ const AddressDAO= require('../models/DAO/addressDAO');
 const mail= require('../models/mail-model');
 const address= require('../models/address-model');
 const config= require('../config/config');
+const bcrypt = require("bcrypt");
 const jwt=require('jsonwebtoken');
 class PostManService{
     constructor(){
@@ -18,7 +19,8 @@ class PostManService{
             var postMan = await PostManDAO.readOneEntity(req.username);
                 if(postMan){
                     //console.log(postMan);
-                    if (postMan.password===req.password){
+                    const cmp = await bcrypt.compare(req.password, postMan.password);
+                    if (cmp){
                         console.log('Password is correct');
                         let token= jwt.sign({username:req.username},config.key,{expiresIn:"6h"});
                         //console.log(token);
