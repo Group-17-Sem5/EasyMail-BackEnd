@@ -29,7 +29,7 @@ class MailDAO{
 
     static async updateOneEntity(mailId,value){
         console.log("Value is updating");
-        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:value}});
+        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:value,isAssigned:value}});
         return mail;
     }
 

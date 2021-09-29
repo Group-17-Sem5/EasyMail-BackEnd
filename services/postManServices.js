@@ -17,6 +17,8 @@ class PostManService{
             var postMan = "";
             // var result=json();
             var postMan = await PostManDAO.readOneEntity(req.username);
+            // console.log(req.username);
+            // console.log(req.password);
                 if(postMan){
                     //console.log(postMan);
                     const cmp = await bcrypt.compare(req.password, postMan.password);
@@ -112,9 +114,10 @@ class PostManService{
        try {
             var result = await MailDAO.updateOneEntity(mailID,true);
             //console.log(result);
-            return result;
+            return {ok:1,result:result,msg:"successful"};
        } catch (error) {
         console.log('Error when confirming mail');
+            return {ok:0,result:null,msg:"Something went wrong"};
         }
 
     }
@@ -122,9 +125,13 @@ class PostManService{
         try {
             var result = await MailDAO.updateOneEntity(mailID,false);
             //console.log(result);
-            return result;
+            return {    err:0,
+                        result:result,
+                     msg:"successfully updated"};
        } catch (error) {
         console.log('Error when cancelling mail');
+
+        return { err:1,result:null,msg:"error when finding that mail"};
         }
     }
     async getAddressList(){

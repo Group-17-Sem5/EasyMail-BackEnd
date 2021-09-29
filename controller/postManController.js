@@ -7,19 +7,20 @@ postManController.login= async (req, res, next) => {
     console.log('logging in');
     try {
         const state = await postManServices.login(req.body);
-        //console.log(state);
-        //const mail_list= [{"email":"sfg","df":"df"}];
+
+        //console.log(req.body);
+
         if(state.err==0){
         const response = {
             err: 0,
-            obj: state.token,//should get object list
+            token: state.token,//should get object list
             msg: ""
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            token: null,
             msg: state.msg
         }
         return res.json(response);
@@ -163,20 +164,22 @@ postManController.changeAddress = async (req, res, next) => {
 
 postManController.getPosts = async (req, res, next) => {
     console.log('getting all mails');
+    //console.log(req.params.postManId);
     try {
         const mail_list = await postManServices.getMailList(req.params.postManId);
+        console.log(mail_list.length);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(mail_list.length > 0){
         const response = {
             err: 0,
-            obj: mail_list,//should get object list
+            mailModel: mail_list,//should get object list
             msg: ""
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            mailModel: {},
             msg: "No Mails Available"
         }
         return res.json(response);
@@ -217,11 +220,11 @@ postManController.cancelDelivery = async (req, res, next) => {
     try {
         const result = await postManServices.cancelPostDelivery(req.params.id);
         console.log(result);
-        if(result['ok']===1){
+        if(result.err==0){
         const response = {
             err: 0,
             obj: {},//should get object list
-            msg: ""
+            msg: "Successfully updated"
         }
         return res.json(response);
         }else{
