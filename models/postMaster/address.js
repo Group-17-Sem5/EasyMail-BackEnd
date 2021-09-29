@@ -4,7 +4,9 @@ const Shema = mongoose.Schema
 const AddressSchema = new Shema({
     address: {
         type: String,
-        required: true,
+        required: [true, "Address is required"],
+        minLength: [6, "Too short"],
+        maxLength: [256, "Too Long"]
     },
 //     location: {
 //         type: "Point",

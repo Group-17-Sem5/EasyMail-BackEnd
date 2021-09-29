@@ -4,15 +4,20 @@ const Shema = mongoose.Schema
 const BranchSchema = new Shema({
     branchName: {
         type: String,
-        required: true
+        required: [true,"Branch name is required"],
+        pattern: [/^[a-zA-Z\s]*$/,"Branch name only contain letters and space"]
     },
     mobileNumber: {
-        type: Number,
-        required: true
+        type: String,
+        required: [true,"Mobile number is required"],
+        minLength: [9, "Too short"],
+        maxLength: [10, "Too Long"]
     },
     address: {
         type: String,
-        required: true
+        required: [true, "Address is required"],
+        minLength: [6, "Too short"],
+        maxLength: [10, "Too Long"]
     }
 },{ timestamps: true })
 

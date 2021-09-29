@@ -4,15 +4,23 @@ const Shema = mongoose.Schema
 const UserSchema = new Shema({
     email: {
         type: String,
-        unique: true
+        unique: true,
+        validate: {
+            validator: email => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+            message: "Not valid email"
+        }
     },
     password: {
         type: String,
-        required: true
+        required: [true,"password is required"],
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
     },
     mobileNumber: {
-        type: Number,
-        required: true
+        type: String,
+        required: [true,"mobile number is required"],
+        minLength: [9, "Too short"],
+        maxLength: [10, "Too Long"]
     },
     addressId: {
         type: mongoose.Types.ObjectId,
@@ -21,7 +29,11 @@ const UserSchema = new Shema({
     },
     name: {
         type: String,
-        required: true
+        required: [true,"name is required"],
+        validate:{
+            validator: name => /^[a-zA-Z\s]*$/.test(name),
+            message:"Name only contain space and letters"
+        }
     }
 },{ timestamps: true })
 

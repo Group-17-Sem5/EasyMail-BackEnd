@@ -14,8 +14,8 @@ exports.del = (id) => {
     return Address.findByIdAndDelete(id)
 }
 
-exports.update = (id,address) => {
-    return Address.updateOne({_id:id},{
+exports.update = (addressId,address) => {
+    return Address.updateOne({_id:addressId},{
         $set: {address}
     })
 }

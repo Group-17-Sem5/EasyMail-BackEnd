@@ -32,7 +32,11 @@ const MoneyorderSchema = new Shema({
         ref: 'Postman' 
     },amount: {
         type: Number,
-        required: true
+        required: [true,"amount is required"],
+        validate: {
+            validator: weight => weight>0,
+            message: "Incorrect value for amount"
+        }
     }
 },{ timestamps: true })
 

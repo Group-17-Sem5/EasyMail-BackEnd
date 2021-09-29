@@ -5,13 +5,14 @@ const getAll = (req,res) => {
     Post.findAll()
     .then(result=>{
         res.json(result)
+        console.log(result)
     })
     .catch(err=>{
         res.send(err)
     })
 }
 
-const create =async (req,res) => {
+const create = (req,res) => { 
     const sourceBranchID = req.user.branchId
     const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
     Post.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID)
@@ -25,6 +26,7 @@ const create =async (req,res) => {
 
 const del = (req,res) => {
     const {id} = req.params
+    console.log('id')
     Post.del(id)
     .then(result=>{
         res.json(result)
@@ -50,7 +52,8 @@ const getOne = (req,res) => {
     const {id} = req.params
     Post.getOne(id)
     .then(result=>{
-        res.json(result)
+        res.json(result[0])
+        console.log(result[0])
     })
     .catch(err=>{
         console.log(err)

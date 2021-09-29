@@ -16,11 +16,10 @@ const getAll = (req,res) => {
     })
 }
 
-const create =async (req,res) => {console.log('asmb')
+const create =async (req,res) => {console.log(req.user)
     const { email, mobileNumber, name,address } = req.body
     const password = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
-    console.log("s"+address)
     await Address.create(address)
     .then(resul=>{
         const addressId = resul._id
@@ -30,10 +29,12 @@ const create =async (req,res) => {console.log('asmb')
             email && SendMail(email,password)
         })
         .catch(err=>{
+            res.json(err)
             console.log(err)
         })
     })
     .catch(err=>{
+        res.json(err)
         console.log(err)
     })
 }
@@ -49,12 +50,20 @@ const del = (req,res) => {
     })
 }
 
-const update = (req,res) => {
+const update =async (req,res) => {
     const {id} = req.params
-    const { email, mobileNumber, addressId } = req.body
-    User.update(id,email, mobileNumber, addressId)
-    .then(result=>{
-        res.json(result)
+    const addressId = await User.getAddressId(id)
+    console.log(addressId[0].addressId)
+    const { email, mobileNumber, address,name } = req.body
+    Address.update(addressId[0].addressId,address)
+    .then(resul=>{
+        User.update(id,email, mobileNumber,name)
+        .then(result=>{
+            res.json(result)
+        })
+        .catch(err=>{
+            console.log(err)
+        })
     })
     .catch(err=>{
         console.log(err)
@@ -65,7 +74,7 @@ const getOne = (req,res) => {
     const {id} = req.params
     User.getOne(id)
     .then(result=>{
-        res.json(result)
+        res.json(result[0])
     })
     .catch(err=>{
         console.log(err)

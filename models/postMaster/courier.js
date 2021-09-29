@@ -36,7 +36,11 @@ const CourierSchema = new Shema({
         ref: 'Postman' 
     },weight: {
         type: Number,
-        required: true
+        required: [true,"weight is required"],
+        validate: {
+            validator: weight => weight>0,
+            message: "Incorrect value for weight"
+        }
     }
 },{ timestamps: true })
 

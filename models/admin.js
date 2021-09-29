@@ -5,12 +5,20 @@ const bcrypt = require('bcrypt')
 const AdminSchema = new Shema({
     username: {
         type: String,
-        required: true,
-        unique: true
+        required: [true,"username is required"],
+        minLength: [2, "Too short"],
+        maxLength: [50, "Too Long"],
+        unique: true,
+        validate: {
+            validator: username => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(username),
+            message: "Not valid email"
+        }
     },
     password: {
         type: String,
-        required: true
+        required: [true,"password is required"],
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
     }
 },{ timestamps: true })
 

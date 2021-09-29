@@ -16,7 +16,7 @@ const getAllPostman = (req,res) => {
 
 const createPostman =async (req,res) => {
     const branchId = req.user.branchId
-    const { username,email,mobileNumber,area } = req.body
+    const {username,email,mobileNumber,area } = req.body
     const password = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
     Postman.createPostman(username,hashPassword,email,mobileNumber,area,branchId)
@@ -57,6 +57,7 @@ const getPostman = (req,res) => {
     Postman.getPostman(id)
     .then(result=>{
         res.json(result)
+        console.log(result.username)
     })
     .catch(err=>{
         console.log(err)
