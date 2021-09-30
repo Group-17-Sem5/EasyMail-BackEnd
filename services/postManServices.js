@@ -135,6 +135,18 @@ class PostManService{
         }
     }
     async getAddressList(){
+        
+        //         var OneAddress = { addressID,location,description,userIDList,branchID,lat,lng };
+        //         addressList.push(OneAddress);
+        //     });
+
+        //     return addressList;
+
+        // } catch (error) {
+        //     console.log('Error when finding Addresses');
+        // }
+
+
         try {
 
             var addressList = [];
@@ -142,21 +154,19 @@ class PostManService{
             var addresses = await AddressDAO.readAllEntity();
             
             addresses.forEach(address => {
-                //console.log(address);
                 let addressID = address.addressID;
                 let description = address.description;
-                let location=address.location;
+                let lat=address.lat;
+                let lng=address.lng;
                 let branchID=address.branchID;
                 let userIDList = address.userIDList;
-
-                var OneAddress = { addressID,location,description,userIDList,branchID };
-                addressList.push(OneAddress);
+                var oneAddress = {addressID,description,lat,lng,branchID,userIDList };
+                addressList.push(oneAddress);
             });
 
             return addressList;
-
         } catch (error) {
-            console.log('Error when finding Addresses');
+            console.log('Error when finding mail');
         }
 
     }
@@ -209,8 +219,8 @@ class PostManService{
     }
     async changeAddress(details){
         try{
-            var state=await AddressDAO.updateOneEntity(details);
-            if (state.ok==0){
+            var res=await AddressDAO.updateOneEntity(details);
+            if (res.ok==0){
                 return{
                     err:1,
                     msg:'there is no address in that name'

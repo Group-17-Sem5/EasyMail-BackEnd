@@ -8,13 +8,21 @@ const Address= Schema({
     },description:{
         type:String, 
         required: true,
-    },location:{
+    },lat:{
         type:String, 
-        required: false,
+        required: true,
         
-    },userIDList:{
+    },lng:{
+        type:String, 
+        required: true,
+    },
+    userIDList:{
         type:Array, 
         required: false,
+    },
+    branchID:{
+        type:String, 
+        required: true,
     },
 });
 module.exports =mongoose.model("Address",Address);

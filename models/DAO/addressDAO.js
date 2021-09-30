@@ -35,8 +35,10 @@ class AddressDAO{
     }
 
     static async updateOneEntity(details){
-        const status= await Address.updateOne({addressID:details.addressID}, { $set: { "description" : details.description, "location" : details.location},returnNewDocument : true  });
-        return status;
+        const status= await Address.updateOne({addressID:details.addressID}, { $set: { "lat" : details.lat, "lng" : details.lng},returnNewDocument : true  });
+        return {ok:1,result:status,msg:"successful"
+        
+        };
     }
 
     static async deleteOneEntity(detail){

@@ -34,11 +34,12 @@ postManController.searchAddress= async (req, res, next) => {
     console.log('getting all addresses');
     try {
         const address_list = await postManServices.getAddressList();
+        //console.log(address_list);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(address_list.length > 0){
         const response = {
             err: 0,
-            obj: address_list,//should get object list
+            addresses: address_list,//should get object list
             msg: ""
         }
         return res.json(response);
@@ -140,7 +141,7 @@ postManController.changeAddress = async (req, res, next) => {
         if(state.err==0){
         const response = {
             err: 0,
-            obj: state.obj,//should get object list
+            obj:{},//should get object list
             msg: "successfully changed"
         }
         return res.json(response);
@@ -196,12 +197,22 @@ postManController.confirmPostDelivery = async (req, res, next) => {
         const result = await postManServices.confirmPostDelivery(req.params.id);
         console.log(result);
         if(result['ok']===1){
-        const response = {
-            err: 0,
-            obj: {},//should get object list
-            msg: "Successfully confirmed the post"
-        }
-        return res.json(response);
+            if (result.result.modifiedCount==0){
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "Already in the delivered Status"
+                }
+                return res.json(response);
+            }else{
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "Successfully confirmed the post"
+                }
+                return res.json(response);
+            }
+        
         }else{
         const response = {
             err: 1,
@@ -221,19 +232,31 @@ postManController.cancelDelivery = async (req, res, next) => {
         const result = await postManServices.cancelPostDelivery(req.params.id);
         console.log(result);
         if(result.err==0){
-        const response = {
-            err: 0,
-            obj: {},//should get object list
-            msg: "Successfully updated"
-        }
-        return res.json(response);
+
+            if (result.result.modifiedCount==1){
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "cancelled the delivery"
+                };
+                return res.json(response);
+            }else{
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "Already in cancelled status"
+                };
+                return res.json(response);
+            }
+
+        
         }else{
         const response = {
             err: 1,
             obj: {},
             msg: "Something wrong with the cancelling delivery"
-        }
-        return res.json(response);
+        };return res.json(response);
+        
         }
         
     } catch (err) {
