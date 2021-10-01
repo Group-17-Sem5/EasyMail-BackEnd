@@ -1,8 +1,8 @@
-const Post = require('../../models/postMaster/post')
+const Moneyorder = require('../../models/postMaster/moneyorder')
 const mongoose = require('mongoose')
 
 exports.findAll = () => {
-    return Post.aggregate([
+    return Moneyorder.aggregate([
         {
             $lookup: {
                 from: "users",
@@ -43,29 +43,30 @@ exports.findAll = () => {
                 lastAppearedBranchID: { $arrayElemAt: ['$_branches.branchName', 0] },
                 sourceBranchID:1,
                 postManID: { $arrayElemAt: ['$_postman.username', 0] },
-                state:1
+                state:1,
+                amount:1
             }
         }
     ])
 }
 
-exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID) => {
-    const post = new Post({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID})
-    return post.save()
+exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,amount) => {
+    const moneyorder = new Moneyorder({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,amount})
+    return moneyorder.save()
 }
 
 exports.del = (id) => {
-    return Post.findByIdAndDelete(id)
+    return Moneyorder.findByIdAndDelete(id)
 }
 
-exports.update = (id,lastAppearedBranchID,senderID,receiverID,postManID) => {
-    return Post.updateOne({_id:id},{
-        $set: {lastAppearedBranchID,senderID,receiverID,postManID}
+exports.update = (id,lastAppearedBranchID,senderID,receiverID,postManID,amount) => {
+    return Moneyorder.updateOne({_id:id},{
+        $set: {lastAppearedBranchID,senderID,receiverID,postManID,amount}
     })
 }
 
 exports.getOne = (id) => {
-    return Post.aggregate([
+    return Moneyorder.aggregate([
         {
             $match: {
                 _id : mongoose.Types.ObjectId(id)
@@ -136,13 +137,14 @@ exports.getOne = (id) => {
                 postManName: { $arrayElemAt: ['$_postman.username', 0] },
                 postManID: 1,
                 state:1,
+                amount:1
             }
         }
     ])
 }
 
 exports.updatePostman = (id , postManID) => {
-    return Post.updateOne({_id:id},{
+    return Moneyorder.updateOne({_id:id},{
         $set: {postManID}
     })
 }

@@ -8,6 +8,7 @@ const postManRoutes = require('./api/postMan');
 //postMan routes
 router.use('/postMan', postManRoutes);
 router.use('/postMaster',require('./postMaster'))
+router.use('/changepassword',require('./changepassword'))
 router.use('/admin',require('./admin'))
 
 //user event routes

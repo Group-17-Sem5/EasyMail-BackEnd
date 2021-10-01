@@ -1,8 +1,8 @@
-const Post = require('../../models/postMaster/post')
+const Courier = require('../../models/postMaster/courier')
 const mongoose = require('mongoose')
 
 exports.findAll = () => {
-    return Post.aggregate([
+    return Courier.aggregate([
         {
             $lookup: {
                 from: "users",
@@ -43,29 +43,30 @@ exports.findAll = () => {
                 lastAppearedBranchID: { $arrayElemAt: ['$_branches.branchName', 0] },
                 sourceBranchID:1,
                 postManID: { $arrayElemAt: ['$_postman.username', 0] },
-                state:1
+                state:1,
+                weight:1
             }
         }
     ])
 }
 
-exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID) => {
-    const post = new Post({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID})
-    return post.save()
+exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight) => {
+    const courier = new Courier({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight})
+    return courier.save()
 }
 
 exports.del = (id) => {
-    return Post.findByIdAndDelete(id)
+    return Courier.findByIdAndDelete(id)
 }
 
-exports.update = (id,lastAppearedBranchID,senderID,receiverID,postManID) => {
-    return Post.updateOne({_id:id},{
-        $set: {lastAppearedBranchID,senderID,receiverID,postManID}
+exports.update = (id,lastAppearedBranchID,senderID,receiverID,postManID,weight) => {
+    return Courier.updateOne({_id:id},{
+        $set: {lastAppearedBranchID,senderID,receiverID,postManID,weight}
     })
 }
 
 exports.getOne = (id) => {
-    return Post.aggregate([
+    return Courier.aggregate([
         {
             $match: {
                 _id : mongoose.Types.ObjectId(id)
@@ -136,13 +137,14 @@ exports.getOne = (id) => {
                 postManName: { $arrayElemAt: ['$_postman.username', 0] },
                 postManID: 1,
                 state:1,
+                weight:1
             }
         }
     ])
 }
 
 exports.updatePostman = (id , postManID) => {
-    return Post.updateOne({_id:id},{
+    return Courier.updateOne({_id:id},{
         $set: {postManID}
     })
 }

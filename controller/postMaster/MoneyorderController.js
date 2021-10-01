@@ -1,8 +1,8 @@
-const Post = require('../../services/postmaster/PostService')
+const Moneyorder = require('../../services/postmaster/MoneyorderService')
 
 
 const getAll = (req,res) => {
-    Post.findAll()
+    Moneyorder.findAll()
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -14,9 +14,10 @@ const getAll = (req,res) => {
 
 const create = (req,res) => { 
     const sourceBranchID = req.user.branchId
-    const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
-    Post.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID)
+    const { lastAppearedBranchID,senderID,receiverID,postManID,amount } = req.body
+    Moneyorder.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,amount)
     .then(result=>{
+        console.log(result)
         res.json(result)
     })
     .catch(err=>{
@@ -27,7 +28,7 @@ const create = (req,res) => {
 const del = (req,res) => {
     const {id} = req.params
     console.log('id')
-    Post.del(id)
+    Moneyorder.del(id)
     .then(result=>{
         res.json(result)
     })
@@ -38,8 +39,8 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
-    Post.update(id,lastAppearedBranchID,senderID,receiverID,postManID)
+    const { lastAppearedBranchID,senderID,receiverID,postManID,amount } = req.body
+    Moneyorder.update(id,lastAppearedBranchID,senderID,receiverID,postManID,amount)
     .then(result=>{
         res.json(result)
     })
@@ -50,7 +51,7 @@ const update = (req,res) => {
 
 const getOne = (req,res) => {
     const {id} = req.params
-    Post.getOne(id)
+    Moneyorder.getOne(id)
     .then(result=>{
         res.json(result[0])
         console.log(result[0])
@@ -63,7 +64,7 @@ const getOne = (req,res) => {
 const updatePostman = (req,res) => {
     const {id} = req.params
     const {postManID} = req.body
-    Post.updatePostman(id,postManID)
+    Moneyorder.updatePostman(id,postManID)
     .then(result=>{
         res.json(result)
         console.log(result)

@@ -25,7 +25,8 @@ const createPostman =async (req,res) => {
         SendMail(email,password)
     })
     .catch(err=>{
-        console.log(err)
+        res.json()
+        console.log('this is error message => ' + err)
     })
 }
 

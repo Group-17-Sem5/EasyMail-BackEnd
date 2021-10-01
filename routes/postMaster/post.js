@@ -8,5 +8,6 @@ router.get('/:id',ensureLogin,PostController.getOne)
 router.post('/add',ensureLogin,PostController.create)
 router.delete('/delete/:id',ensureLogin,PostController.del)
 router.post('/update/:id',ensureLogin,PostController.update)
+router.post('/updatePostman/:id',ensureLogin,PostController.updatePostman)
 
 module.exports = router;
