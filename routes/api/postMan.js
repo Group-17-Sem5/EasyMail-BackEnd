@@ -17,6 +17,8 @@ router.delete('/address/:id',authorization, postManController.removeAddress);
 router.put('/address/:id',authorization, postManController.changeAddress);
 //deliveries handling postman 
 router.get('/posts/:postManId',authorization,postManController.getPosts);
+router.get('/delivered-posts/:postManId',authorization,postManController.getDeliveredPosts);
+router.get('/cancelled-posts/:postManId',authorization,postManController.getCancelledPosts);
 router.get('/posts/search/:id',authorization, postManController.getAPost);
 router.put('/posts/confirm/:id',authorization,postManController.confirmPostDelivery);
 router.put('/posts/cancel/:id',authorization, postManController.cancelDelivery);

@@ -35,6 +35,9 @@ const Mail= Schema({
     },isDelivered:{
         type: Boolean,
         required:true,
+    },isCancelled:{
+        type:Boolean,
+        required:true,
     }
 });
 

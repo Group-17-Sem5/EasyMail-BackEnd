@@ -47,5 +47,18 @@ class QueryDAO{
        
         return mail;
     }
+
+
+
+    static async readAllDeliveredMailEntity(postManId){
+
+        const mailsList = await Mail.find({postManID: postManId,isDelivered:true,isCancelled:false});
+        return mailsList;
+    }
+    static async readAllCancelledMailEntity(postManId){
+
+        const mailsList = await Mail.find({postManID: postManId,isDelivered:false,isCancelled:true});
+        return mailsList;
+    }
 }
 module.exports = QueryDAO;

@@ -17,10 +17,10 @@ class MailDAO{
 
     static async readAllEntity(postManId){
 
-        const mailsList = await Mail.find({postManID: postManId});
+        const mailsList = await Mail.find({postManID: postManId,isDelivered:false,isCancelled:false,isAssigned:true});
         return mailsList;
     }
-
+    
     static async readOneEntity(mailId){
         console.log(mailId);
         const mail =await Mail.findOne({mailID: mailId});
@@ -29,10 +29,14 @@ class MailDAO{
 
     static async updateOneEntity(mailId,value){
         console.log("Value is updating");
-        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:value,isAssigned:value}});
+        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:true,isCancelled:false}});
+        return mail;
+        }
+    static async cancelOneEntity(mailId){
+        console.log('the delivery is cancelling');
+        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:false,isCancelled:true}});
         return mail;
     }
-
     static async deleteOneEntity(){
         
     }

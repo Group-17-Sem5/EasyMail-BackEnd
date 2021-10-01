@@ -149,7 +149,7 @@ postManController.changeAddress = async (req, res, next) => {
         const response = {
             err: 1,
             obj: {},
-            msg: state.msg
+            msg: "Cannot change"
         }
         return res.json(response);
         }
@@ -168,6 +168,64 @@ postManController.getPosts = async (req, res, next) => {
     //console.log(req.params.postManId);
     try {
         const mail_list = await postManServices.getMailList(req.params.postManId);
+        console.log(mail_list.length);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(mail_list.length > 0){
+        const response = {
+            err: 0,
+            mailModel: mail_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            mailModel: {},
+            msg: "No Mails Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+};
+
+postManController.getDeliveredPosts = async (req, res, next) => {
+    console.log('getting Delivered mails');
+    //console.log(req.params.postManId);
+    try {
+        const mail_list = await postManServices.getDeliveredMailList(req.params.postManId);
+        console.log(mail_list.length);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(mail_list.length > 0){
+        const response = {
+            err: 0,
+            mailModel: mail_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            mailModel: {},
+            msg: "No Mails Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+};
+
+postManController.getCancelledPosts = async (req, res, next) => {
+    console.log('getting cancelled mails');
+    //console.log(req.params.postManId);
+    try {
+        const mail_list = await postManServices.getCancelledMailList(req.params.postManId);
         console.log(mail_list.length);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(mail_list.length > 0){

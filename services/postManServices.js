@@ -1,6 +1,7 @@
 const PostManDAO = require('../models/DAO/postManDAO');
 const MailDAO= require('../models/DAO/mailDAO');
 const AddressDAO= require('../models/DAO/addressDAO');
+const QueryDAO=require('../models/DAO/queryDAO');
 const mail= require('../models/mail-model');
 const address= require('../models/address-model');
 const config= require('../config/config');
@@ -78,7 +79,68 @@ class PostManService{
                 let receivingBranchID=mail.receivingBranchID;
                 let senderID=mail.senderID;
                 let receiverID=mail.receiverID;
-                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
+                let isCancelled=mail.isCancelled;
+                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
+                mailList.push(OneMail);
+            });
+
+            return mailList;
+        } catch (error) {
+            console.log('Error when finding mail');
+        }
+
+    }
+    
+    async getDeliveredMailList(postManId) {
+        try {
+
+            var mailList = [];
+            
+            var mails = await QueryDAO.readAllDeliveredMailEntity(postManId);
+            
+            mails.forEach(mail => {
+                let mailID = mail.mailID;
+                let addressID = mail.addressID;
+                let isAssigned= mail.isAssigned;
+                let isDelivered =mail.isDelivered;
+                let postManID=mail.postManID;
+                let lastAppearedBranch = mail.lastAppearedBranch;
+                let sourceBranchID=mail.sourceBranchID;
+                let receivingBranchID=mail.receivingBranchID;
+                let senderID=mail.senderID;
+                let receiverID=mail.receiverID;
+                let isCancelled=mail.isCancelled;
+                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
+                mailList.push(OneMail);
+            });
+
+            return mailList;
+        } catch (error) {
+            console.log('Error when finding mail');
+        }
+
+    }
+    
+    async getCancelledMailList(postManId) {
+        try {
+
+            var mailList = [];
+            
+            var mails = await QueryDAO.readAllCancelledMailEntity(postManId);
+            
+            mails.forEach(mail => {
+                let mailID = mail.mailID;
+                let addressID = mail.addressID;
+                let isAssigned= mail.isAssigned;
+                let isDelivered =mail.isDelivered;
+                let postManID=mail.postManID;
+                let lastAppearedBranch = mail.lastAppearedBranch;
+                let sourceBranchID=mail.sourceBranchID;
+                let receivingBranchID=mail.receivingBranchID;
+                let senderID=mail.senderID;
+                let receiverID=mail.receiverID;
+                let isCancelled=mail.isCancelled;
+                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
                 mailList.push(OneMail);
             });
 
@@ -101,7 +163,8 @@ class PostManService{
             let receivingBranchID=mail.receivingBranchID;
             let senderID=mail.senderID;
             let receiverID=mail.receiverID;
-            var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
+            let isCancelled=mail.isCancelled;
+            var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
            
             return OneMail;
 
@@ -123,7 +186,7 @@ class PostManService{
     }
     async cancelPostDelivery(mailID){
         try {
-            var result = await MailDAO.updateOneEntity(mailID,false);
+            var result = await MailDAO.cancelOneEntity(mailID);
             //console.log(result);
             return {    err:0,
                         result:result,
