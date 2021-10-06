@@ -303,6 +303,29 @@ class PostManService{
             };
         }
     }
+    async updateAddress(id,details){
+        try{
+            var res=await AddressDAO.updateAddress(id,details);
+            if (res.ok==0){
+                return{
+                    err:1,
+                    msg:'there is no address in that name'
+                }
+            }else{
+                return{
+                err:0,
+                msg:"Successfully updated"
+                };
+            }
+            
+        }catch (error) {
+            console.log('Error when finding address');
+            return {
+                err:1,
+                msg:'Something went wrong'
+            };
+        }
+    }
 
 
 }

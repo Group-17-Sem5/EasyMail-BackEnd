@@ -12,14 +12,14 @@ userController.login= async (req, res, next) => {
         if(state.err==0){
         const response = {
             err: 0,
-            obj: state.token,//should get object list
+            token: state.token,//should get object list
             msg: ""
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            token: null,
             msg: state.msg
         }
         return res.json(response);
@@ -83,21 +83,21 @@ userController.changeAddress = async (req, res, next) => {
     }
 };
 userController.searchReceivedMails= async (req, res, next) => {
-    console.log('getting all mails ');
+    console.log('getting all received mails ');
     try {
         const received_mails = await userServices.getReceivedMailsList(req.params.userID);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(received_mails.length > 0){
         const response = {
             err: 0,
-            obj: received_mails,//should get object list
+            mailModel: received_mails,//should get object list
             msg: ""
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            mailModel: {},
             msg: "No Received Mails"
         }
         return res.json(response);
@@ -119,14 +119,14 @@ userController.searchSentMails= async (req, res, next) => {
         if(sent_mails.length > 0){
         const response = {
             err: 0,
-            obj: sent_mails,//should get object list
+            mailModel: sent_mails,//should get object list
             msg: ""
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            mailModel: {},
             msg: "No sent Mails"
         }
         return res.json(response);

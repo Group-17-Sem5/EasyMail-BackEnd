@@ -15,7 +15,8 @@ class AddressDAO{
             addressID:addressDetails.addressID,
             description:addressDetails.description,
             branchID:addressDetails.branchID,
-            location:addressDetails.location,
+            lat:addressDetails.lat,
+            lng:addressDetails.lng,
             branchID:addressDetails.branchID,
             userIDList:[]
         });
@@ -40,9 +41,14 @@ class AddressDAO{
         
         };
     }
-
+    static async updateAddress(id,details){
+        const status= await Address.updateOne({addressID:id}, { $set: {"branchID":details.branchID,"description":details.description},returnNewDocument : true  });
+        return {ok:1,result:status,msg:"successful"
+        
+        };
+    }
     static async deleteOneEntity(detail){
-        const address =await Address.deleteOne({addressID:detail.addressID});
+        const address =await Address.deleteOne({addressID:detail});
       
         return address;
         

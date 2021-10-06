@@ -34,7 +34,7 @@ postManController.searchAddress= async (req, res, next) => {
     console.log('getting all addresses');
     try {
         const address_list = await postManServices.getAddressList();
-        //console.log(address_list);
+        console.log(address_list.length);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(address_list.length > 0){
         const response = {
@@ -82,6 +82,7 @@ postManController.getOneAddress = async (req, res, next) => {
 };
 postManController.addAddress = async (req, res, next) => {
     console.log("adding a new address...");
+    console.log(req.body);
     try {
         const state = await postManServices.addAddress(req.body);
         //console.log(state);
@@ -109,8 +110,8 @@ postManController.addAddress = async (req, res, next) => {
 postManController.removeAddress = async (req, res, next) => {
     console.log("removing the address");
     try {
-        const state = await postManServices.removeAddress(req.body);
-        //console.log(state);
+        const state = await postManServices.removeAddress(req.params.id);
+        console.log(req.params.id);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(state.err==0){
         const response = {
@@ -123,7 +124,7 @@ postManController.removeAddress = async (req, res, next) => {
         const response = {
             err: 1,
             obj: {},
-            msg: state.msg
+            msg: "Error when removing the address"
         }
         return res.json(response);
         }
@@ -158,6 +159,33 @@ postManController.changeAddress = async (req, res, next) => {
     next(err);
     }
 };
+postManController.updateAddress = async (req, res, next) => {
+    console.log('changing the address ');
+    try {
+        const state = await postManServices.updateAddress(req.params.id,req.body);
+        //console.log(state);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(state.err==0){
+        const response = {
+            err: 0,
+            obj:{},//should get object list
+            msg: "successfully changed"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "Cannot change"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
+
 
 
 
