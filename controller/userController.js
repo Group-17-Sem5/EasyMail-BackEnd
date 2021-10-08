@@ -58,11 +58,11 @@ userController.register=async (req, res, next) => {
 }
 
 userController.changeAddress = async (req, res, next) => {
-    console.log('Changing the address of '+req.params.userID);
+    console.log('Changing the address of '+req.body.username);
     try {
-        const result = await userServices.changeMyAddress(req.body,req.params.userID);
+        const result = await userServices.changeMyAddress(req.body,req.params.oldAddress);
         console.log(result);
-        if(result['ok']===1){
+        if(result){
         const response = {
             err: 0,
             obj: {},//should get object list
@@ -91,7 +91,7 @@ userController.searchReceivedMails= async (req, res, next) => {
         const response = {
             err: 0,
             mailModel: received_mails,//should get object list
-            msg: ""
+            msg: "Successfully Found the details"
         }
         return res.json(response);
         }else{

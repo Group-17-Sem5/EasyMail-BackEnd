@@ -12,7 +12,7 @@ router.post('/register',userController.register);
 
 
 //addresses handling by user
-//router.put('/address-change/:userID',authorization, userController.changeAddress);  //! check later
+router.put('/address-change/:oldAddress',authorization, userController.changeAddress);  //! check later
 
 
 //posts ,money orders and couriers

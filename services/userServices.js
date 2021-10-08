@@ -167,12 +167,20 @@ class UserService{
             console.log('Error when finding mail');
         }
     }
-    async changeMyAddress(details,userID){
-        console.log(details.oldAddressID);
-        await QueryDAO.removeUserFromAddress(details.oldAddressID,userID);
+    async changeMyAddress(details,oldAddress){
+        
+
+        try{
+            console.log(details.addressID);
+        await QueryDAO.removeUserFromAddress(oldAddress,details.username);
         console.log(details.addressDescription,details.addressID);
-        var result= await QueryDAO.addUserToAddress(details.addressID,userID);
-        return result;
+         await QueryDAO.addUserToAddress(details.addressID,details.username);
+        await QueryDAO.changeMyAddress(details.username,details.addressID);
+        return true;
+        }catch(error){
+            console.log("error when changing the address");
+            return false;
+        }
     }
     async getMyMoneyOrdersList(userID){
         var moneyOrderList = [];
