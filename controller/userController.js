@@ -143,12 +143,13 @@ userController.getMoneyOrdersList = async (req, res, next) => {
     console.log('getting Money orders');
     try {
         const moneyOrders_list = await userServices.getMyMoneyOrdersList(req.params.userID);
+        //console.log(moneyOrders_list);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(moneyOrders_list.length > 0){
         const response = {
             err: 0,
             obj: moneyOrders_list,//should get object list
-            msg: ""
+            msg: "Money Orders Found"
         }
         return res.json(response);
         }else{

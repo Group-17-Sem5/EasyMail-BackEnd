@@ -23,7 +23,6 @@ class UserDAO{
                 addressID: userDetail.addressID,
                 branchID:userDetail.branchID,
                 phoneNumber:userDetail.phoneNumber,
-                addressDescription: userDetail.addressDescription,
                 receivedPostIDList:[],
                 sentPostIDList:[],
                 sentMoneyOrdersList:[],

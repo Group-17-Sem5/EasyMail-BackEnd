@@ -1,6 +1,7 @@
 const PostManDAO = require('../models/DAO/postManDAO');
 const MailDAO= require('../models/DAO/mailDAO');
 const AddressDAO= require('../models/DAO/addressDAO');
+const MoneyOrderDAO= require('../models/DAO/moneyOrderDAO');
 const UserDAO= require('../models/DAO/userDAO');
 const QueryDAO= require('../models/DAO/queryDAO');
 const config= require('../config/config');
@@ -183,8 +184,41 @@ class UserService{
         }
     }
     async getMyMoneyOrdersList(userID){
-        var moneyOrderList = [];
-        return moneyOrderList;
+        try {
+
+            var moneyOrdersList = [];
+            
+            var moneyOrders = await MoneyOrderDAO.readAllEntityBySender(userID);
+            //console.log(moneyOrders);
+            moneyOrders.forEach(moneyOrder => {
+                let moneyOrderID = moneyOrder.moneyOrderID;
+                let specialCode = moneyOrder.specialCode;
+                let amount =moneyOrder.amount;
+                let date =moneyOrder.date;
+                let sourceBranch=moneyOrder.sourceBranch;
+                let receivingBranch=moneyOrder.receivingBranch;
+                let senderID=moneyOrder.senderID;
+                let receiverID=moneyOrder.receiverID;
+                let isDelivered=moneyOrder.isDelivered;
+                let isCancelled=moneyOrder.isCancelled;
+           
+                var OneMoneyOrder = {moneyOrderID,specialCode,amount,date,sourceBranch,receivingBranch,senderID,receiverID,isDelivered,isCancelled };
+                moneyOrdersList.push(OneMoneyOrder);
+            });
+
+            return moneyOrdersList;
+        
+            //    [
+            //        {
+            //            route_id:1,
+            //            description: Colombo,Pan
+            //        },
+            //             ..........
+            //    ]
+
+        } catch (error) {
+            console.log('Error when finding moneyOrders');
+        }
     }
     async trackMyCourier(userID){}
     async getMail(userID,mailID){

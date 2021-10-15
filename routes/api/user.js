@@ -12,14 +12,14 @@ router.post('/register',userController.register);
 
 
 //addresses handling by user
-router.put('/address-change/:oldAddress',authorization, userController.changeAddress);  //! check later
+router.put('/address-change/:oldAddress',authorization, userController.changeAddress);  
 
 
 //posts ,money orders and couriers
 router.get('/mailbox/:userID',authorization,userController.searchReceivedMails);
 router.get('/mailbox/search/:mailID',authorization, userController.getAPost);
 router.get('/sent-mails/:userID',authorization,userController.searchSentMails);
-router.get('/money-order/:userID',authorization, userController.getMoneyOrdersList); //!check later
-router.get('couriers/:userID',authorization,userController.trackCourier);  //!check later
+router.get('/money-order/:userID',authorization, userController.getMoneyOrdersList); 
+// router.get('couriers/:userID',authorization,userController.trackCourier);  //!check later
 
 module.exports =router;

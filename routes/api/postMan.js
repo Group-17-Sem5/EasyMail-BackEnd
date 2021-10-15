@@ -5,7 +5,7 @@ const router=express.Router();
 const authorization = require('../../middleware/auth');
 const config = require('../../config/config');
 const jwt= require('jsonwebtoken');
-
+const validate = require('../../middleware/validation/postman-login')
 //Postman profile update
 router.post('/login',postManController.login);
 
