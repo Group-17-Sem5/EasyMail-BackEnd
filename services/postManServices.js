@@ -19,7 +19,7 @@ class PostManService{
             // var result=json();
             var postMan = await PostManDAO.readOneEntity(req.username);
             // console.log(req.username);
-            // console.log(req.password);
+            
                 if(postMan){
                     //console.log(postMan);
                     const cmp = await bcrypt.compare(req.password, postMan.password);
@@ -254,13 +254,15 @@ class PostManService{
             var address= await AddressDAO.createOneEntity(details);
             return {
                 err:0,
-                obj:address
+                obj:address,
+                msg:"Successful"
             
             };
         }catch (error) {
             console.log('Error when adding the address');
             return {
                 err:1,
+                obj:"null",
                 msg:'Something wend wrong'
             };
         }
@@ -270,12 +272,14 @@ class PostManService{
             var address=await AddressDAO.deleteOneEntity(addressID);
             return{
                 err:0,
-                obj:address
+                obj:address,
+                msg:"Successful"
             };
         }catch (error) {
             console.log('Error when finding address');
             return {
                 err:1,
+                obj:"",
                 msg:'Something wend wrong'
             };
         }

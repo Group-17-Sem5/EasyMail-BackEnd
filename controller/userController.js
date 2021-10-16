@@ -120,7 +120,7 @@ userController.searchSentMails= async (req, res, next) => {
         const response = {
             err: 0,
             mailModel: sent_mails,//should get object list
-            msg: ""
+            msg: "Getting sent mails"
         }
         return res.json(response);
         }else{
