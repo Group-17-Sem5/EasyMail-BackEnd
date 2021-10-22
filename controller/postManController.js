@@ -48,14 +48,14 @@ postManController.searchAddress= async (req, res, next) => {
         }else{
         const response = {
             err: 1,
-            obj: {},
+            addresses: {},
             msg: "No Addresses Available"
         }
         return res.json(response);
         }
         
     } catch (err) {
-    next(err);
+        next(err);
     }
     
 

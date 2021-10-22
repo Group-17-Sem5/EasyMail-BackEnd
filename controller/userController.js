@@ -166,6 +166,30 @@ userController.getMoneyOrdersList = async (req, res, next) => {
     }
 
 };
+userController.getAllCouriersList = async (req, res, next) => {
+    console.log('Getting all couriers sent by '+req.params.userID);
+    try {
+        const courierList = await userServices.getAllCouriers(req.params.userID);
+        if(courierList.length > 0){
+            const response = {
+                err: 0,
+                obj: courierList,//should get object list
+                msg: "Couriers Found"
+            }
+            return res.json(response);
+            }else{
+            const response = {
+                err: 1,
+                obj: {},
+                msg: "No Couriers Available"
+            }
+            return res.json(response);
+            }
+        
+    } catch (err) {
+    next(err);
+    }
+};
 userController.trackCourier = async (req, res, next) => {
     console.log('Getting the details of the courier'+req.params.courierID);
     try {

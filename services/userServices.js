@@ -4,6 +4,7 @@ const AddressDAO= require('../models/DAO/addressDAO');
 const MoneyOrderDAO= require('../models/DAO/moneyOrderDAO');
 const UserDAO= require('../models/DAO/userDAO');
 const QueryDAO= require('../models/DAO/queryDAO');
+const CourierDAO= require('../models/DAO/courierDAO');
 const config= require('../config/config');
 const jwt=require('jsonwebtoken');
 const bcrypt = require("bcrypt");
@@ -69,6 +70,7 @@ class UserService{
                         console.log('password is incorrect');
                         return {
                             err:1,
+                            token:"",
                             msg:'password is incorrect'
                         };
                         
@@ -110,6 +112,7 @@ class UserService{
                         console.log('password is incorrect');
                         return {
                             err:1,
+                            token:"",
                             msg:'password is incorrect'
                         };
                         
@@ -118,6 +121,7 @@ class UserService{
                     console.log('Check the user name again');
                     return {
                         err:1,
+                        token:"",
                         msg:'check the user name'
                     };
                 }
@@ -126,6 +130,7 @@ class UserService{
             console.log('Error when finding user');
             return {
                 err:1,
+                token:"",
                 msg:'Something wend wrong'
             };
         }
@@ -220,7 +225,22 @@ class UserService{
             console.log('Error when finding moneyOrders');
         }
     }
-    async trackMyCourier(userID){}
+    async getAllCouriers(userID){
+        try{
+            var couriers = await CourierDAO.readAllEntityBySender(userID);
+            return couriers;
+        }catch(error){
+            console.log("error when finding the couriers");
+        }
+    }
+    async trackMyCourier(courierID){
+        try{
+            var courierDetail=await CourierDAO.readOneEntity(courierID);
+            return courierDetail;
+        }catch(error){
+            console.log("No such named courier");
+        }
+    }
     async getMail(userID,mailID){
         try{
             var mail = await QueryDAO.readOneEntityByReceiver(userID,mailID);
