@@ -4,6 +4,7 @@ const HttpStatus = require('http-status');
 const bcrypt = require("bcrypt");
 //const mongoose = require('mongoose');
 const routes= require('./routes/index');
+//const supertest = require("supertest");
 
 const app = express();
 //const config = require('./config/DB');

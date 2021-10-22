@@ -12,4 +12,4 @@ const url = 'mongodb://localhost:27017/easyMail';
 //to connect or create our database
 mongoose.connect(url, { useUnifiedTopology : true, useNewUrlParser : true , }).then(() => {
    console.log("Connection successful");
-}).catch((e) => console.log("No connection"))
+}).catch((e) => console.log("No connection"));
