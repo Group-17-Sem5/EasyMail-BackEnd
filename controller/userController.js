@@ -38,14 +38,14 @@ userController.register=async (req, res, next) => {
         if(state.err==0){
         const response = {
             err: 0,
-            obj: state.token,//should get object list
+            token: state.token,//should get object list
             msg: ""
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            token: "",
             msg: state.msg
         }
         return res.json(response);

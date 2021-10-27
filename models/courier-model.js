@@ -12,7 +12,7 @@ const Courier=Schema({
         required:true,
     },
     weight:{
-        type:int,
+        type:Number,
         required:false,
     },
     lastAppearedBranchID:{
@@ -36,13 +36,13 @@ const Courier=Schema({
         type:String,
         required:true
     },isAssigned:{
-        type:boolean,
+        type:Boolean,
         required:true
     },isDelivered:{
-        type:boolean,
+        type:Boolean,
         required:true
     },isCancelled:{
-        type:boolean,
+        type:Boolean,
         required:true
     }
 });
