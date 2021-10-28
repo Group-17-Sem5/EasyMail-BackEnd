@@ -226,9 +226,55 @@ class UserService{
             console.log('Error when finding moneyOrders');
         }
     }
-    async getAllCouriers(userID){
+    async getMyReceivedMoneyOrdersList(userID){
+        try {
+
+            var moneyOrdersList = [];
+            
+            var moneyOrders = await MoneyOrderDAO.readAllEntityByReceiver(userID);
+            //console.log(moneyOrders);
+            moneyOrders.forEach(moneyOrder => {
+                let moneyOrderID = moneyOrder._id;
+                let specialCode = moneyOrder.specialCode;
+                let amount =moneyOrder.amount;
+                let sourceBranchID=moneyOrder.sourceBranchID;
+                let receivingBranchID=moneyOrder.receivingBranchID;
+                let senderID=moneyOrder.senderID;
+                let receiverID=moneyOrder.receiverID;
+                let isDelivered=moneyOrder.isDelivered;
+                let isCancelled=moneyOrder.isCancelled;
+           
+                var OneMoneyOrder = {moneyOrderID,specialCode,amount,sourceBranchID,receivingBranchID,senderID,receiverID,isDelivered,isCancelled };
+                moneyOrdersList.push(OneMoneyOrder);
+                //console.log(OneMoneyOrder);
+                
+            });
+
+            return moneyOrdersList;
+        
+            //    [
+            //        {
+            //            route_id:1,
+            //            description: Colombo,Pan
+            //        },
+            //             ..........
+            //    ]
+
+        } catch (error) {
+            console.log('Error when finding moneyOrders');
+        }
+    }
+    async getSentCouriers(userID){
         try{
             var couriers = await CourierDAO.readAllEntityBySender(userID);
+            return couriers;
+        }catch(error){
+            console.log("error when finding the couriers");
+        }
+    }
+    async getReceivedCouriers(userID){
+        try{
+            var couriers = await CourierDAO.readAllEntityByReceiver(userID);
             return couriers;
         }catch(error){
             console.log("error when finding the couriers");

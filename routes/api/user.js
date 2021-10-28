@@ -19,8 +19,11 @@ router.put('/address-change/:oldAddress',authorization, userController.changeAdd
 router.get('/mailbox/:userID',authorization,userController.searchReceivedMails);
 router.get('/mailbox/search/:mailID',authorization, userController.getAPost);
 router.get('/sent-mails/:userID',authorization,userController.searchSentMails);
+
 router.get('/money-order/:userID',authorization, userController.getMoneyOrdersList); 
-//router.get('courier-details/:courierID',authorization,userController.trackCourier);
-router.get('/couriers/:userID',authorization,userController.getAllCouriersList);
+router.get('/received-money-order/:userID',authorization, userController.getReceivedMoneyOrdersList); 
+
+router.get('/sent-couriers/:userID',authorization,userController.getSentCouriersList);
+router.get('/received-couriers/:userID',authorization,userController.getReceivedCouriersList);
 
 module.exports =router;

@@ -166,10 +166,61 @@ userController.getMoneyOrdersList = async (req, res, next) => {
     }
 
 };
-userController.getAllCouriersList = async (req, res, next) => {
+userController.getReceivedMoneyOrdersList = async (req, res, next) => {
+    console.log('getting Money orders');
+    try {
+        const moneyOrders_list = await userServices.getMyReceivedMoneyOrdersList(req.params.userID);
+        console.log(moneyOrders_list.length +"results found");
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(moneyOrders_list.length > 0){
+        const response = {
+            err: 0,
+            moneyOrder: moneyOrders_list,//should get object list
+            msg: "Money Orders Found"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            moneyOrder: {},
+            msg: "No MoneyOrders Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+};
+userController.getSentCouriersList = async (req, res, next) => {
     console.log('Getting all couriers sent by '+req.params.userID);
     try {
-        const courierList = await userServices.getAllCouriers(req.params.userID);
+        const courierList = await userServices.getSentCouriers(req.params.userID);
+        if(courierList.length > 0){
+            const response = {
+                err: 0,
+                couriers: courierList,//should get object list
+                msg: "Couriers Found"
+            }
+            return res.json(response);
+            }else{
+            const response = {
+                err: 1,
+                couriers: {},
+                msg: "No Couriers Available"
+            }
+            return res.json(response);
+            }
+        
+    } catch (err) {
+    next(err);
+    }
+};
+userController.getReceivedCouriersList = async (req, res, next) => {
+    console.log('Getting all couriers sent by '+req.params.userID);
+    try {
+        const courierList = await userServices.getReceivedCouriers(req.params.userID);
         if(courierList.length > 0){
             const response = {
                 err: 0,
