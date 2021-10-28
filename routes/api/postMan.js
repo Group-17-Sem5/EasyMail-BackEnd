@@ -23,6 +23,10 @@ router.get('/cancelled-posts/:postManId',authorization,postManController.getCanc
 router.get('/posts/search/:id',authorization, postManController.getAPost);
 router.put('/posts/confirm/:id',authorization,postManController.confirmPostDelivery);
 router.put('/posts/cancel/:id',authorization, postManController.cancelDelivery);
-
-
+//couriers handled by postman
+router.get('/couriers/:postManId',authorization,postManController.getCouriers);
+router.get('/delivered-couriers/:postManId',authorization,postManController.getDeliveredCouriers);
+router.get('/cancelled-couriers/:postManId',authorization,postManController.getCancelledCouriers);
+router.put('/couriers/confirm/:id',authorization,postManController.confirmCourierDelivery);
+router.put('/couriers/cancel/:id',authorization, postManController.cancelCourierDelivery);
 module.exports =router;

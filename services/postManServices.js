@@ -1,6 +1,7 @@
 const PostManDAO = require('../models/DAO/postManDAO');
 const MailDAO= require('../models/DAO/mailDAO');
 const AddressDAO= require('../models/DAO/addressDAO');
+const CourierDAO= require('../models/DAO/courierDAO');
 const QueryDAO=require('../models/DAO/queryDAO');
 const mail= require('../models/mail-model');
 const address= require('../models/address-model');
@@ -197,6 +198,70 @@ class PostManService{
         return { err:1,result:null,msg:"error when finding that mail"};
         }
     }
+
+
+
+
+    async getCourierList(postManId) {
+        try {
+            
+            var couriers = await CourierDAO.readAllEntityByPostMan(postManId);
+            
+       
+            return couriers;
+        } catch (error) {
+            console.log('Error when finding couriers');
+        }
+
+    }
+    async getDeliveredCourierList(postManId) {
+        try {
+            
+            var couriers = await CourierDAO.readDeliveredEntityByPostMan(postManId);
+            
+       
+            return couriers;
+        } catch (error) {
+            console.log('Error when finding couriers');
+        }
+
+    }
+    async getCancelledCourierList(postManId) {
+        try {
+            
+            var couriers = await CourierDAO.readCancelledEntityByPostMan(postManId);
+            
+       
+            return couriers;
+        } catch (error) {
+            console.log('Error when finding couriers');
+        }
+
+    }
+    async confirmCourierDelivery(courierID){
+        try {
+             var result = await CourierDAO.confirmOneEntity(courierID,true);
+             //console.log(result);
+             return {ok:1,result:result,msg:"successful"};
+        } catch (error) {
+         console.log('Error when confirming courier');
+             return {ok:0,result:null,msg:"Something went wrong"};
+         }
+ 
+     }
+     async cancelCourierDelivery(courierID){
+         try {
+             var result = await CourierDAO.cancelOneEntity(courierID);
+             //console.log(result);
+             return {    err:0,
+                         result:result,
+                      msg:"successfully updated"};
+        } catch (error) {
+         console.log('Error when cancelling courier');
+ 
+         return { err:1,result:null,msg:"error when finding that courier"};
+         }
+     }
     async getAddressList(){
         
         //         var OneAddress = { addressID,location,description,userIDList,branchID,lat,lng };

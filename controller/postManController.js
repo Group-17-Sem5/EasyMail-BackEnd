@@ -378,4 +378,165 @@ postManController.getAPost= async (req, res, next) => {
 
    
 };
+
+
+
+postManController.getCouriers = async (req, res, next) => {
+    console.log('getting all assigned couriers');
+    //console.log(req.params.postManId);
+    try {
+        const courier_list = await postManServices.getCourierList(req.params.postManId);
+        console.log(courier_list.length+" results found");
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(courier_list.length > 0){
+        const response = {
+            err: 0,
+            couriers: courier_list,//should get object list
+            msg: "Couriers Found"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            couriers: {},
+            msg: "No Couriers Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+};
+
+postManController.getDeliveredCouriers = async (req, res, next) => {
+    console.log('getting Delivered couriers');
+    //console.log(req.params.postManId);
+    try {
+        const courier_list = await postManServices.getDeliveredCourierList(req.params.postManId);
+        console.log(courier_list.length+" results found");
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(courier_list.length > 0){
+        const response = {
+            err: 0,
+            couriers: courier_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            couriers: {},
+            msg: "No Couriers Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+};
+
+postManController.getCancelledCouriers = async (req, res, next) => {
+    console.log('getting cancelled Couriers');
+    //console.log(req.params.postManId);
+    try {
+        const courier_list = await postManServices.getCancelledCourierList(req.params.postManId);
+        console.log(courier_list.length+" results found");
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(courier_list.length > 0){
+        const response = {
+            err: 0,
+            couriers: courier_list,//should get object list
+            msg: "Couriers found"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            couriers: {},
+            msg: "No Couriers Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+
+};
+postManController.confirmCourierDelivery = async (req, res, next) => {
+    console.log('Confirming the courier delivery'+req.params.id);
+    try {
+        const result = await postManServices.confirmCourierDelivery(req.params.id);
+        console.log(result);
+        if(result['ok']===1){
+            if (result.result.modifiedCount==0){
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "Already in the delivered Status"
+                }
+                return res.json(response);
+            }else{
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "Successfully confirmed the Courier"
+                }
+                return res.json(response);
+            }
+        
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "Something wrong with the confirming"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
+postManController.cancelCourierDelivery = async (req, res, next) => {
+    console.log('Cancelling the courier delivery'+req.params.id);
+    try {
+        const result = await postManServices.cancelCourierDelivery(req.params.id);
+        console.log(result);
+        if(result.err==0){
+
+            if (result.result.modifiedCount==1){
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "cancelled the delivery"
+                };
+                return res.json(response);
+            }else{
+                const response = {
+                    err: 0,
+                    obj: {},//should get object list
+                    msg: "Already in cancelled status"
+                };
+                return res.json(response);
+            }
+
+        
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "Something wrong with the cancelling delivery"
+        };return res.json(response);
+        
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
 module.exports = postManController;

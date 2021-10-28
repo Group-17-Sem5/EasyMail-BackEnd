@@ -32,9 +32,34 @@ class CourierDAO{
         const details =await Courier.findOne({courierID: courierId});
         return details;
     }
+    static async readAllEntityByPostMan(postManId){
 
-    static async updateOneEntity(){
-        
+        console.log(postManId+"finding assigned Couriers");
+        const couriers =await Courier.find({postManID: postManId});
+        return couriers;
+    }
+    static async readDeliveredEntityByPostMan(postManId){
+
+        console.log(postManId+"finding assigned Couriers");
+        const couriers =await Courier.find({postManID: postManId,isDelivered:true});
+        return couriers;
+    }
+    static async readCancelledEntityByPostMan(postManId){
+
+        console.log(postManId+"finding assigned Couriers");
+        const couriers =await Courier.find({postManID: postManId,isCancelled:true});
+        return couriers;
+    }
+
+    static async confirmOneEntity(courierId,value){
+        console.log("Value is updating");
+        const courier=await Courier.updateOne({_id: courierId},{$set:{isDelivered:true,isCancelled:false}});
+        return courier;
+        }
+    static async cancelOneEntity(courierId){
+        console.log('the delivery is cancelling');
+        const courier=await Courier.updateOne({_id: courierId},{$set:{isDelivered:false,isCancelled:true}});
+        return courier;
     }
 
     static async deleteOneEntity(){

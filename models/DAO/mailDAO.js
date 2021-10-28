@@ -29,12 +29,12 @@ class MailDAO{
 
     static async updateOneEntity(mailId,value){
         console.log("Value is updating");
-        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:true,isCancelled:false}});
+        const mail=await Mail.updateOne({_id: mailId},{$set:{isDelivered:true,isCancelled:false}});
         return mail;
         }
     static async cancelOneEntity(mailId){
         console.log('the delivery is cancelling');
-        const mail=await Mail.updateOne({mailID: mailId},{$set:{isDelivered:false,isCancelled:true}});
+        const mail=await Mail.updateOne({_id: mailId},{$set:{isDelivered:false,isCancelled:true}});
         return mail;
     }
     static async deleteOneEntity(){
