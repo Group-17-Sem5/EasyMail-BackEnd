@@ -15,15 +15,15 @@ class MoneyOrderDAO{
     }
 
     static async readAllEntityBySender(senderId){
-      console.log(senderId+"finding sent money orders");
+      console.log(senderId+" finding sent money orders");
         const moneyOrders =await MoneyOrder.find({senderID: senderId});
         return moneyOrders;
 
     }
-    static async readAllEntityByReceiver(receiverID){
+    static async readAllEntityByReceiver(receiverId){
 
-        console.log(receiverID+"finding received money orders");
-        const moneyOrders =await MoneyOrder.findOne({receiverID: receiverID});
+        console.log(receiverId+"finding received money orders");
+        const moneyOrders =await MoneyOrder.find({receiverID: receiverId});
         return moneyOrders;
     }
 

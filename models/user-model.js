@@ -3,36 +3,30 @@ const Schema= mongoose.Schema;
 
 
 const User= Schema({
-    username:{    //! user name cannot be same
+    userName:{    
         type:String, 
         required: true,
         unique: true,
     },password:{
         type:String, 
         required: true,
-    },addressID:{
+    },addressId:{
         type:String, 
         required: true,
-    },phoneNumber:{
+    },mobileNumber:{
         type:String, 
         required: true,
     },branchID:{
         type:String,
         required:true,
-    },sentPostIDList:{
-        type:Array,
-        required:false,
-    },receivedPostIDList:{
-        type:Array,
-        required:false,
-    },sentMoneyOrdersList:{
-        type:Array,
-        required:false,
-    },receivedMoneyOrdersList:{
-        type:Array,
-        required:false,
+    },email:{
+        type:String,
+        required:true
+    },status:{
+        type:Boolean,
+        required:true
     }
-});
+},{ timestamps: true });
 
 
 module.exports =mongoose.model("User",User);

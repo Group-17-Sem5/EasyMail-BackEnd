@@ -3,25 +3,18 @@ const Schema= mongoose.Schema;
 
 
 const MoneyOrder= Schema({
-    moneyOrderID:{
-        type:String, 
-        required: true,
-        unique: true,
-    },specialCode:{
+    specialCode:{
         type:String, 
         required: true,
         unique: true,
     },amount:{
         type:String, 
         required: true,
-    },date:{
-        type:Date, 
-        required: true,
     },
-    sourceBranch:{
+    sourceBranchID:{
         type:String, 
         required: true,
-    },receivingBranch:{
+    },receivingBranchID:{
         type:String, 
         required: true,
     },senderID:{
@@ -37,7 +30,7 @@ const MoneyOrder= Schema({
         type:Boolean,
         required:true,
     }
-});
+},{ timestamps: true });
 
 
 module.exports =mongoose.model("MoneyOrder",MoneyOrder);

@@ -69,18 +69,18 @@ class PostManService{
             var mails = await MailDAO.readAllEntity(postManId);
             
             mails.forEach(mail => {
-                let mailID = mail.mailID;
+                let mailID=mail._id;
                 let addressID = mail.addressID;
                 let isAssigned= mail.isAssigned;
                 let isDelivered =mail.isDelivered;
                 let postManID=mail.postManID;
-                let lastAppearedBranch = mail.lastAppearedBranch;
+                let lastAppearedBranchID = mail.lastAppearedBranchID;
                 let sourceBranchID=mail.sourceBranchID;
                 let receivingBranchID=mail.receivingBranchID;
                 let senderID=mail.senderID;
                 let receiverID=mail.receiverID;
                 let isCancelled=mail.isCancelled;
-                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
+                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranchID,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
                 mailList.push(OneMail);
             });
 
@@ -99,18 +99,18 @@ class PostManService{
             var mails = await QueryDAO.readAllDeliveredMailEntity(postManId);
             
             mails.forEach(mail => {
-                let mailID = mail.mailID;
+                let mailID = mail._id;
                 let addressID = mail.addressID;
                 let isAssigned= mail.isAssigned;
                 let isDelivered =mail.isDelivered;
                 let postManID=mail.postManID;
-                let lastAppearedBranch = mail.lastAppearedBranch;
+                let lastAppearedBranchID = mail.lastAppearedBranchID;
                 let sourceBranchID=mail.sourceBranchID;
                 let receivingBranchID=mail.receivingBranchID;
                 let senderID=mail.senderID;
                 let receiverID=mail.receiverID;
                 let isCancelled=mail.isCancelled;
-                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
+                var OneMail = {mailID,addressID,isAssigned,isDelivered,lastAppearedBranchID,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
                 mailList.push(OneMail);
             });
 
@@ -129,18 +129,18 @@ class PostManService{
             var mails = await QueryDAO.readAllCancelledMailEntity(postManId);
             
             mails.forEach(mail => {
-                let mailID = mail.mailID;
+                let mailID = mail._id;
                 let addressID = mail.addressID;
                 let isAssigned= mail.isAssigned;
                 let isDelivered =mail.isDelivered;
                 let postManID=mail.postManID;
-                let lastAppearedBranch = mail.lastAppearedBranch;
+                let lastAppearedBranchID = mail.lastAppearedBranchID;
                 let sourceBranchID=mail.sourceBranchID;
                 let receivingBranchID=mail.receivingBranchID;
                 let senderID=mail.senderID;
                 let receiverID=mail.receiverID;
                 let isCancelled=mail.isCancelled;
-                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
+                var OneMail = {mailID,addressID,isAssigned,isDelivered,lastAppearedBranchID,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
                 mailList.push(OneMail);
             });
 
@@ -153,18 +153,18 @@ class PostManService{
     async getMail(mailId) {
         try {
             var mail = await MailDAO.readOneEntity(mailId);
-            let mailID = mail.mailID;
+            let mailID=mail._id;
             let addressID = mail.addressID;
             let isAssigned= mail.isAssigned;
             let isDelivered =mail.isDelivered;
             let postManID=mail.postManID;
-            let lastAppearedBranch = mail.lastAppearedBranch;
+            let lastAppearedBranchID = mail.lastAppearedBranchID;
             let sourceBranchID=mail.sourceBranchID;
             let receivingBranchID=mail.receivingBranchID;
             let senderID=mail.senderID;
             let receiverID=mail.receiverID;
             let isCancelled=mail.isCancelled;
-            var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
+            var OneMail = {mailID,addressID,isAssigned,isDelivered,lastAppearedBranchID,sourceBranchID,receivingBranchID,postManID,senderID,receiverID,isCancelled };
            
             return OneMail;
 

@@ -41,7 +41,7 @@ class QueryDAO{
         console.log(userList);
         const status= await Address.updateOne({addressID:addressId}, { $set: { userIDList:userList},returnNewDocument : true  });
         console.log(status);
-        //!check later
+       
 
         
     }
@@ -52,13 +52,13 @@ class QueryDAO{
         console.log(userList);
         const result = await Address.updateOne({addressID: addressId},{$set: {userIDList:userList}})
         return result;
-        //!check Later
+        
     }
     static async changeMyAddress(userId,newAddressID){
-        const result=await User.updateOne({username: userId},{$set:{addressID:newAddressID}});
+        const result=await User.updateOne({userName: userId},{$set:{addressId:newAddressID}});
     }
     static async readOneEntityByReceiver(userID,mailID){
-        const mail = await Mail.findOne({receiverID: userID,mailID:mailID});
+        const mail = await Mail.findOne({receiverID: userID,_id:mailID});
        
         return mail;
     }

@@ -1,7 +1,7 @@
 
 
 const mongoose = require("mongoose");
-const url = 'mongodb+srv://kaja:Kajanan1234@electro.u9gv5.mongodb.net/Easymail?retryWrites=true&w=majority';
+const url = 'mongodb+srv://kaja:Kajanan1234@electro.u9gv5.mongodb.net/EasyMailDB?retryWrites=true&w=majority';
 
 //to connect or create our database
 mongoose.connect(url, { useUnifiedTopology : true, useNewUrlParser : true , }).then(async () => {

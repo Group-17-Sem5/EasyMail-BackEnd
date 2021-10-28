@@ -1,12 +1,6 @@
 const mongoose =require('mongoose');
 const Schema=mongoose.Schema;
 const Courier=Schema({
-    courierID:{
-        type:String,
-        required:true,
-        unique:true,
-
-    },
     addressID:{
         type:String,
         required:true,
@@ -23,10 +17,10 @@ const Courier=Schema({
         type:String,
         required:false
     },
-    sourceBranch:{
+    sourceBranchID:{
         type:String,
         required:true
-    },receivingBranch:{
+    },receivingBranchID:{
         type:String,
         required:true
     },senderID:{
@@ -45,5 +39,5 @@ const Courier=Schema({
         type:Boolean,
         required:true
     }
-});
+},{ timestamps: true });
 module.exports =mongoose.model("Courier",Courier);

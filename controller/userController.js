@@ -143,19 +143,19 @@ userController.getMoneyOrdersList = async (req, res, next) => {
     console.log('getting Money orders');
     try {
         const moneyOrders_list = await userServices.getMyMoneyOrdersList(req.params.userID);
-        //console.log(moneyOrders_list);
+        console.log(moneyOrders_list.length +"results found");
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(moneyOrders_list.length > 0){
         const response = {
             err: 0,
-            obj: moneyOrders_list,//should get object list
+            moneyOrder: moneyOrders_list,//should get object list
             msg: "Money Orders Found"
         }
         return res.json(response);
         }else{
         const response = {
             err: 1,
-            obj: {},
+            moneyOrder: {},
             msg: "No MoneyOrders Available"
         }
         return res.json(response);
@@ -173,14 +173,14 @@ userController.getAllCouriersList = async (req, res, next) => {
         if(courierList.length > 0){
             const response = {
                 err: 0,
-                obj: courierList,//should get object list
+                couriers: courierList,//should get object list
                 msg: "Couriers Found"
             }
             return res.json(response);
             }else{
             const response = {
                 err: 1,
-                obj: {},
+                couriers: {},
                 msg: "No Couriers Available"
             }
             return res.json(response);

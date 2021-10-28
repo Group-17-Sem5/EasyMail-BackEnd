@@ -18,15 +18,15 @@ class UserDAO{
             const hashedPwd = await bcrypt.hash(userDetail.password, 12);
             console.log(hashedPwd);
             const user =await User.create({
-                username: userDetail.username,
+                userName: userDetail.username,
                 password: hashedPwd,
-                addressID: userDetail.addressID,
+                addressId: userDetail.addressID,
                 branchID:userDetail.branchID,
-                phoneNumber:userDetail.phoneNumber,
-                receivedPostIDList:[],
-                sentPostIDList:[],
-                sentMoneyOrdersList:[],
-                receivedMoneyOrdersList:[]});
+                mobileNumber:userDetail.phoneNumber,
+                email:userDetail.email,
+                
+                status:true
+              });
             //console.log(user);
     
             
@@ -52,7 +52,7 @@ class UserDAO{
 
     static async readOneEntity(username){
         console.log(username+"logging in");
-        const user =await User.findOne({username: username});
+        const user =await User.findOne({userName: username,status:true});
         return user;
     }
 

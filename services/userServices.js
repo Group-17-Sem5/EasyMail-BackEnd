@@ -20,17 +20,17 @@ class UserService{
             var mails = await QueryDAO.readAllEntityReceivedByUser(userID);
             
             mails.forEach(mail => {
-                let mailID = mail.mailID;
+                let mailID = mail._id;
                 let addressID = mail.addressID;
                 let isAssigned= mail.isAssigned;
                 let isDelivered =mail.isDelivered;
                 let postManID=mail.postManID;
-                let lastAppearedBranch = mail.lastAppearedBranch;
+                let lastAppearedBranchID = mail.lastAppearedBranchID;
                 let sourceBranchID=mail.sourceBranchID;
                 let receivingBranchID=mail.receivingBranchID;
                 let senderID=mail.senderID;
                 let receiverID=mail.receiverID;
-                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
+                var OneMail = {mailID, addressID,isAssigned,isDelivered,lastAppearedBranchID,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
                 mailList.push(OneMail);
             });
 
@@ -55,7 +55,7 @@ class UserService{
             // var result=json();
             var user = await UserDAO.readOneEntity(req.username);
                 if(user){
-                    //console.log(postMan);
+                   //console.log(user);
                     const cmp = await bcrypt.compare(req.password, user.password);
                     if (cmp){
                         console.log('Password is correct');
@@ -145,17 +145,17 @@ class UserService{
             var mails = await QueryDAO.readAllEntitySentByUser(userID);
             
             mails.forEach(mail => {
-                let mailID = mail.mailID;
+                let mailID = mail._id;
                 let addressID = mail.addressID;
                 let isAssigned= mail.isAssigned;
                 let isDelivered =mail.isDelivered;
                 let postManID=mail.postManID;
-                let lastAppearedBranch = mail.lastAppearedBranch;
+                let lastAppearedBranchID = mail.lastAppearedBranchID;
                 let sourceBranchID=mail.sourceBranchID;
                 let receivingBranchID=mail.receivingBranchID;
                 let senderID=mail.senderID;
                 let receiverID=mail.receiverID;
-                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranch,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
+                var OneMail = { mailID, addressID,isAssigned,isDelivered,lastAppearedBranchID,sourceBranchID,receivingBranchID,postManID,senderID,receiverID };
                 mailList.push(OneMail);
             });
 
@@ -196,19 +196,20 @@ class UserService{
             var moneyOrders = await MoneyOrderDAO.readAllEntityBySender(userID);
             //console.log(moneyOrders);
             moneyOrders.forEach(moneyOrder => {
-                let moneyOrderID = moneyOrder.moneyOrderID;
+                let moneyOrderID = moneyOrder._id;
                 let specialCode = moneyOrder.specialCode;
                 let amount =moneyOrder.amount;
-                let date =moneyOrder.date;
-                let sourceBranch=moneyOrder.sourceBranch;
-                let receivingBranch=moneyOrder.receivingBranch;
+                let sourceBranchID=moneyOrder.sourceBranchID;
+                let receivingBranchID=moneyOrder.receivingBranchID;
                 let senderID=moneyOrder.senderID;
                 let receiverID=moneyOrder.receiverID;
                 let isDelivered=moneyOrder.isDelivered;
                 let isCancelled=moneyOrder.isCancelled;
            
-                var OneMoneyOrder = {moneyOrderID,specialCode,amount,date,sourceBranch,receivingBranch,senderID,receiverID,isDelivered,isCancelled };
+                var OneMoneyOrder = {moneyOrderID,specialCode,amount,sourceBranchID,receivingBranchID,senderID,receiverID,isDelivered,isCancelled };
                 moneyOrdersList.push(OneMoneyOrder);
+                //console.log(OneMoneyOrder);
+                
             });
 
             return moneyOrdersList;

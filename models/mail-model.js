@@ -3,11 +3,7 @@ const Schema= mongoose.Schema;
 
 
 const Mail= Schema({
-    mailID:{
-        type:String, 
-        required: true,
-        unique: true,
-    },addressID:{
+    addressID:{
         type:String, 
         required: true,
     },sourceBranchID:{
@@ -17,12 +13,12 @@ const Mail= Schema({
         type:String, 
         required: true,
     },
-    lastAppearedBranch:{
+    lastAppearedBranchID:{
         type:String, 
         required: true,
     },postManID:{
         type:String, 
-        required: true,
+        required: false,
     },senderID:{
         type:String,
         required:false,
@@ -39,7 +35,7 @@ const Mail= Schema({
         type:Boolean,
         required:true,
     }
-});
+},{ timestamps: true });
 
 
 module.exports =mongoose.model("Mail",Mail);

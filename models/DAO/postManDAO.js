@@ -20,7 +20,7 @@ class PostManDAO{
 
     static async readOneEntity(userName){
         console.log(userName+"logging in");
-        const postMan =await PostMan.findOne({username: userName});
+        const postMan =await PostMan.findOne({username: userName,status:true});
         return postMan;
     }
 

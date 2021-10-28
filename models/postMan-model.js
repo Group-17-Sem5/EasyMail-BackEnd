@@ -3,6 +3,9 @@ const Schema= mongoose.Schema;
 
 
 const PostMan= Schema({
+    status:{
+        type:Boolean,
+        required: true},
     username:{
         type:String, 
         required: true,
@@ -19,17 +22,11 @@ const PostMan= Schema({
     },branchID:{
         type:String,
         required:true,
-    },normalPostIDList:{
-        type:String,
-        required:false,
-    },completedPostIDList:{
-        type:String,
-        required:false,
-    },cancelledPostIDList:{
-        type:String,
-        required:false,
+    },email:{
+        type:String, 
+        required:true
     }
-});
+},{ timestamps: true });
 
 
 module.exports =mongoose.model("PostMan",PostMan);

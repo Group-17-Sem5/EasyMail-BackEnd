@@ -20,7 +20,7 @@ router.get('/mailbox/:userID',authorization,userController.searchReceivedMails);
 router.get('/mailbox/search/:mailID',authorization, userController.getAPost);
 router.get('/sent-mails/:userID',authorization,userController.searchSentMails);
 router.get('/money-order/:userID',authorization, userController.getMoneyOrdersList); 
-router.get('courier-details/:courierID',authorization,userController.trackCourier);  //!check later
-router.get('couriers/:userID',authorization,userController.getAllCouriersList);
+//router.get('courier-details/:courierID',authorization,userController.trackCourier);
+router.get('/couriers/:userID',authorization,userController.getAllCouriersList);
 
 module.exports =router;
