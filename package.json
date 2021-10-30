@@ -3,16 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+    "@types/jest": "^27.0.1",
+    "bcrypt": "^5.0.0",
     "express": "^4.17.1",
-    "mongoose": "^5.13.2",
-    "nodemon": "^2.0.12",
     "http-status": "^1.5.0",
+    "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
-    "bcrypt": "^5.0.0"
+    "mongoose": "^6.0.7",
+    "nodemon": "^2.0.13"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^27.2.0",
+    "supertest": "^6.1.6"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "npx nodemon index.js"
   },
   "keywords": [],
   "author": "",

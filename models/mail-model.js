@@ -3,24 +3,39 @@ const Schema= mongoose.Schema;
 
 
 const Mail= Schema({
-    mailID:{
+    addressID:{
         type:String, 
         required: true,
-        unique: true,
-    },description:{
+    },sourceBranchID:{
         type:String, 
         required: true,
-    },status:{
+    },receivingBranchID:{
         type:String, 
         required: true,
-    },location:{
+    },
+    lastAppearedBranchID:{
         type:String, 
         required: true,
     },postManID:{
         type:String, 
-        required: true,
+        required: false,
+    },senderID:{
+        type:String,
+        required:false,
+    },receiverID:{
+        type:String,
+        required:false,
+    },isAssigned:{
+        type:Boolean,
+        required:true,
+    },isDelivered:{
+        type: Boolean,
+        required:true,
+    },isCancelled:{
+        type:Boolean,
+        required:true,
     }
-});
+},{ timestamps: true });
 
 
 module.exports =mongoose.model("Mail",Mail);
