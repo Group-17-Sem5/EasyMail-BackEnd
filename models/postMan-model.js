@@ -3,6 +3,9 @@ const Schema= mongoose.Schema;
 
 
 const PostMan= Schema({
+    status:{
+        type:Boolean,
+        required: true},
     username:{
         type:String, 
         required: [true,"username is required"],
@@ -10,10 +13,15 @@ const PostMan= Schema({
         maxLength: [50, "Too Long"]
     },password:{
         type:String, 
+
         required: [true,"password is required"],
         minLength: [2, "Too short"],
         maxLength: [256, "Too Long"]
     },email:{
+
+        required: true,
+    },area:{
+
         type:String, 
         required: [true,"email is required"],
         unique: true,
@@ -23,6 +31,7 @@ const PostMan= Schema({
         }
     },mobileNumber:{
         type:String, 
+
         required: [true,"mobile number is required"],
         minLength: [9, "Too short"],
         maxLength: [10, "Too Long"]
@@ -31,14 +40,20 @@ const PostMan= Schema({
         required: [true,"name is required"],
         minLength: [2, "Too short"],
         maxLength: [256, "Too Long"]
-    },branchId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Branch',
     },status: {
         type: Boolean,
         default: true
+
+        required: true,
+    },branchID:{
+        type:String,
+        required:true,
+    },email:{
+        type:String, 
+        required:true
+
     }
-});
+},{ timestamps: true });
 
 
 module.exports =mongoose.model("PostMan",PostMan);

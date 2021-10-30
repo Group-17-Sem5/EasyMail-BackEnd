@@ -1,4 +1,5 @@
 
+
 /node_modules
 package-lock.json
 
@@ -25,3 +26,6 @@ yarn-error.log*
 .http
 
 /public/images
+
+node_modules
+

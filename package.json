@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
+
+    "@types/jest": "^27.0.1",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -33,6 +35,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "nodemon index.js"
+    "starti": "npx nodemon index.js"
+
   },
   "keywords": [],
   "author": "",
