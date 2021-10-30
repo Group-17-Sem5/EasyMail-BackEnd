@@ -23,4 +23,4 @@ const Mail= Schema({
 });
 
 
-module.exports =mongoose.model("Mail",Mail);
+module.exports =mongoose.model("Mailn",Mail);

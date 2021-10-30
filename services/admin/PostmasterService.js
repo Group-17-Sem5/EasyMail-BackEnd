@@ -8,8 +8,8 @@ exports.findAll = () => {
     return Postmaster.find()
 }
 
-exports.create = (username,hashPassword,mobileNumber,branchId,email) => {
-    const postmaster = new Postmaster({username,password:hashPassword,mobileNumber,branchId,email})
+exports.create = (username,hashPassword,mobileNumber,branchID,email) => {
+    const postmaster = new Postmaster({username,password:hashPassword,mobileNumber,branchID,email})
     return postmaster.save()
 }
 

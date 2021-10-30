@@ -2,34 +2,36 @@ const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
 const MoneyorderSchema = new Shema({
-    // addressID: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'Address'
-    // },
-    lastAppearedBranchID: {
-        type: mongoose.Types.ObjectId,
+    moneyOrderID:{
+        type:String, 
+        required: true,
+        unique: true,
+    },specialCode:{
+        type:String, 
+        required: true,
+        unique: true,
+    },sourceBranch:{
+        type:String, 
+        required: true,
         ref: 'Branch'
-    },
-    sourceBranchID: {
-        type: mongoose.Types.ObjectId,
+    },receivingBranch:{
+        type:String, 
+        required: true,
         ref: 'Branch'
-    },
-    senderID: {
-        type: mongoose.Types.ObjectId,
+    },senderID:{
+        type:String,
+        required:true,
         ref: 'User'
-    },
-    receiverID: {
-        type: mongoose.Types.ObjectId,
+    },receiverID:{
+        type:String,
+        required:true,
         ref: 'User'
-    },
-    state: {
-        type: String,
-        enum: ['cancelled','delivered','pending','assigned'],
-        default: 'pending'
-    },
-    postManID: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Postman' 
+    },isDelivered:{
+        type: Boolean,
+        required:true,
+    },isCancelled:{
+        type:Boolean,
+        required:true,
     },amount: {
         type: Number,
         required: [true,"amount is required"],

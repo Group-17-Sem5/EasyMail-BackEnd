@@ -15,11 +15,11 @@ const getAllClerk = (req,res) => {
 }
 
 const createClerk =async (req,res) => {
-    const branchId = req.user.branchId
+    const branchID = req.user.branchId
     const { username,email,mobileNumber } = req.body
     const password = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
-    Clerk.createClerk(username,hashPassword,email,mobileNumber,branchId)
+    Clerk.createClerk(username,hashPassword,email,mobileNumber,branchID)
     .then(result=>{
         res.json(result)
         SendMail(email,password)
@@ -65,8 +65,8 @@ const getClerk = (req,res) => {
 }
 
 const getClerkCount = (req,res) => {
-    const branchId = req.user.branchId
-    Clerk.getClerkCount(branchId)
+    const branchID = req.user.branchId
+    Clerk.getClerkCount(branchID)
     .then(result=>{
         res.json(result[0])
     })

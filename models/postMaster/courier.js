@@ -2,38 +2,54 @@ const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
 const CourierSchema = new Shema({
-    // addressID: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'Address'
-    // },
-    lastAppearedBranchID: {
-        type: mongoose.Types.ObjectId,
+    courierID:{
+        type:String,
+        required:[true,"courier id is required"],
+        unique:true,
+    },
+    addressID:{
+        type:String,
+        ref: 'Address',
+        required:true
+    },
+    lastAppearedBranchID:{
+        required:true,
+        type:String,
         ref: 'Branch'
     },
-    sourceBranchID: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Branch'
+    postManID:{
+        type:String,
+        required:false,
+        ref: 'Postman'
     },
-    receivingBranchID: {
-        type: mongoose.Types.ObjectId,
+    sourceBranch:{
+        type:String,
+        required:true,
         ref: 'Branch'
-    },
-    senderID: {
-        type: mongoose.Types.ObjectId,
+    },receivingBranch:{
+        type:String,
+        required:true,
+        ref: 'Branch'
+    },senderID:{
+        type:String,
+        required:true,
         ref: 'User'
-    },
-    receiverID: {
-        type: mongoose.Types.ObjectId,
+    },receiverID:{
+        type:String,
+        required:true,
         ref: 'User'
-    },
-    state: {
-        type: String,
-        enum: ['cancelled','delivered','pending','assigned'],
-        default: 'pending'
-    },
-    postManID: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Postman' 
+    },isAssigned:{
+        type:Boolean,
+        required:true,
+        default: false
+    },isDelivered:{
+        type:Boolean,
+        required:true,
+        default: false
+    },isCancelled:{
+        type:Boolean,
+        required:true,
+        default: false
     },weight: {
         type: Number,
         required: [true,"weight is required"],

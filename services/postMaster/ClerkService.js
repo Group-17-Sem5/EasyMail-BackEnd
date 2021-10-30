@@ -5,8 +5,8 @@ exports.findAll = () => {
     return Clerk.find()
 }
 
-exports.createClerk = (username,hashPassword,email,mobileNumber,branchId) => {
-    const clerk = new Clerk({username,password:hashPassword,email,mobileNumber,branchId})
+exports.createClerk = (username,hashPassword,email,mobileNumber,branchID) => {
+    const clerk = new Clerk({username,password:hashPassword,email,mobileNumber,branchID})
     return clerk.save()
 }
 
@@ -27,7 +27,7 @@ exports.getClerk = (id) => {
 exports.getClerkCount = (branchId) => {
     return Clerk.aggregate([
         {
-            $match:{branchId:mongoose.Types.ObjectId(branchId)}
+            $match:{branchID:(branchID)}
         },
         {
             $count:"clerkCount"

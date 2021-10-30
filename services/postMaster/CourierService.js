@@ -50,8 +50,8 @@ exports.findAll = () => {
     ])
 }
 
-exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight) => {
-    const courier = new Courier({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight})
+exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch) => {
+    const courier = new Courier({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch})
     return courier.save()
 }
 
@@ -59,9 +59,9 @@ exports.del = (id) => {
     return Courier.findByIdAndDelete(id)
 }
 
-exports.update = (id,lastAppearedBranchID,senderID,receiverID,postManID,weight) => {
+exports.update = (id,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch) => {
     return Courier.updateOne({_id:id},{
-        $set: {lastAppearedBranchID,senderID,receiverID,postManID,weight}
+        $set: {sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch}
     })
 }
 

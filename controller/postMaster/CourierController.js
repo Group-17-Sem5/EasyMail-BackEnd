@@ -14,8 +14,8 @@ const getAll = (req,res) => {
 
 const create = (req,res) => { 
     const sourceBranchID = req.user.branchId
-    const { lastAppearedBranchID,senderID,receiverID,postManID,weight } = req.body
-    Courier.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight)
+    const { lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch } = req.body
+    Courier.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch)
     .then(result=>{
         console.log(result)
         res.json(result)
@@ -39,8 +39,8 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const { lastAppearedBranchID,senderID,receiverID,postManID,weight } = req.body
-    Courier.update(id,lastAppearedBranchID,senderID,receiverID,postManID,weight)
+    const { sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch } = req.body
+    Courier.update(id,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch)
     .then(result=>{
         res.json(result)
     })

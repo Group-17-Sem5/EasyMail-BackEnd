@@ -12,8 +12,7 @@ const PostmasterSchema = new Shema({
     password: {
         type: String,
         required: [true,"password is required"],
-        minLength: [2, "Too short"],
-        maxLength: [256, "Too Long"]
+        
     },
     mobileNumber: {
         type: Number,
@@ -21,8 +20,8 @@ const PostmasterSchema = new Shema({
         minLength: [9, "Too short"],
         maxLength: [10, "Too Long"]
     },
-    branchId: {
-        type: mongoose.Types.ObjectId,
+    branchID: {
+        type: String,
         ref: 'Branch'
     },email: {
         type:String, 

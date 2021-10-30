@@ -1,41 +1,51 @@
 const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
-const PostSchema = new Shema({
-    // addressID: {
-    //     type: mongoose.Types.ObjectId,
-    //     ref: 'Address'
-    // },
-    lastAppearedBranchID: {
-        type: mongoose.Types.ObjectId,
+const MailSchema = new Shema({
+    mailID:{
+        type:String, 
+        required: true,
+        unique: true,
+    },addressID:{
+        type:String, 
+        required: true,
+        ref: 'Address'
+    },sourceBranchID:{
+        type:String, 
+        required: true,
+        ref: 'Branch'
+    },receivingBranchID:{
+        type:String, 
+        required: true,
         ref: 'Branch'
     },
-    sourceBranchID: {
-        type: mongoose.Types.ObjectId,
+    lastAppearedBranch:{
+        type:String, 
+        required: true,
         ref: 'Branch'
-    },
-    receivingBranchID: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Branch'
-    },
-    senderID: {
-        type: mongoose.Types.ObjectId,
+    },postManID:{
+        type:String, 
+        required: true,
+        ref: 'Postman'
+    },senderID:{
+        type:String,
+        required:false,
         ref: 'User'
-    },
-    receiverID: {
-        type: mongoose.Types.ObjectId,
+    },receiverID:{
+        type:String,
+        required:false,
         ref: 'User'
-    },
-    state: {
-        type: String,
-        enum: ['cancelled','delivered','pending','assigned'],
-        default: 'pending'
-    },
-    postManID: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Postman' 
+    },isAssigned:{
+        type:Boolean,
+        required:true,
+    },isDelivered:{
+        type: Boolean,
+        required:true,
+    },isCancelled:{
+        type:Boolean,
+        required:true,
     }
 },{ timestamps: true })
 
-const  Post = mongoose.model('Post', PostSchema);
-module.exports = Post;
+const  Mail = mongoose.model('Mail', MailSchema);
+module.exports = Mail;

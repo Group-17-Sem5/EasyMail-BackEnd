@@ -15,11 +15,11 @@ const getAll = (req,res) => {
 }
 
 const create =async (req,res) => {
-    const { username,mobileNumber,branchId,email } = req.body
+    const { username,mobileNumber,branchID,email } = req.body
     const password = randomId(10)
     console.log(password)
     const hashPassword = await bcrypt.hash(password,10)
-    Postmaster.create(username,hashPassword,mobileNumber,branchId,email)
+    Postmaster.create(username,hashPassword,mobileNumber,branchID,email)
     .then(result=>{
         res.json(result)
         SendMail(email,password)

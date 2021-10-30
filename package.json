@@ -33,7 +33,6 @@
   "scripts": {
     "test": "jest --watch",
     "start": "nodemon index.js"
-    
   },
   "keywords": [],
   "author": "",

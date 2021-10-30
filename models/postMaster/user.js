@@ -1,3 +1,4 @@
+const { string } = require('joi');
 const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
@@ -24,20 +25,24 @@ const UserSchema = new Shema({
         minLength: [9, "Too short"],
         maxLength: [10, "Too Long"]
     },
-    addressId: {
-        type: mongoose.Types.ObjectId,
+    addressID: {
+        type: String,
         ref: 'Address',
         required: true
     },
-    name: {
+    username: {
         type: String,
-        required: [true,"name is required"],
+        required: [true,"username is required"],
         validate:{
             validator: name => /^[a-zA-Z\s]*$/.test(name),
             message:"Name only contain space and letters"
         }
+    },
+    branchID: {
+        type: String,
+        ref: 'Branch'
     }
 },{ timestamps: true })
 
-const  User = mongoose.model('USer', UserSchema);
+const  User = mongoose.model('User', UserSchema);
 module.exports = User;

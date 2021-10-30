@@ -2,6 +2,13 @@ const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
 const BranchSchema = new Shema({
+    branchID:{
+        type: String,
+        required: [true, "Address is required"],
+        minLength: [6, "Too short"],
+        maxLength: [256, "Too Long"],
+        unique: true,
+    },
     branchName: {
         type: String,
         required: [true,"Branch name is required"],
