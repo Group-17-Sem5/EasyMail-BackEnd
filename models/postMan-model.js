@@ -8,16 +8,42 @@ const PostMan= Schema({
         required: true},
     username:{
         type:String, 
-        required: true,
-        unique: true,
+        required: [true,"username is required"],
+        minLength: [2, "Too short"],
+        maxLength: [50, "Too Long"]
     },password:{
         type:String, 
+
+        required: [true,"password is required"],
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
+    },email:{
+
         required: true,
     },area:{
+
         type:String, 
-        required: true,
+        required: [true,"email is required"],
+        unique: true,
+        validate: {
+            validator: email => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+            message: "Not valid email"
+        }
     },mobileNumber:{
         type:String, 
+
+        required: [true,"mobile number is required"],
+        minLength: [9, "Too short"],
+        maxLength: [10, "Too Long"]
+    },area: {
+        type: String,
+        required: [true,"name is required"],
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
+    },status: {
+        type: Boolean,
+        default: true
+
         required: true,
     },branchID:{
         type:String,
@@ -25,6 +51,7 @@ const PostMan= Schema({
     },email:{
         type:String, 
         required:true
+
     }
 },{ timestamps: true });
 
