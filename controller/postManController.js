@@ -421,7 +421,7 @@ postManController.getDeliveredCouriers = async (req, res, next) => {
         const response = {
             err: 0,
             couriers: courier_list,//should get object list
-            msg: ""
+            msg: "Couriers Found"
         }
         return res.json(response);
         }else{

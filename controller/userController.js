@@ -218,7 +218,7 @@ userController.getSentCouriersList = async (req, res, next) => {
     }
 };
 userController.getReceivedCouriersList = async (req, res, next) => {
-    console.log('Getting all couriers sent by '+req.params.userID);
+    console.log('Getting all couriers Received by '+req.params.userID);
     try {
         const courierList = await userServices.getReceivedCouriers(req.params.userID);
         if(courierList.length > 0){

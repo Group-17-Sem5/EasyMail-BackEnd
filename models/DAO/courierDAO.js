@@ -35,19 +35,19 @@ class CourierDAO{
     static async readAllEntityByPostMan(postManId){
 
         console.log(postManId+"finding assigned Couriers");
-        const couriers =await Courier.find({postManID: postManId});
+        const couriers =await Courier.find({postManID: postManId,isAssigned:true,isDelivered:false,isCancelled:false});
         return couriers;
     }
     static async readDeliveredEntityByPostMan(postManId){
 
         console.log(postManId+"finding assigned Couriers");
-        const couriers =await Courier.find({postManID: postManId,isDelivered:true});
+        const couriers =await Courier.find({postManID: postManId,isAssigned:true,isDelivered:true});
         return couriers;
     }
     static async readCancelledEntityByPostMan(postManId){
 
         console.log(postManId+"finding assigned Couriers");
-        const couriers =await Courier.find({postManID: postManId,isCancelled:true});
+        const couriers =await Courier.find({postManID: postManId,isAssigned:true,isCancelled:true});
         return couriers;
     }
 
