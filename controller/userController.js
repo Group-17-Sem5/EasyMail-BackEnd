@@ -56,7 +56,59 @@ userController.register=async (req, res, next) => {
     }
 
 }
+userController.updateProfile = async (req, res, next) => {
+    console.log('Changing the details '+req.body.username);
+    try {
+        const result = await userServices.changeMyProfile(req.body);
+        console.log(result);
+        if(result){
+        const response = {
+            err: 0,
+            obj: {},//should get object list
+            msg: "Profile changed"
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            obj: {},
+            msg: "Something went wrong"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+    next(err);
+    }
+};
+userController.getAddresses= async (req, res, next) => {
+    console.log('getting all addresses');
+    try {
+        const address_list = await userServices.getAddressList();
+        console.log(address_list.length);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(address_list.length > 0){
+        const response = {
+            err: 0,
+            addresses: address_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            addresses: {},
+            msg: "No Addresses Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+        next(err);
+    }
+    
 
+};
 userController.changeAddress = async (req, res, next) => {
     console.log('Changing the address of '+req.body.username);
     try {

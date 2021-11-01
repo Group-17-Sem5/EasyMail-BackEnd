@@ -9,7 +9,8 @@ const jwt= require('jsonwebtoken');
 //Postman profile update
 router.post('/login',userController.login);
 router.post('/register',userController.register);
-
+router.put('/update-profile',authorization,userController.updateProfile);
+router.get('/addresses',userController.getAddresses);
 
 //addresses handling by user
 router.put('/address-change/:oldAddress',authorization, userController.changeAddress);  

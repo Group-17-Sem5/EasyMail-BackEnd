@@ -1,0 +1,1 @@
+web: npx node index.js

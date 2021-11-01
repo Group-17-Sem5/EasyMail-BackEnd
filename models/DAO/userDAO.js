@@ -20,8 +20,8 @@ class UserDAO{
             const user =await User.create({
                 userName: userDetail.username,
                 password: hashedPwd,
-                addressId: userDetail.addressID,
-                branchID:userDetail.branchID,
+                addressId: userDetail.addressId,
+                branchID:userDetail.branchId,
                 mobileNumber:userDetail.phoneNumber,
                 email:userDetail.email,
                 
@@ -56,8 +56,39 @@ class UserDAO{
         return user;
     }
 
-    static async updateOneEntity(){
-        
+    static async changeMyProfile(userDetail){
+        try {
+            const hashedPwd = await bcrypt.hash(userDetail.password, 12);
+            console.log(hashedPwd);
+            // const user =await User.create({
+            //     userName: userDetail.username,
+            //     password: hashedPwd,
+            //     addressId: userDetail.addressID,
+            //     branchID:userDetail.branchID,
+            //     mobileNumber:userDetail.phoneNumber,
+            //     email:userDetail.email,
+                
+            //     status:true
+            //   });
+
+              const status= await User.updateOne({userName:userDetail.username}, { $set: { "password" : hashedPwd, "addressId" : userDetail.addressId,"branchID":userDetail.branchId,
+              "mobileNumber":userDetail.phoneNumber,
+              "email":userDetail.email,"status":true},returnNewDocument : true  });
+              return {ok:1,result:status,msg:"successful"
+              
+              };
+            //console.log(user);
+    
+            
+           
+            // const insertResult = await User.create({
+            //   username: userDetail.username,
+            //   password: hashedPwd,
+            // });
+          } catch (error) {
+            console.log(error);
+            res.status(500).send("Internal Server error occured");
+          }
     }
 
     static async deleteOneEntity(){

@@ -7,7 +7,7 @@ const QueryDAO= require('../models/DAO/queryDAO');
 const CourierDAO= require('../models/DAO/courierDAO');
 const config= require('../config/config');
 const jwt=require('jsonwebtoken');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 class UserService{
     constructor(){
 
@@ -135,6 +135,57 @@ class UserService{
             };
         }
 
+    };
+    async getAddressList(){
+        
+        //         var OneAddress = { addressID,location,description,userIDList,branchID,lat,lng };
+        //         addressList.push(OneAddress);
+        //     });
+
+        //     return addressList;
+
+        // } catch (error) {
+        //     console.log('Error when finding Addresses');
+        // }
+
+
+        try {
+
+            var addressList = [];
+            
+            var addresses = await AddressDAO.readAllEntity();
+            
+            addresses.forEach(address => {
+                let addressID = address.addressID;
+                let description = address.description;
+                let lat=address.lat;
+                let lng=address.lng;
+                let branchID=address.branchID;
+                let userIDList = address.userIDList;
+                var oneAddress = {addressID,description,lat,lng,branchID,userIDList };
+                addressList.push(oneAddress);
+            });
+
+            return addressList;
+        } catch (error) {
+            console.log('Error when finding mail');
+        }
+
+    }
+    async changeMyProfile(details){
+        
+
+        try{
+            console.log(details.username);
+       
+      
+
+        await UserDAO.changeMyProfile(details);
+        return true;
+        }catch(error){
+            console.log("error when changing the profile");
+            return false;
+        }
     }
 
     async getSentMailsList(userID){
