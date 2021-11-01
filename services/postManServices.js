@@ -6,7 +6,7 @@ const QueryDAO=require('../models/DAO/queryDAO');
 const mail= require('../models/mail-model');
 const address= require('../models/address-model');
 const config= require('../config/config');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt=require('jsonwebtoken');
 class PostManService{
     constructor(){

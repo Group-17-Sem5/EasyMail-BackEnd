@@ -7,7 +7,7 @@ const QueryDAO= require('../models/DAO/queryDAO');
 const CourierDAO= require('../models/DAO/courierDAO');
 const config= require('../config/config');
 const jwt=require('jsonwebtoken');
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 class UserService{
     constructor(){
 
