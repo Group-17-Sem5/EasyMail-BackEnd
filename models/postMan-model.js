@@ -19,9 +19,6 @@ const PostMan= Schema({
         maxLength: [256, "Too Long"]
     },email:{
 
-        required: true,
-    },area:{
-
         type:String, 
         required: [true,"email is required"],
         unique: true,
@@ -40,18 +37,10 @@ const PostMan= Schema({
         required: [true,"name is required"],
         minLength: [2, "Too short"],
         maxLength: [256, "Too Long"]
-    },status: {
-        type: Boolean,
-        default: true,
-
-        required: true,
-    },branchID:{
+    }
+    ,branchId:{
         type:String,
         required:true,
-    },email:{
-        type:String, 
-        required:true
-
     }
 },{ timestamps: true });
 
