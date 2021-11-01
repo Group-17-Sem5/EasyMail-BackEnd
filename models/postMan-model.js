@@ -5,26 +5,42 @@ const Schema= mongoose.Schema;
 const PostMan= Schema({
     status:{
         type:Boolean,
-        required: true},
+        required: true,},
     username:{
         type:String, 
-        required: true,
-        unique: true,
+        required: [true,"username is required"],
+        minLength: [2, "Too short"],
+        maxLength: [50, "Too Long"]
     },password:{
         type:String, 
-        required: true,
-    },area:{
+
+        required: [true,"password is required"],
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
+    },email:{
+
         type:String, 
-        required: true,
+        required: [true,"email is required"],
+        unique: true,
+        validate: {
+            validator: email => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email),
+            message: "Not valid email"
+        }
     },mobileNumber:{
         type:String, 
-        required: true,
-    },branchID:{
+
+        required: [true,"mobile number is required"],
+        minLength: [9, "Too short"],
+        maxLength: [10, "Too Long"]
+    },area: {
+        type: String,
+        required: [true,"name is required"],
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
+    }
+    ,branchId:{
         type:String,
         required:true,
-    },email:{
-        type:String, 
-        required:true
     }
 },{ timestamps: true });
 

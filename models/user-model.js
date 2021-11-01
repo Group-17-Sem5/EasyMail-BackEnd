@@ -7,21 +7,35 @@ const User= Schema({
         type:String, 
         required: true,
         unique: true,
+                validate:{
+            validator: name => /^[a-zA-Z0-9\s]*$/.test(name),
+            message:"Name only contain space and letters"
+        }
     },password:{
         type:String, 
         required: true,
+        minLength: [2, "Too short"],
+        maxLength: [256, "Too Long"]
     },addressId:{
         type:String, 
         required: true,
     },mobileNumber:{
         type:String, 
         required: true,
+        minLength: [9, "Too short"],
+        maxLength: [10, "Too Long"]
     },branchID:{
         type:String,
         required:true,
     },email:{
         type:String,
-        required:true
+        required:true,
+        validate: {
+                        validator: function(v) {
+                            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+                        },
+                        message: "Please enter a valid email"
+                    },
     },status:{
         type:Boolean,
         required:true

@@ -8,6 +8,9 @@ const Courier=Schema({
     weight:{
         type:Number,
         required:false,
+        validate: {
+        validator: weight => weight>0,
+        message: "Incorrect value for weight"},
     },
     lastAppearedBranchID:{
         required:true,

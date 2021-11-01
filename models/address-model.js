@@ -4,6 +4,8 @@ const Address= Schema({
     addressID:{
         type:String, 
         required: true,
+        minLength: [6, "Too short"],
+        maxLength: [256, "Too Long"],
         unique: true,
     },description:{
         type:String, 
