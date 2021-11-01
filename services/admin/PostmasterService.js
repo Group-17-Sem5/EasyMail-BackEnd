@@ -1,4 +1,4 @@
-const Postmaster = require('../../models/postMaster/postMaster')
+const Postmaster = require('../../models/postMaster')
 
 exports.findByEmail = (email) => {
     return Postmaster.findOne({email})

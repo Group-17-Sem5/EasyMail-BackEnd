@@ -1,4 +1,4 @@
-const User = require('../../models/postMaster/user')
+const User = require('../../models/user-model')
 const mongoose = require('mongoose')
 
 exports.findByEmail = (email) => {

@@ -66,9 +66,9 @@ const getPostman = (req,res) => {
 }
 
 const getPostmanCount = (req,res) => {
-    const branchId = req.user.branchId
+    const branchID = req.user.branchID
     console.log(req.user)
-    Postman.getPostmanCount(branchId)
+    Postman.getPostmanCount(branchID)
     .then(result=>{
         res.json(result[0])
     })

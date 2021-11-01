@@ -1,4 +1,4 @@
-const Courier = require('../../models/postMaster/courier')
+const Courier = require('../../models/courier-model')
 const mongoose = require('mongoose')
 
 exports.findAll = () => {

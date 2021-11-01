@@ -38,4 +38,4 @@ const Mail= Schema({
 },{ timestamps: true });
 
 
-module.exports =mongoose.model("Mailn",Mail);
+module.exports =mongoose.model("Mail",Mail);

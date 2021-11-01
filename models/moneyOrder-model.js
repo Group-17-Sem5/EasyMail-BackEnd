@@ -10,6 +10,10 @@ const MoneyOrder= Schema({
     },amount:{
         type:String, 
         required: true,
+        validate: {
+                        validator: weight => weight>0,
+                        message: "Incorrect value for amount"
+                    }
     },
     sourceBranchID:{
         type:String, 

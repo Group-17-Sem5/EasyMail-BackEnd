@@ -8,7 +8,7 @@ router.get('/:id',ensureLogin,PostmanController.getPostman)
 router.post('/add',ensureLogin,PostmanController.createPostman)
 router.delete('/delete/:id',ensureLogin,PostmanController.deletePostman)
 router.post('/update/:id',ensureLogin,PostmanController.updatePostman)
-router.get('/get/count',ensureLogin,PostmanController.getPostmanCount)
+router.get('/get/count',PostmanController.getPostmanCount)
 router.post('/updateStatus/:id',ensureLogin,PostmanController.changeStatus)
 
 module.exports = router;

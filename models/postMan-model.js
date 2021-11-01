@@ -5,7 +5,7 @@ const Schema= mongoose.Schema;
 const PostMan= Schema({
     status:{
         type:Boolean,
-        required: true},
+        required: true,},
     username:{
         type:String, 
         required: [true,"username is required"],
@@ -42,7 +42,7 @@ const PostMan= Schema({
         maxLength: [256, "Too Long"]
     },status: {
         type: Boolean,
-        default: true
+        default: true,
 
         required: true,
     },branchID:{

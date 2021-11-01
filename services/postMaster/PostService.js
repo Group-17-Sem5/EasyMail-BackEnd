@@ -1,4 +1,4 @@
-const Post = require('../../models/postMaster/post')
+const Post = require('../../models/mail-model')
 const mongoose = require('mongoose')
 
 exports.findAll = () => {

@@ -1,4 +1,4 @@
-const Address = require('../../models/postMaster/address')
+const Address = require('../../models/address-model')
 
 
 exports.findAll = () => {
