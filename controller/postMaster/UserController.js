@@ -18,13 +18,13 @@ const getAll = (req,res) => {
 
 const create =async (req,res) => {console.log(req.user)
     const branchID = req.user.branchId
-    const { email, mobileNumber, username,address } = req.body
+    const { email, mobileNumber, userName,address } = req.body
     const password = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
     await Address.create(address)
     .then(resul=>{
         const addressID = resul.addressID
-        User.create(email, mobileNumber, addressID,hashPassword,username,branchID)
+        User.create(email, mobileNumber, addressID,hashPassword,userName,branchID)
         .then(result=>{
             res.json(result)
             email && SendMail(email,password)

@@ -24,7 +24,7 @@ const BranchSchema = new Shema({
         type: String,
         required: [true, "Address is required"],
         minLength: [6, "Too short"],
-        maxLength: [10, "Too Long"]
+        maxLength: [256, "Too Long"]
     }
 },{ timestamps: true })
 

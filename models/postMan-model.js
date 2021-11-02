@@ -5,7 +5,8 @@ const Schema= mongoose.Schema;
 const PostMan= Schema({
     status:{
         type:Boolean,
-        required: true,},
+        default: true
+    },
     username:{
         type:String, 
         required: [true,"username is required"],
