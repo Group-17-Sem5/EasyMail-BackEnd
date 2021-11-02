@@ -14,8 +14,8 @@ const getAll = (req,res) => {
 
 const create = (req,res) => { 
     const sourceBranchID = req.user.branchId
-    const { lastAppearedBranchID,senderID,receiverID,postManID,amount } = req.body
-    Moneyorder.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,amount)
+    const { receivingBranchID,specialCode,senderID,receiverID,postManID,amount } = req.body
+    Moneyorder.create(sourceBranchID,receivingBranchID,specialCode,senderID,receiverID,postManID,amount)
     .then(result=>{
         console.log(result)
         res.json(result)
@@ -27,7 +27,6 @@ const create = (req,res) => {
 
 const del = (req,res) => {
     const {id} = req.params
-    console.log('id')
     Moneyorder.del(id)
     .then(result=>{
         res.json(result)
@@ -39,8 +38,8 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const { lastAppearedBranchID,senderID,receiverID,postManID,amount } = req.body
-    Moneyorder.update(id,lastAppearedBranchID,senderID,receiverID,postManID,amount)
+    const { receivingBranchID,specialCode,senderID,receiverID,postManID,amount } = req.body
+    Moneyorder.update(id,receivingBranchID,specialCode,senderID,receiverID,postManID,amount)
     .then(result=>{
         res.json(result)
     })
@@ -53,8 +52,8 @@ const getOne = (req,res) => {
     const {id} = req.params
     Moneyorder.getOne(id)
     .then(result=>{
-        res.json(result[0])
-        console.log(result[0])
+        res.json(result)
+        console.log(result)
     })
     .catch(err=>{
         console.log(err)

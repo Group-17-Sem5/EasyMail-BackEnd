@@ -14,33 +14,39 @@ const Courier=Schema({
     },
     lastAppearedBranchID:{
         required:true,
-        type:String
+        type:String,
+        ref:'Branch'
     },
     postManID:{
         type:String,
-        required:false
+        required:false,
+        ref:'Postman'
     },
     sourceBranchID:{
         type:String,
-        required:true
+        required:true,
+        ref:'Branch'
     },receivingBranchID:{
         type:String,
-        required:true
+        required:true,
+        ref:'Branch'
     },senderID:{
         type:String,
-        required:true
+        required:true,
+        ref:'User'
     },receiverID:{
         type:String,
-        required:true
+        required:true,
+        ref:'User'
     },isAssigned:{
         type:Boolean,
-        required:true
+        required:false
     },isDelivered:{
         type:Boolean,
-        required:true
+        required:false
     },isCancelled:{
         type:Boolean,
-        required:true
+        required:false
     }
 },{ timestamps: true });
 module.exports =mongoose.model("Courier",Courier);
