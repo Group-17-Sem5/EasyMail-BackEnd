@@ -45,8 +45,17 @@ class UserDAO{
         
     }
 
-    static async readAllEntitySent(){
-
+    static async findUser(username){
+      console.log(username+"checking");
+      var user =await User.findOne({userName: username});
+      if(user){
+        console.log(user);
+        return true;
+      }
+      else{
+        return false;
+      }
+    
     }
     static async readAllEntityReceived(){}
 

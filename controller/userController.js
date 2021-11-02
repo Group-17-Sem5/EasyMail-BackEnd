@@ -30,26 +30,43 @@ userController.login= async (req, res, next) => {
     }
 }
 userController.register=async (req, res, next) => {
+  
     console.log('registering new user');
+
+    var result = await userServices.check(req.body.username);
+    console.log(result);
+
     try {
-        const state = await userServices.register(req.body);
-        //console.log(state);
-        //const mail_list= [{"email":"sfg","df":"df"}];
-        if(state.err==0){
-        const response = {
-            err: 0,
-            token: state.token,//should get object list
-            msg: ""
-        }
-        return res.json(response);
-        }else{
-        const response = {
+        if(result){
+            const response = {
             err: 1,
-            token: "",
-            msg: state.msg
+            token: "",//should get object list
+            msg: "UserName Already Taken"
+            }
+            console.log("username Already taken")
+            return res.json(response);
+        }else{
+            const state = await userServices.register(req.body);
+            //console.log(state);
+            //const mail_list= [{"email":"sfg","df":"df"}];
+            if(state.err==0){
+            const response = {
+                err: 0,
+                token: state.token,//should get object list
+                msg: ""
+            }
+            return res.json(response);
+            }else{
+            const response = {
+                err: 1,
+                token: "",
+                msg: state.msg
+            }
+            return res.json(response);
+            }
         }
-        return res.json(response);
-        }
+
+
         
     } catch (err) {
     next(err);
@@ -84,7 +101,35 @@ userController.updateProfile = async (req, res, next) => {
 userController.getAddresses= async (req, res, next) => {
     console.log('getting all addresses');
     try {
-        const address_list = await userServices.getAddressList();
+        const address_list = await userServices.getAllAddressList();
+        console.log(address_list.length);
+        //const mail_list= [{"email":"sfg","df":"df"}];
+        if(address_list.length > 0){
+        const response = {
+            err: 0,
+            addresses: address_list,//should get object list
+            msg: ""
+        }
+        return res.json(response);
+        }else{
+        const response = {
+            err: 1,
+            addresses: {},
+            msg: "No Addresses Available"
+        }
+        return res.json(response);
+        }
+        
+    } catch (err) {
+        next(err);
+    }
+    
+
+};
+userController.getAddressesWithBranch= async (req, res, next) => {
+    console.log('getting all addresses with branch');
+    try {
+        const address_list = await userServices.getAddressList(req.params.branchID);
         console.log(address_list.length);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(address_list.length > 0){

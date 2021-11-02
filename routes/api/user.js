@@ -10,6 +10,7 @@ const jwt= require('jsonwebtoken');
 router.post('/login',userController.login);
 router.post('/register',userController.register);
 router.put('/update-profile',authorization,userController.updateProfile);
+router.get('/addresses/:branchID',userController.getAddressesWithBranch);
 router.get('/addresses',userController.getAddresses);
 
 //addresses handling by user
