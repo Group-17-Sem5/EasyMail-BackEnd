@@ -5,6 +5,7 @@ const {ensureLogin} = require('../../config/auth')
 
 router.get('/',ensureLogin,CourierController.getAll)
 router.get('/:id',ensureLogin,CourierController.getOne)
+router.post('/',ensureLogin,CourierController.filter)
 router.post('/add',ensureLogin,CourierController.create)
 router.delete('/delete/:id',ensureLogin,CourierController.del)
 router.post('/update/:id',ensureLogin,CourierController.update)
