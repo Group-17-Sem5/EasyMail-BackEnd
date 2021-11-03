@@ -262,7 +262,8 @@ class PostManService{
          return { err:1,result:null,msg:"error when finding that courier"};
          }
      }
-    async getAddressList(){
+    async getAddressList(branchID){
+
         
         //         var OneAddress = { addressID,location,description,userIDList,branchID,lat,lng };
         //         addressList.push(OneAddress);
@@ -279,7 +280,7 @@ class PostManService{
 
             var addressList = [];
             
-            var addresses = await AddressDAO.readAllEntity();
+            var addresses = await AddressDAO.readAllEntity(branchID);
             
             addresses.forEach(address => {
                 let addressID = address.addressID;
@@ -298,6 +299,23 @@ class PostManService{
         }
 
     }
+    async getBranch(username){
+        try{
+            var postman= await PostManDAO.readOneEntity(username);
+            return {
+                err:0,
+                branchID:postman.branchId,
+                msg:"result found"
+            };
+        }catch (error) {
+            console.log('Error when finding the postman');
+            return {
+                err:1,
+                branchID:null,
+                msg:'Something wend wrong'
+            };
+        }
+    }    
     async getOneAddress(addressID){
         try{
             var address= await AddressDAO.readOneEntity(addressID);
