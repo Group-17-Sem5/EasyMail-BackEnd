@@ -12,7 +12,7 @@ module.exports = function (passport) {
     passport.use(
         new JWTstrategy(
             {
-                secretOrKey: process.env.JWT_SECRET,
+                secretOrKey: "easyMailPW",
                 jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
             },
             async (token, done) => {
