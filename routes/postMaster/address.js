@@ -3,6 +3,6 @@ const router = express.Router();
 const postManController = require('../../controller/postManController');
 const {ensureLogin} = require('../../config/auth')
 
-router.get('/',ensureLogin, postManController.searchAddress);
+router.get('/', postManController.searchAddress);
 
 module.exports = router;

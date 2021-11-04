@@ -158,59 +158,36 @@ exports.updatePostman = (id , postManID) => {
 
 exports.filterByDate = (startDate,endDate) => {
     return Courier.find({
-        created_at: {
+        // postManID: postManID,
+        createdAt: {
             $gte: startDate,
-            $lt: Date(endDate)
+            $lt: endDate
         }
     })
 }
 
-
-exports.countByDateTotal = () => {
-    return Courier.aggregate(
-        [
-            {
-                $group:
-                {
-                    _id:
-                    {
-                        day: { $dayOfMonth: "$createdAt" },
-                        month: { $month: "$createdAt" }, 
-                        year: { $year: "$createdAt" }
-                    }, 
-                    count: { $sum:1 },
-                    date: { $first: "$createdAt" },
-                    // isAssigned:{$first:"$isAssigned"},
-                    // isCancelled:{$first:"$isCancelled"},
-                    // isDelivered:{$first:"$isDelivered"}
-                }
-            },
-            {
-                $project:
-                {
-                    date:
-                    {
-                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
-                    },
-                    count: 1,
-                    _id: 0,
-                    // isAssigned:1,
-                    // isCancelled:1,
-                    // isDelivered:1
-                }
-            }
-        ])
+exports.count = () => {
+    return Courier.aggregate([
+        { 
+            $group: { 
+                _id: null, 
+                cancelled: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                delivered: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                assigned: { $sum: { $cond: [ { $eq: [ "$isAssigned", true ] }, 1, 0 ] } }
+            } 
+        },
+        { 
+            $project: { 
+                _id: 0 
+            } 
+        }
+    ])
 }
 
 exports.countByDate = () => {
     return Courier.aggregate(
         [
             {
-                $match: {
-                    isDelivered: true
-                }
-            },
-            {
                 $group:
                 {
                     _id:
@@ -219,11 +196,11 @@ exports.countByDate = () => {
                         month: { $month: "$createdAt" }, 
                         year: { $year: "$createdAt" }
                     }, 
-                    count: { $sum:1 },
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
                     date: { $first: "$createdAt" },
-                    // isAssigned:{$first:"$isAssigned"},
-                    // isCancelled:{$first:"$isCancelled"},
-                    // isDelivered:{$first:"$isDelivered"}
+    
                 }
             },
             {
@@ -233,52 +210,16 @@ exports.countByDate = () => {
                     {
                         $dateToString: { format: "%m-%d-%Y", date: "$date" }
                     },
-                    count: 1,
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
                     _id: 0,
-                    // isAssigned:1,
-                    // isCancelled:1,
-                    // isDelivered:1
-                }
-            }
-        ])
-}
-
-exports.countByDateCancel = () => {
-    return Courier.aggregate(
-        [
-            {
-                $match: {
-                    isCancelled: true
+                   
                 }
             },
             {
-                $group:
-                {
-                    _id:
-                    {
-                        day: { $dayOfMonth: "$createdAt" },
-                        month: { $month: "$createdAt" }, 
-                        year: { $year: "$createdAt" }
-                    }, 
-                    count: { $sum:1 },
-                    date: { $first: "$createdAt" },
-                    // isAssigned:{$first:"$isAssigned"},
-                    // isCancelled:{$first:"$isCancelled"},
-                    // isDelivered:{$first:"$isDelivered"}
-                }
-            },
-            {
-                $project:
-                {
-                    date:
-                    {
-                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
-                    },
-                    count: 1,
-                    _id: 0,
-                    // isAssigned:1,
-                    // isCancelled:1,
-                    // isDelivered:1
+                $sort: {
+                  date: 1
                 }
             }
         ])

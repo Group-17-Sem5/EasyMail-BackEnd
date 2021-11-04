@@ -35,12 +35,15 @@ const Mail= Schema({
     },isAssigned:{
         type:Boolean,
         required:false,
+        default: false
     },isDelivered:{
         type: Boolean,
         required:false,
+        default: false
     },isCancelled:{
         type:Boolean,
         required:false,
+        default: false
     }
 },{ timestamps: true });
 

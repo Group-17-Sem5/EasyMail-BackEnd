@@ -40,13 +40,16 @@ const Courier=Schema({
         ref:'User'
     },isAssigned:{
         type:Boolean,
-        required:false
+        required:false,
+        default: false
     },isDelivered:{
         type:Boolean,
-        required:false
+        required:false,
+        default: false
     },isCancelled:{
         type:Boolean,
-        required:false
+        required:false,
+        default: false
     }
 },{ timestamps: true });
 module.exports =mongoose.model("Courier",Courier);
