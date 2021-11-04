@@ -5,8 +5,8 @@ exports.findAll = () => {
     return Address.find()
 }
 
-exports.create = (address) => {
-    const addresses = new Address({address})
+exports.create = (addressID,address) => {
+    const addresses = new Address({addressID,description:address})
     return addresses.save()
 }
 

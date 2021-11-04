@@ -54,7 +54,7 @@ exports.findAll = () => {
 }
 
 exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch) => {
-    const courier = new Courier({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch})
+    const courier = new Courier({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranchID:receivingBranch})
     return courier.save()
 }
 
@@ -64,7 +64,7 @@ exports.del = (id) => {
 
 exports.update = (id,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch) => {
     return Courier.updateOne({_id:id},{
-        $set: {sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch}
+        $set: {sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranchID:receivingBranch}
     })
 }
 
@@ -163,4 +163,123 @@ exports.filterByDate = (startDate,endDate) => {
             $lt: Date(endDate)
         }
     })
+}
+
+
+exports.countByDateTotal = () => {
+    return Courier.aggregate(
+        [
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    count: { $sum:1 },
+                    date: { $first: "$createdAt" },
+                    // isAssigned:{$first:"$isAssigned"},
+                    // isCancelled:{$first:"$isCancelled"},
+                    // isDelivered:{$first:"$isDelivered"}
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    count: 1,
+                    _id: 0,
+                    // isAssigned:1,
+                    // isCancelled:1,
+                    // isDelivered:1
+                }
+            }
+        ])
+}
+
+exports.countByDate = () => {
+    return Courier.aggregate(
+        [
+            {
+                $match: {
+                    isDelivered: true
+                }
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    count: { $sum:1 },
+                    date: { $first: "$createdAt" },
+                    // isAssigned:{$first:"$isAssigned"},
+                    // isCancelled:{$first:"$isCancelled"},
+                    // isDelivered:{$first:"$isDelivered"}
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    count: 1,
+                    _id: 0,
+                    // isAssigned:1,
+                    // isCancelled:1,
+                    // isDelivered:1
+                }
+            }
+        ])
+}
+
+exports.countByDateCancel = () => {
+    return Courier.aggregate(
+        [
+            {
+                $match: {
+                    isCancelled: true
+                }
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    count: { $sum:1 },
+                    date: { $first: "$createdAt" },
+                    // isAssigned:{$first:"$isAssigned"},
+                    // isCancelled:{$first:"$isCancelled"},
+                    // isDelivered:{$first:"$isDelivered"}
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    count: 1,
+                    _id: 0,
+                    // isAssigned:1,
+                    // isCancelled:1,
+                    // isDelivered:1
+                }
+            }
+        ])
 }

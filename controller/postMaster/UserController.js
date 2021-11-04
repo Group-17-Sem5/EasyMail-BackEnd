@@ -20,8 +20,9 @@ const create =async (req,res) => {console.log(req.user)
     const branchID = req.user.branchId
     const { email, mobileNumber, userName,address } = req.body
     const password = randomId(10)
+    const addressID = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
-    await Address.create(address)
+    await Address.create(addressID,address)
     .then(resul=>{
         const addressID = resul.addressID
         User.create(email, mobileNumber, addressID,hashPassword,userName,branchID)

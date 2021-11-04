@@ -87,6 +87,38 @@ const filter = (req,res) => {
     })
 }
 
+const countByDate = (req,res) => {
+    Courier.countByDate()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+const countByDateTotal = (req,res) => {
+    Courier.countByDateTotal()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const countByDateCancel = (req,res) => {
+    Courier.countByDateCancel()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
 module.exports= {
     getAll,
     create,
@@ -94,5 +126,8 @@ module.exports= {
     update,
     getOne,
     updatePostman,
-    filter
+    filter,
+    countByDate,
+    countByDateTotal,
+    countByDateCancel
 }
