@@ -136,7 +136,7 @@ class UserService{
         }
 
     };
-    async getAddressList(){
+    async getAddressList(branchID){
         
         //         var OneAddress = { addressID,location,description,userIDList,branchID,lat,lng };
         //         addressList.push(OneAddress);
@@ -153,7 +153,43 @@ class UserService{
 
             var addressList = [];
             
-            var addresses = await AddressDAO.readAllEntity();
+            var addresses = await AddressDAO.readAllEntity(branchID);
+            
+            addresses.forEach(address => {
+                let addressID = address.addressID;
+                let description = address.description;
+                let lat=address.lat;
+                let lng=address.lng;
+                let branchID=address.branchID;
+                let userIDList = address.userIDList;
+                var oneAddress = {addressID,description,lat,lng,branchID,userIDList };
+                addressList.push(oneAddress);
+            });
+
+            return addressList;
+        } catch (error) {
+            console.log('Error when finding mail');
+        }
+
+    }
+    async getAllAddressList(){
+        
+        //         var OneAddress = { addressID,location,description,userIDList,branchID,lat,lng };
+        //         addressList.push(OneAddress);
+        //     });
+
+        //     return addressList;
+
+        // } catch (error) {
+        //     console.log('Error when finding Addresses');
+        // }
+
+
+        try {
+
+            var addressList = [];
+            
+            var addresses = await AddressDAO.readTheAllEntity();
             
             addresses.forEach(address => {
                 let addressID = address.addressID;
@@ -222,6 +258,25 @@ class UserService{
 
         } catch (error) {
             console.log('Error when finding mail');
+        }
+    }
+    async check(username){
+        
+        
+        try{ 
+            console.log(username);
+            var result =await UserDAO.findUser(username);
+            if(result){
+                console.log(result);
+                return true;
+            }
+            else{
+                return false;
+            }
+        
+        }catch(error){
+            console.log("error when finding the user");
+            return false;
         }
     }
     async changeMyAddress(details,oldAddress){

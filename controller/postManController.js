@@ -35,7 +35,8 @@ postManController.login= async (req, res,next) => {
 postManController.searchAddress= async (req, res, next) => {
     console.log('getting all addresses');
     try {
-        const address_list = await postManServices.getAddressList();
+        var branchRes=await postManServices.getBranch(req.params.id);
+        const address_list = await postManServices.getAddressList(branchRes.branchID);
         console.log(address_list.length);
         //const mail_list= [{"email":"sfg","df":"df"}];
         if(address_list.length > 0){

@@ -19,7 +19,7 @@ const passport = require('passport')
 require('./config/passport')(passport);
 //const config = require('./config/DB');
 //mongoose.connect('mongodb://localhost:27017/easyMail', {useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});
-const Port =process.env.PORT || 5000;
+const Port = process.env.PORT || 5000;
 // const connection =mongoose.connection;
 // connection.once("open", () => {
 //     console.log("mongoDB connected");

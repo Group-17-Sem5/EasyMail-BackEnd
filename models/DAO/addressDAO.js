@@ -23,8 +23,13 @@ class AddressDAO{
         return address;
     }
 
-    static async readAllEntity(){
-        const addressesList = await Address.find({});
+    static async readAllEntity(branchId){
+        const addressesList = await Address.find({$or:[{branchID:branchId},{branchID:"default"}]});
+       
+         return addressesList;
+    }
+    static async readTheAllEntity(){
+        const addressesList = await Address.find();
        
          return addressesList;
     }

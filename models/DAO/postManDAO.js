@@ -23,7 +23,6 @@ class PostManDAO{
         const postMan =await PostMan.findOne({username: userName,status:true});
         return postMan;
     }
-
     static async updateOneEntity(){
         
     }
