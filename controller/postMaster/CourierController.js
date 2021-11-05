@@ -75,9 +75,9 @@ const updatePostman = (req,res) => {
 }
 
 const filter = (req,res) => {
-    // const {startDate,endDate} = req.body
-    const startDate= "11-01-2021"
-    const endDate= "11-05-2021"
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
     
     Courier.filterByDate(startDate,endDate)
     .then(result=>{

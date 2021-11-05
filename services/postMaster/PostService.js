@@ -155,3 +155,73 @@ exports.updatePostman = (id , postManID) => {
         $set: {postManID, isAssigned: true}
     })
 }
+
+
+exports.filterByDate = (startDate,endDate) => {
+    return Post.find({
+        // postManID: postManID,
+        createdAt: {
+            $gte: startDate,
+            $lt: endDate
+        }
+    })
+}
+
+exports.count = () => {
+    return Post.aggregate([
+        { 
+            $group: { 
+                _id: null, 
+                cancelled: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                delivered: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                assigned: { $sum: { $cond: [ { $eq: [ "$isAssigned", true ] }, 1, 0 ] } }
+            } 
+        },
+        { 
+            $project: { 
+                _id: 0 
+            } 
+        }
+    ])
+}
+
+exports.countByDate = () => {
+    return Post.aggregate(
+        [
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
+}

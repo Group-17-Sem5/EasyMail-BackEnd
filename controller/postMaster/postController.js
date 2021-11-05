@@ -73,11 +73,52 @@ const updatePostman = (req,res) => {
     })
 }
 
+
+const filter = (req,res) => {
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
+    
+    Post.filterByDate(startDate,endDate)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const countByDate = (req,res) => {
+    Post.countByDate()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const count = (req,res) => {
+    Post.count()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
 module.exports= {
     getAll,
     create,
     del,
     update,
     getOne,
-    updatePostman
+    updatePostman,
+    filter,
+    countByDate,
+    count
 }
