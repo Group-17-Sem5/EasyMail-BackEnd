@@ -37,7 +37,7 @@
   },
   "scripts": {
     "test": "jest --watch",
-    "start": "node index",
+    "start": "node index.js",
     "dev": "nodemon index.js"
   },
   "repository": {
