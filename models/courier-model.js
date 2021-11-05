@@ -15,12 +15,11 @@ const Courier=Schema({
     lastAppearedBranchID:{
         required:true,
         type:String,
-       
+        
     },
     postManID:{
         type:String,
         required:false,
-        
     },
     sourceBranchID:{
         type:String,

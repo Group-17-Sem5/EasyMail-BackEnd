@@ -4,7 +4,7 @@ const router = express.Router();
 // All routes of Postman
 const postManRoutes = require('./api/postMan');
 const userRoutes=require('./api/user');
-//router.use('/clerk',require('./clerk'));
+//router.use('/clerk',require('./clerk'));    //!error
 
 //postMan routes
 router.use('/postMan', postManRoutes);
