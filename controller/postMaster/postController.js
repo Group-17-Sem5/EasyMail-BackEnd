@@ -14,8 +14,10 @@ const getAll = (req,res) => {
 
 const create = (req,res) => { 
     const sourceBranchID = req.user.branchId
+
     const { receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
     Post.create(receivingBranchID,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+
     .then(result=>{
         res.json(result)
     })
@@ -38,8 +40,10 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
+
     const { receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
     Post.update(id,receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+
     .then(result=>{
         res.json(result)
     })
@@ -52,6 +56,7 @@ const getOne = (req,res) => {
     const {id} = req.params
     Post.getOne(id)
     .then(result=>{
+
         res.json(result)
         console.log(result)
     })
@@ -105,6 +110,7 @@ const count = (req,res) => {
     .then(result=>{
         res.json(result)
         console.log(result)
+
     })
     .catch(err=>{
         console.log(err)
@@ -116,9 +122,11 @@ module.exports= {
     create,
     del,
     update,
+
     getOne,
     updatePostman,
     filter,
     countByDate,
     count
+
 }

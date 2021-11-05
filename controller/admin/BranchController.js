@@ -12,8 +12,10 @@ const getAllBranch = (req,res) => {
 }
 
 const createBranch =async (req,res) => {
+
     const { branchID,branchName,mobileNumber,address } = req.body
     Branch.createBranch(branchID,branchName,mobileNumber,address)
+
     .then(result=>{
         res.json(result)
     })
