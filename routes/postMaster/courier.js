@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const CourierController = require('../../controller/postMaster/CourierController');
+const courierController = require('../../controller/postMaster/CourierController');
 const {ensureLogin} = require('../../config/auth')
 
-router.get('/',CourierController.getAll)
-router.get('/count',CourierController.countByDate)
-router.get('/allCount',CourierController.count)
-router.get('/filter',CourierController.filter)
-router.get('/:id',ensureLogin,CourierController.getOne)
-router.post('/add',ensureLogin,CourierController.create)
-router.delete('/delete/:id',ensureLogin,CourierController.del)
-router.post('/update/:id',ensureLogin,CourierController.update)
-router.post('/updatePostman/:id',ensureLogin,CourierController.updatePostman)
+router.get('/',courierController.getAll)
+router.get('/count',courierController.countByDate)
+router.get('/allCount',courierController.count)
+router.get('/filter',courierController.filter)
+router.get('/:id',ensureLogin,courierController.getOne)
+router.post('/add',ensureLogin,courierController.create)
+router.delete('/delete/:id',ensureLogin,courierController.del)
+router.post('/update/:id',ensureLogin,courierController.update)
+router.post('/updatePostman/:id',ensureLogin,courierController.updatePostman)
 
 
 module.exports = router;
