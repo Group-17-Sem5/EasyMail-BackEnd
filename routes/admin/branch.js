@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const BranchController = require('../../controller/admin/BranchController');
+const branchController = require('../../controller/admin/BranchController');
 const {ensureLogin} = require('../../config/auth')
 
-router.get('/',BranchController.getAllBranch)
-router.get('/:id',ensureLogin,BranchController.getBranch)
-router.post('/add',BranchController.createBranch)
-router.delete('/delete/:id',ensureLogin,BranchController.deleteBranch)
-router.post('/update/:id',ensureLogin,BranchController.updateBranch)
+router.get('/',branchController.getAllBranch)
+router.get('/:id',ensureLogin,branchController.getBranch)
+router.post('/add',branchController.createBranch)
+router.delete('/delete/:id',ensureLogin,branchController.deleteBranch)
+router.post('/update/:id',ensureLogin,branchController.updateBranch)
 
 module.exports = router;
