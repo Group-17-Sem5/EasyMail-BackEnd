@@ -7,7 +7,7 @@ const userRoutes=require('./api/user');
 
 //postMan routes
 router.use('/postMan', postManRoutes);
-router.use('/postMaster',require('./postMaster'))
+// router.use('/postMaster',require('./postMaster'))
 router.use('/changepassword',require('./changepassword'))
 router.use('/admin',require('./admin'))
 
