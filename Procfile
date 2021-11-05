@@ -1,2 +1,1 @@
-web:npm start
-web: ./routes/index.js
+web: npm start
