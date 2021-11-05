@@ -3,11 +3,12 @@ const router = express.Router();
 // All routes of Postman
 const postManRoutes = require('./api/postMan');
 const userRoutes=require('./api/user');
+const postMasterRoutes = require('./postMaster')
 
 
 //postMan routes
 router.use('/postMan', postManRoutes);
-// router.use('/postMaster',require('./postMaster'))
+router.use('/postMaster',postMasterRoutes)
 router.use('/changepassword',require('./changepassword'))
 router.use('/admin',require('./admin'))
 
