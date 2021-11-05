@@ -17,13 +17,15 @@ const getAll = (req,res) => {
 }
 
 const create =async (req,res) => {console.log(req.user)
-    const { email, mobileNumber, name,address } = req.body
+    const branchID = req.user.branchId
+    const { email, mobileNumber, userName,address } = req.body
     const password = randomId(10)
+    const addressID = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
-    await Address.create(address)
+    await Address.create(addressID,address)
     .then(resul=>{
-        const addressId = resul._id
-        User.create(email, mobileNumber, addressId,hashPassword,name)
+        const addressID = resul.addressID
+        User.create(email, mobileNumber, addressID,hashPassword,userName,branchID)
         .then(result=>{
             res.json(result)
             email && SendMail(email,password)
@@ -52,12 +54,12 @@ const del = (req,res) => {
 
 const update =async (req,res) => {
     const {id} = req.params
-    const addressId = await User.getAddressId(id)
-    console.log(addressId[0].addressId)
+    const addressID = await User.getAddressId(id)
+    // console.log(addressId[0].addressId)
     const { email, mobileNumber, address,name } = req.body
-    Address.update(addressId[0].addressId,address)
+    Address.update(addressID[0].addressID,address)
     .then(resul=>{
-        User.update(id,email, mobileNumber,name)
+        User.update(id,email, mobileNumber)
         .then(result=>{
             res.json(result)
         })

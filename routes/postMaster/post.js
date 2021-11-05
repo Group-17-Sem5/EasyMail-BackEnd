@@ -4,6 +4,9 @@ const PostController = require('../../controller/postMaster/PostController');
 const {ensureLogin} = require('../../config/auth')
 
 router.get('/',ensureLogin,PostController.getAll)
+router.get('/',PostController.getAll)
+router.get('/count',PostController.countByDate)
+router.get('/allCount',PostController.count)
 router.get('/:id',ensureLogin,PostController.getOne)
 router.post('/add',ensureLogin,PostController.create)
 router.delete('/delete/:id',ensureLogin,PostController.del)

@@ -15,11 +15,11 @@ const getAllPostman = (req,res) => {
 }
 
 const createPostman =async (req,res) => {
-    const branchId = req.user.branchId
+    const branchID = req.user.branchId
     const {username,email,mobileNumber,area } = req.body
     const password = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
-    Postman.createPostman(username,hashPassword,email,mobileNumber,area,branchId)
+    Postman.createPostman(username,hashPassword,email,mobileNumber,area,branchID)
     .then(result=>{
         res.json(result)
         SendMail(email,password)

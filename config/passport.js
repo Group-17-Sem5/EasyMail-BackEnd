@@ -68,7 +68,7 @@ module.exports = function (passport) {
                     if (!validate) {
                         return done(null, false, { error: true, email: true, password: false, message: 'Invalid Username or Password' });
                     }
-                    const user = { _id: postmaster._id, type: 'postmaster', name: postmaster.username,email: postmaster.email,branchID:postmaster.branchID }
+                    const user = { _id: postmaster._id, type: 'postmaster', name: postmaster.username,email: postmaster.email,branchId:postmaster.branchID }
                     return done(null, user, { message: 'Logged in Successfully' });
                 } catch (error) {
                     return done(error);

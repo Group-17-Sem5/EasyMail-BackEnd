@@ -5,8 +5,8 @@ exports.findAll = () => {
     return Postman.find()
 }
 
-exports.createPostman = (username,hashPassword,email,mobileNumber,area,branchId) => {
-    const postman = new Postman({username,password:hashPassword,email,mobileNumber,area,branchId})
+exports.createPostman = (username,hashPassword,email,mobileNumber,area,branchID) => {
+    const postman = new Postman({username,password:hashPassword,email,mobileNumber,area,branchID})
     return postman.save()
 }
 
@@ -24,10 +24,10 @@ exports.getPostman = (id) => {
     return Postman.findById(id)
 }
 
-exports.getPostmanCount = (branchId) => {
+exports.getPostmanCount = (branchID) => {
     return Postman.aggregate([
         {
-            $match:{branchId:mongoose.Types.ObjectId(branchId)}
+            $match:{branchID:branchID}
         },
         {
             $count:"postmanCount"

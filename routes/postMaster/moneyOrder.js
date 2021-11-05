@@ -4,6 +4,9 @@ const MoneyorderController = require('../../controller/postMaster/MoneyorderCont
 const {ensureLogin} = require('../../config/auth')
 
 router.get('/',ensureLogin,MoneyorderController.getAll)
+router.get('/',MoneyorderController.getAll)
+router.get('/count',MoneyorderController.countByDate)
+router.get('/allCount',MoneyorderController.count)
 router.get('/:id',ensureLogin,MoneyorderController.getOne)
 router.post('/add',ensureLogin,MoneyorderController.create)
 router.delete('/delete/:id',ensureLogin,MoneyorderController.del)

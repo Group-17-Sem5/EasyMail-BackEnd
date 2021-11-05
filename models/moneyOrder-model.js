@@ -11,28 +11,34 @@ const MoneyOrder= Schema({
         type:String, 
         required: true,
         validate: {
-                        validator: weight => weight>0,
-                        message: "Incorrect value for amount"
-                    }
+            validator: weight => weight>0,
+            message: "Incorrect value for amount"
+        }
     },
     sourceBranchID:{
         type:String, 
         required: true,
+        ref: 'Branch'
     },receivingBranchID:{
         type:String, 
         required: true,
+        ref: 'Branch'
     },senderID:{
         type:String,
         required:true,
+        ref: 'User'
     },receiverID:{
         type:String,
         required:true,
+        ref: 'User'
     },isDelivered:{
         type: Boolean,
-        required:true,
+        required:false,
+        default: false
     },isCancelled:{
         type:Boolean,
-        required:true,
+        required:false,
+        default: false
     }
 },{ timestamps: true });
 

@@ -53,8 +53,8 @@ const getOne = (req,res) => {
     const {id} = req.params
     Courier.getOne(id)
     .then(result=>{
-        res.json(result[0])
-        console.log(result[0])
+        res.json(result)
+        console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -74,11 +74,51 @@ const updatePostman = (req,res) => {
     })
 }
 
+const filter = (req,res) => {
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
+    
+    Courier.filterByDate(startDate,endDate)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const countByDate = (req,res) => {
+    Courier.countByDate()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const count = (req,res) => {
+    Courier.count()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
 module.exports= {
     getAll,
     create,
     del,
     update,
     getOne,
-    updatePostman
+    updatePostman,
+    filter,
+    countByDate,
+    count
 }

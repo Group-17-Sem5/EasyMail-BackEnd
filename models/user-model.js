@@ -16,9 +16,10 @@ const User= Schema({
         required: true,
         minLength: [2, "Too short"],
         maxLength: [256, "Too Long"]
-    },addressId:{
+    },addressID:{
         type:String, 
         required: true,
+        ref: "Address"
     },mobileNumber:{
         type:String, 
         required: true,
@@ -27,6 +28,7 @@ const User= Schema({
     },branchID:{
         type:String,
         required:true,
+        ref: "Branch"
     },email:{
         type:String,
         required:true,
