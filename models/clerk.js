@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-const Shema = mongoose.Schema
-const bcrypt = require('bcrypt')
+const Schema = mongoose.Schema;
+const bcrypt = require('bcryptjs')
 
-const ClerkSchema = new Shema({
+const ClerkSchema = new Schema({
     username: {
         type: String,
         required: [true,"username is required"],

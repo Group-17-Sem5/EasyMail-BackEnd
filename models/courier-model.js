@@ -15,29 +15,29 @@ const Courier=Schema({
     lastAppearedBranchID:{
         required:true,
         type:String,
-        ref:'Branch'
+       
     },
     postManID:{
         type:String,
         required:false,
-        ref:'Postman'
+        
     },
     sourceBranchID:{
         type:String,
         required:true,
-        ref:'Branch'
+        
     },receivingBranchID:{
         type:String,
         required:true,
-        ref:'Branch'
+        
     },senderID:{
         type:String,
         required:true,
-        ref:'User'
+       
     },receiverID:{
         type:String,
         required:true,
-        ref:'User'
+        
     },isAssigned:{
         type:Boolean,
         required:false,

@@ -1,7 +1,6 @@
 const mongoose =require('mongoose');
 const Schema= mongoose.Schema;
 
-
 const MoneyOrder= Schema({
     specialCode:{
         type:String, 
@@ -18,23 +17,22 @@ const MoneyOrder= Schema({
     sourceBranchID:{
         type:String, 
         required: true,
-        ref: 'Branch'
+       
     },receivingBranchID:{
         type:String, 
         required: true,
-        ref: 'Branch'
+        
     },senderID:{
         type:String,
         required:true,
-        ref: 'User'
+        
     },receiverID:{
         type:String,
         required:true,
-        ref: 'User'
+       
     },isDelivered:{
         type: Boolean,
         required:false,
-
         default: false
     },isCancelled:{
         type:Boolean,

@@ -1,8 +1,8 @@
-const Moneyorder = require('../../models/moneyorder-model')
+const MoneyOrder = require('../../models/moneyorder-model')
 const mongoose = require('mongoose')
 
 exports.findAll = () => {
-    return Moneyorder.find()
+    return MoneyOrder.find()
         // {
         //     $lookup: {
         //         from: "users",
@@ -53,29 +53,29 @@ exports.findAll = () => {
 }
 
 exports.create = (sourceBranchID,senderID,receiverID,postManID,amount,specialCode) => {
-    const moneyorder = new Moneyorder({sourceBranchID,sourceBranchID,senderID,receiverID,postManID,amount,specialCode})
+    const moneyorder = new MoneyOrder({sourceBranchID,sourceBranchID,senderID,receiverID,postManID,amount,specialCode})
     return moneyorder.save()
 }
 
 exports.del = (id) => {
-    return Moneyorder.findByIdAndDelete(id)
+    return MoneyOrder.findByIdAndDelete(id)
 }
 
 
 exports.con = (id , isDelivered) => {
-    return Moneyorder.updateOne({_id:id},{
+    return MoneyOrder.updateOne({_id:id},{
         $set: {isDelivered : !isDelivered}
     })
 }
 
 exports.update = (id,sourceBranchID,senderID,receiverID,amount,specialCode) => {
-    return Moneyorder.updateOne({_id:id},{
+    return MoneyOrder.updateOne({_id:id},{
         $set: {sourceBranchID,senderID,receiverID,amount,specialCode}
     })
 }
 
 exports.getOne = (id) => {
-    return Moneyorder.findById(id)
+    return MoneyOrder.findById(id)
     // return Moneyorder.aggregate([
     //     {
     //         $match: {
@@ -155,7 +155,7 @@ exports.getOne = (id) => {
 }
 
 exports.updatePostman = (id , postManID) => {
-    return Moneyorder.updateOne({_id:id},{
+    return MoneyOrder.updateOne({_id:id},{
         $set: {postManID}
     })
 }

@@ -51,20 +51,20 @@ module.exports = function (passport) {
   
 
 
-                    const clerk = await Clerk.findByEmail(email);
-                    // console.log(postmaster)
-                    if (!clerk) {
-                        return done(null, false, { error: true, email: false, password: true, message: 'User not found. Please enter a valid email.' });
-                    }
-                    if (!clerk.status) {
-                        return done(null, false, { error: true, email: false, password: true, message: 'Your user account has blocked' });
-                    }
-                    const validate = await clerk.isValidPassword(password);
-                    if (!validate) {
-                        return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password or Email.' });
-                    }
-                    const user = { _id: clerk._id, type: 'clerk', name: clerk.username,email: clerk.email,branchId:clerk.branchId }
-                    return done(null, user, { message: 'Logged in Successfully' });
+                    // const clerk = await Clerk.findByEmail(email);
+                    // // console.log(postmaster)
+                    // if (!clerk) {
+                    //     return done(null, false, { error: true, email: false, password: true, message: 'User not found. Please enter a valid email.' });
+                    // }
+                    // if (!clerk.status) {
+                    //     return done(null, false, { error: true, email: false, password: true, message: 'Your user account has blocked' });
+                    // }
+                    // const validate = await clerk.isValidPassword(password);
+                    // if (!validate) {
+                    //     return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password or Email.' });
+                    // }
+                    // const user = { _id: clerk._id, type: 'clerk', name: clerk.username,email: clerk.email,branchId:clerk.branchId }
+                    // return done(null, user, { message: 'Logged in Successfully' });
             
 
                  

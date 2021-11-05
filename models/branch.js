@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
-const Shema = mongoose.Schema
+const Schema = mongoose.Schema
 
-const BranchSchema = new Shema({
+const BranchSchema = new Schema({
     branchID:{
         type: String,
         required: [true, "Address is required"],
