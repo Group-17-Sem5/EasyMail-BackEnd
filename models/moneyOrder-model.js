@@ -34,9 +34,13 @@ const MoneyOrder= Schema({
     },isDelivered:{
         type: Boolean,
         required:false,
+
+        default: false
     },isCancelled:{
         type:Boolean,
         required:false,
+        default: false
+
     }
 },{ timestamps: true });
 

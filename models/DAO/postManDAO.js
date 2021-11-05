@@ -1,6 +1,6 @@
 const config = require('../../config/DB');
 const express=require('express');
-const postMan=require('../postMan-model');
+const PostMan=require('../postMan-model');
 class PostManDAO{
     constructor(){
         try {
@@ -18,10 +18,11 @@ class PostManDAO{
 
     }
 
-    static async readOneEntity(userId){
-        
+    static async readOneEntity(userName){
+        console.log(userName+"logging in");
+        const postMan =await PostMan.findOne({username: userName,status:true});
+        return postMan;
     }
-
     static async updateOneEntity(){
         
     }

@@ -1,4 +1,6 @@
-const Postmaster = require('../../models/postMaster/postMaster')
+
+const Postmaster = require('../../models/postMaster')
+
 
 exports.findByEmail = (email) => {
     return Postmaster.findOne({email})
@@ -8,8 +10,10 @@ exports.findAll = () => {
     return Postmaster.find()
 }
 
-exports.create = (username,hashPassword,mobileNumber,branchId,email) => {
-    const postmaster = new Postmaster({username,password:hashPassword,mobileNumber,branchId,email})
+
+exports.create = (username,hashPassword,mobileNumber,branchID,email) => {
+    const postmaster = new Postmaster({username,password:hashPassword,mobileNumber,branchID,email})
+
     return postmaster.save()
 }
 
@@ -17,9 +21,11 @@ exports.del = (id) => {
     return Postmaster.findByIdAndDelete(id)
 }
 
-exports.update = (id,username,mobileNumber,branchId,email) => {
+
+exports.update = (id,username,mobileNumber,email) => {
     return Postmaster.updateOne({_id:id},{
-        $set: {username,mobileNumber,branchId,email}
+        $set: {username,mobileNumber,email}
+
     })
 }
 

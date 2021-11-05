@@ -14,8 +14,10 @@ const getAll = (req,res) => {
 
 const create = (req,res) => { 
     const sourceBranchID = req.user.branchId
-    const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
-    Post.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID)
+
+    const { receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
+    Post.create(receivingBranchID,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+
     .then(result=>{
         res.json(result)
     })
@@ -38,8 +40,10 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const { lastAppearedBranchID,senderID,receiverID,postManID } = req.body
-    Post.update(id,lastAppearedBranchID,senderID,receiverID,postManID)
+
+    const { receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
+    Post.update(id,receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+
     .then(result=>{
         res.json(result)
     })
@@ -52,8 +56,61 @@ const getOne = (req,res) => {
     const {id} = req.params
     Post.getOne(id)
     .then(result=>{
-        res.json(result[0])
-        console.log(result[0])
+
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const updatePostman = (req,res) => {
+    const {id} = req.params
+    const {postManID} = req.body
+    Post.updatePostman(id,postManID)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+
+const filter = (req,res) => {
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
+    
+    Post.filterByDate(startDate,endDate)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const countByDate = (req,res) => {
+    Post.countByDate()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const count = (req,res) => {
+    Post.count()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+
     })
     .catch(err=>{
         console.log(err)
@@ -65,5 +122,11 @@ module.exports= {
     create,
     del,
     update,
-    getOne
+
+    getOne,
+    updatePostman,
+    filter,
+    countByDate,
+    count
+
 }
