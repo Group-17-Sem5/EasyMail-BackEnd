@@ -46,15 +46,6 @@ module.exports = function (passport) {
                     }
 
 
-
-
-  
-
-
-
-
-                 
-
                     const admin = await Admin.findByEmail(email)
                     if (admin) {
                         const validate = await admin.isValidPassword(password);

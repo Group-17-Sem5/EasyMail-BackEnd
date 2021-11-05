@@ -1,4 +1,4 @@
-const MoneyOrder = require('../../models/moneyorder-model')
+const MoneyOrder = require('../../models/moneyOrder-model');
 const mongoose = require('mongoose')
 
 exports.findAll = () => {
@@ -53,8 +53,8 @@ exports.findAll = () => {
 }
 
 exports.create = (sourceBranchID,senderID,receiverID,postManID,amount,specialCode) => {
-    const moneyorder = new MoneyOrder({sourceBranchID,sourceBranchID,senderID,receiverID,postManID,amount,specialCode})
-    return moneyorder.save()
+    const MoneyOrder = new MoneyOrder({sourceBranchID,sourceBranchID,senderID,receiverID,postManID,amount,specialCode})
+    return MoneyOrder.save()
 }
 
 exports.del = (id) => {
