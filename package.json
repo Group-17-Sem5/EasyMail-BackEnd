@@ -2,7 +2,7 @@
   "name": "easy_mail_backend",
   "version": "1.0.0",
   "engines": {
-    "node": "14.17.3"
+    "node": "6.14.13"
   },
   "main": "index.js",
   "dependencies": {
