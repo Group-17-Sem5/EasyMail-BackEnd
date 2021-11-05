@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PostmanController = require('../../controller/postMaster/PostmanController');
+const PostmanController = require('../../controller/clerk/PostmanController');
 const {ensureLogin} = require('../../config/auth')
 
 router.get('/',ensureLogin,PostmanController.getAllPostman)

@@ -1,11 +1,11 @@
-const Clerk = require('../../services/postMaster/ClerkService')
+const Postman = require('../../services/clerk/PostmanService')
 const SendMail = require('../../config/Mail')
 const bcrypt = require('bcrypt')
 const {randomId} = require('../../config/Random')
 
 
-const getAllClerk = (req,res) => {
-    Clerk.findAll()
+const getAllPostman = (req,res) => {
+    Postman.findAll()
     .then(result=>{
         res.json(result)
     })
@@ -14,12 +14,12 @@ const getAllClerk = (req,res) => {
     })
 }
 
-const createClerk =async (req,res) => {
+const createPostman =async (req,res) => {
     const branchId = req.user.branchId
-    const { username,email,mobileNumber } = req.body
+    const { username,email,mobileNumber,area } = req.body
     const password = randomId(10)
     const hashPassword = await bcrypt.hash(password,10)
-    Clerk.createClerk(username,hashPassword,email,mobileNumber,branchId)
+    Postman.createPostman(username,hashPassword,email,mobileNumber,area,branchId)
     .then(result=>{
         res.json(result)
         SendMail(email,password)
@@ -29,9 +29,9 @@ const createClerk =async (req,res) => {
     })
 }
 
-const deleteClerk = (req,res) => {
+const deletePostman = (req,res) => {
     const {id} = req.params
-    Clerk.deleteClerk(id)
+    Postman.deletePostman(id)
     .then(result=>{
         res.json(result)
     })
@@ -40,10 +40,10 @@ const deleteClerk = (req,res) => {
     })
 }
 
-const updateClerk = (req,res) => {
+const updatePostman = (req,res) => {
     const {id} = req.params
-    const {username,email,mobileNumber} = req.body
-    Clerk.updateClerk(id,username,email,mobileNumber)
+    const {username,email,mobileNumber,area} = req.body
+    Postman.updatePostman(id,username,email,mobileNumber,area)
     .then(result=>{
         res.json(result)
     })
@@ -52,11 +52,10 @@ const updateClerk = (req,res) => {
     })
 }
 
-const getClerk = (req,res) => {
+const getPostman = (req,res) => {
     const {id} = req.params
-    Clerk.getClerk(id)
+    Postman.getPostman(id)
     .then(result=>{
-        console.log(result)
         res.json(result)
     })
     .catch(err=>{
@@ -64,9 +63,9 @@ const getClerk = (req,res) => {
     })
 }
 
-const getClerkCount = (req,res) => {
+const getPostmanCount = (req,res) => {
     const branchId = req.user.branchId
-    Clerk.getClerkCount(branchId)
+    Postman.getPostmanCount(branchId)
     .then(result=>{
         res.json(result[0])
     })
@@ -79,7 +78,7 @@ const changeStatus = (req,res) => {
     const {id} = req.params
     const {status} = req.body
     console.log(req.body)
-    Clerk.changeStatus(id,status)
+    Postman.changeStatus(id,status)
     .then(result=>{
         res.json(result[0])
     })
@@ -89,11 +88,11 @@ const changeStatus = (req,res) => {
 }
 
 module.exports= {
-    getAllClerk,
-    createClerk,
-    deleteClerk,
-    updateClerk,
-    getClerk,
-    getClerkCount,
+    getAllPostman,
+    createPostman,
+    deletePostman,
+    updatePostman,
+    getPostman,
+    getPostmanCount,
     changeStatus
 }

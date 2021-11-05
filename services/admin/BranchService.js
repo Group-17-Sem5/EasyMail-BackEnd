@@ -1,4 +1,4 @@
-const Branch = require('../../models/postMaster/branch')
+const Branch = require('../../models/branch')
 
 exports.findAll = () => {
     return Branch.find()

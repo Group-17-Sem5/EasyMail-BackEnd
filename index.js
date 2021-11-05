@@ -1,8 +1,11 @@
+
+const mongoose = require('mongoose');
 const express=require('express');
 http = require('http');
 const cors = require('cors');
 const HttpStatus = require('http-status');
 const dotenv = require('dotenv')
+const bcrypt = require("bcrypt");
 //const mongoose = require('mongoose');
 const routes= require('./routes/index');
 const app = express();
@@ -19,7 +22,15 @@ const Port =process.env.port || 5000;
 app.use(cors())
 app.use(express.json());
 app.use(passport.initialize());
-app.route("/").get((req,res)=>res.json('First Api Sandaru'));
+//app.route("/").get((req,res)=>res.json('First Api Sandaru'));
 app.use('/', require('./routes/index'))
+//app.use("/", require('./routes/postMaster/postRoute'))
 
 app.listen(Port,()=>console.log('listning to port '+Port ));
+
+//mongoose.connect('mongodb://localhost:27017/easyMail', {useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});
+mongoose.connect('mongodb+srv://kaja:Kajanan1234@electro.u9gv5.mongodb.net/EasyMailDB', {useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});
+const connection =mongoose.connection;
+connection.once("open", () => {
+    console.log("mongoDB connected");
+});

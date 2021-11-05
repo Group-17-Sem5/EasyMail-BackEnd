@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
-const MoneyorderSchema = new Shema({
+const MoneyOrderSchema = new Shema({
     // addressID: {
     //     type: mongoose.Types.ObjectId,
     //     ref: 'Address'
@@ -36,5 +36,5 @@ const MoneyorderSchema = new Shema({
     }
 },{ timestamps: true })
 
-const  Moneyorder = mongoose.model('Moneyorder', MoneyorderSchema);
-module.exports = Moneyorder;
+const  MoneyOrder = mongoose.model('MoneyOrder', MoneyOrderSchema);
+module.exports = MoneyOrder;

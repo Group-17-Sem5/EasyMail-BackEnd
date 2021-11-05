@@ -3,6 +3,28 @@ const Postman = require('../../models/postMan-model')
 
 exports.findAll = () => {
     return Postman.find()
+    {/* return Post.aggregate([
+        {
+            $lookup: {
+                from: "branches",
+                localField: 'branchId',
+                foreignField: '_id',
+                as: "_branches"
+            }
+        },
+        {
+            $project: {
+                _id: '$_id',
+                area: 1,
+                email:1,
+                branchId: { $arrayElemAt: ['$_branches.branchName', 0] },
+                mobileNumber:1,
+                password: 1,
+                status:1,
+                username:1
+            }
+        }
+    ]) */}
 }
 
 exports.createPostman = (username,hashPassword,email,mobileNumber,area,branchId) => {

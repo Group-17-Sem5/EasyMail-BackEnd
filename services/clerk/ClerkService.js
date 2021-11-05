@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const Clerk = require('../../models/postMaster/clerk')
+const Clerk = require('../../models/clerk')
 
 exports.findAll = () => {
     return Clerk.find()

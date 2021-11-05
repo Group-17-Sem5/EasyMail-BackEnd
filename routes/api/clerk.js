@@ -1,5 +1,5 @@
 const express = require('express');
-const PostMan=require('../../models/clerk-model');
+const clerk =require('../../models/clerk-model');
 const clerkController = require('../../controller/clerkController');
 const router=express.Router();
 // router.route('/register').post((req, res) => {
@@ -40,16 +40,16 @@ const router=express.Router();
     
 // });
 
-router.post('/add', clerkController.createClerk);
+//router.post('/add', clerkController.createClerk);
 //post handle
-router.get('/post', clerkController.searchAddress);
-router.post('/post/add', clerkController.addAddress);
-router.delete('/post/:id', clerkController.removeAddress);
-router.put('/post/:id', clerkController.changeAddress);
+router.get('/address', clerkController.searchAddress);
+router.post('/address/add', clerkController.addAddress);
+router.delete('/address/:id', clerkController.removeAddress);
+router.put('/address/:id', clerkController.changeAddress);
 //money order
-router.get('/moneyOrder',clerkController.getPosts);
-router.get('/moneyOrder/:id', clerkController.getAPost);
-router.put('/moneyOrder/confirm/:id',clerkController.confirmPostDelivery);
-router.put('/moneyOrder/cancel/:id', clerkController.cancelDelivery);
+router.get('/posts',clerkController.getPosts);
+router.get('/posts/:id', clerkController.getAPost);
+router.put('/posts/confirm/:id',clerkController.confirmPostDelivery);
+router.put('/posts/cancel/:id', clerkController.cancelDelivery);
 
 module.exports =router;

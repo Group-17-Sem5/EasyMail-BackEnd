@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Shema = mongoose.Schema
 
-const PostSchema = new Shema({
+const CourierSchema = new Shema({
     // addressID: {
     //     type: mongoose.Types.ObjectId,
     //     ref: 'Address'
@@ -14,10 +14,10 @@ const PostSchema = new Shema({
         type: mongoose.Types.ObjectId,
         ref: 'Branch'
     },
-    //receivingBranchID: {
-    //    type: mongoose.Types.ObjectId,
-    //    ref: 'Branch'
-    //},
+    receivingBranchID: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Branch'
+    },
     senderID: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
@@ -26,16 +26,19 @@ const PostSchema = new Shema({
         type: mongoose.Types.ObjectId,
         ref: 'User'
     },
-    status: {
+    state: {
         type: String,
         enum: ['cancelled','delivered','pending','assigned'],
         default: 'pending'
     },
-    //postManID: {
-    //    type: mongoose.Types.ObjectId,
-    //    ref: 'Postman' 
-    //}
+    postManID: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Postman' 
+    },weight: {
+        type: Number,
+        required: true
+    }
 },{ timestamps: true })
 
-//const  Post = mongoose.model('Post', PostSchema);
-//module.exports = Post;
+const  Courier = mongoose.model('Courier', CourierSchema);
+module.exports = Courier;
