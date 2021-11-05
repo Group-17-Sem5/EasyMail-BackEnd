@@ -24,7 +24,7 @@ class AddressDAO{
     }
 
     static async readAllEntity(branchId){
-        const addressesList = await Address.find({branchID:branchId});
+        const addressesList = await Address.find({$or:[{branchID:branchId},{branchID:"default"}]});
        
          return addressesList;
     }
