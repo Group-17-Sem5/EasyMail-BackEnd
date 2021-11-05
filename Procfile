@@ -1,2 +1,2 @@
 web:npm start
-web: src/routes/index.js
+web: /routes/index.js
