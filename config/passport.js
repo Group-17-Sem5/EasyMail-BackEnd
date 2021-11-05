@@ -48,7 +48,7 @@ module.exports = function (passport) {
                     if (admin) {
                         const validate = await admin.isValidPassword(password);
                         if (!validate) {
-                            return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password' });
+                            return done(null, false, { error: true, email: true, password: false, message: 'Invalid Username or Password' });
                         }
                         const user = { _id: admin._id, type: 'admin', name: 'Admin' };
                         return done(null, user, { message: 'Logged in Successfully as admin' });
