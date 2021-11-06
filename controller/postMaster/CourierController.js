@@ -111,6 +111,34 @@ const count = (req,res) => {
     })
 }
 
+const countByDatePostman = (req,res) => {
+    const {postmanID} = req.params
+    Courier.countByDatePostman(postmanID)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const filterPostman = (req,res) => {
+    const {postmanID} = req.params
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
+    
+    Courier.filterByDatePostman(startDate,endDate,postmanID)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
 module.exports= {
     getAll,
     create,
@@ -120,5 +148,7 @@ module.exports= {
     updatePostman,
     filter,
     countByDate,
-    count
+    count,
+    countByDatePostman,
+    filterPostman
 }

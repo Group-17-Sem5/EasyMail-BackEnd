@@ -158,15 +158,65 @@ exports.updatePostman = (id , postManID) => {
 
 
 
+// exports.filterByDate = (startDate,endDate) => {
+//     return Moneyorder.find({
+//         // postManID: postManID,
+//         createdAt: {
+//             $gte: startDate,
+//             $lt: endDate
+//         }
+//     })
+// }
+
 exports.filterByDate = (startDate,endDate) => {
-    return Moneyorder.find({
-        // postManID: postManID,
-        createdAt: {
-            $gte: startDate,
-            $lt: endDate
-        }
-    })
+    return Moneyorder.aggregate(
+        [
+            {
+                $match: {
+                    createdAt:{
+                        $gte: new Date(startDate),
+                        $lt: new Date(endDate)
+                    }
+                }
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
 }
+
 
 exports.count = () => {
     return Moneyorder.aggregate([
@@ -226,3 +276,105 @@ exports.countByDate = () => {
             }
         ])
 }
+
+
+exports.countByDatePostman = (postmanID) => {
+    return Moneyorder.aggregate(
+        [
+            {
+                $match: {postmanID:postmanID}
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
+}
+
+exports.filterByDatePostman = (startDate,endDate,postmanID) => {
+    return Moneyorder.aggregate(
+        [
+            {
+                $match: {
+                    $and:[{
+                        createdAt:{
+                            $gte: new Date(startDate),
+                            $lt: new Date(endDate)
+                        }},
+                        
+                        {
+                            postmanID:postmanID
+                        }
+                    ]
+                    
+                }
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
+}
+
