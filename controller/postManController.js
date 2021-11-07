@@ -33,7 +33,7 @@ postManController.login= async (req, res,next) => {
     }
 }
 postManController.searchAddress= async (req, res, next) => {
-    console.log('getting all addresses');
+    console.log(req.params.id+'getting all addresses');
     try {
         var branchRes=await postManServices.getBranch(req.params.id);
         const address_list = await postManServices.getAddressList(branchRes.branchID);
