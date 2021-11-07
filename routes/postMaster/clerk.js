@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const ClerkController = require('../../controller/postMaster/ClerkController');
+const clerkController = require('../../controller/postMaster/ClerkController');
 const {ensureLogin} = require('../../config/auth')
 
-router.get('/',ensureLogin,ClerkController.getAllClerk)
-router.get('/:id',ensureLogin,ClerkController.getClerk)
-router.post('/add',ensureLogin,ClerkController.createClerk)
-router.delete('/delete/:id',ensureLogin,ClerkController.deleteClerk)
-router.post('/update/:id',ensureLogin,ClerkController.updateClerk)
-router.get('/get/count',ensureLogin,ClerkController.getClerkCount)
-router.post('/updateStatus/:id',ensureLogin,ClerkController.changeStatus)
+router.get('/',ensureLogin,clerkController.getAllClerk)
+router.get('/:id',ensureLogin,clerkController.getClerk)
+router.post('/add',ensureLogin,clerkController.createClerk)
+router.delete('/delete/:id',ensureLogin,clerkController.deleteClerk)
+router.post('/update/:id',ensureLogin,clerkController.updateClerk)
+router.get('/get/count',ensureLogin,clerkController.getClerkCount)
+router.post('/updateStatus/:id',ensureLogin,clerkController.changeStatus)
 
 module.exports = router;
