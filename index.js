@@ -6,11 +6,11 @@ const express=require('express');
 
 const cors = require('cors');
 const HttpStatus = require('http-status');
-const dotenv = require('dotenv')
+//const dotenv = require('dotenv')
 
 const http = require('http');
 
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 
 //const mongoose = require('mongoose');
@@ -18,7 +18,7 @@ const routes= require('./routes/index');
 //const supertest = require("supertest");
 
 const app = express();
-dotenv.config();
+
 const passport = require('passport')
 require('./config/passport')(passport);
 //const config = require('./config/DB');

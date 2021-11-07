@@ -1,5 +1,5 @@
 const Password = require('../services/PasswordService')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const validatePassword = require('../config/passwordValidate')
 
 

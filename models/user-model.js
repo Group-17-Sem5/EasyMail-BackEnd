@@ -19,7 +19,7 @@ const User= Schema({
     },addressID:{
         type:String, 
         required: true,
-        ref: "Address"
+        
     },mobileNumber:{
         type:String, 
         required: true,
@@ -28,17 +28,17 @@ const User= Schema({
     },branchID:{
         type:String,
         required:true,
-        ref: "Branch"
+       
     },email:{
         type:String,
         required:true,
         validate: {
 
-                        validator: function(v) {
-                            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
-                        },
-                        message: "Please enter a valid email"
-                    },
+            validator: function(v) {
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
+            },
+            message: "Please enter a valid email"
+        },
 
     },status:{
         type:Boolean,

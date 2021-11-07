@@ -301,7 +301,8 @@ class PostManService{
     }
     async getBranch(username){
         try{
-            var postman= await PostManDAO.readOneEntity(username);
+            const postman= await PostManDAO.readOneEntity(username);
+            
             return {
                 err:0,
                 branchID:postman.branchId,

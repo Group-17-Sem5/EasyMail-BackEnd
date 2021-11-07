@@ -3,9 +3,9 @@ const jwt = require('jsonwebtoken');
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const bcrypt = require('bcrypt');
-const Postmaster = require('../services/admin/PostmasterService')
-const Admin = require('../services/admin/AdminService')
-const Clerk = require('../services/admin/clerkService')
+const Postmaster = require('../services/admin/PostmasterService');
+const Admin = require('../services/admin/AdminService');
+const Clerk = require('../services/admin/clerkService');
 
 
 module.exports = function (passport) {
@@ -46,29 +46,6 @@ module.exports = function (passport) {
                     }
 
 
-
-
-  
-
-
-                    const clerk = await Clerk.findByEmail(email);
-                    // console.log(postmaster)
-                    if (!clerk) {
-                        return done(null, false, { error: true, email: false, password: true, message: 'User not found. Please enter a valid email.' });
-                    }
-                    if (!clerk.status) {
-                        return done(null, false, { error: true, email: false, password: true, message: 'Your user account has blocked' });
-                    }
-                    const validate = await clerk.isValidPassword(password);
-                    if (!validate) {
-                        return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password or Email.' });
-                    }
-                    const user = { _id: clerk._id, type: 'clerk', name: clerk.username,email: clerk.email,branchId:clerk.branchId }
-                    return done(null, user, { message: 'Logged in Successfully' });
-            
-
-                 
-
                     const admin = await Admin.findByEmail(email)
                     if (admin) {
                         const validate = await admin.isValidPassword(password);
@@ -106,6 +83,26 @@ module.exports = function (passport) {
                     }
                     const user = { _id: postmaster._id, type: 'postmaster', name: postmaster.username,email: postmaster.email,branchId:postmaster.branchID }
                     return done(null, user, { message: 'Logged in Successfully' });
+
+
+
+                    // const clerk = await Clerk.findByEmail(email);
+                    // // console.log(postmaster)
+                    // if (!clerk) {
+                    //     return done(null, false, { error: true, email: false, password: true, message: 'User not found. Please enter a valid email.' });
+                    // }
+                    // if (!clerk.status) {
+                    //     return done(null, false, { error: true, email: false, password: true, message: 'Your user account has blocked' });
+                    // }
+                    // const validate = await clerk.isValidPassword(password);
+                    // if (!validate) {
+                    //     return done(null, false, { error: true, email: true, password: false, message: 'Wrong Password or Email.' });
+                    // }
+                    // const user = { _id: clerk._id, type: 'clerk', name: clerk.username,email: clerk.email,branchId:clerk.branchId }
+                    // return done(null, user, { message: 'Logged in Successfully' });
+            
+
+
 
                 } catch (error) {
                     return done(error);

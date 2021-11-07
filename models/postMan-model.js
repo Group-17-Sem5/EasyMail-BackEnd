@@ -39,7 +39,7 @@ const PostMan= Schema({
         minLength: [2, "Too short"],
         maxLength: [256, "Too Long"]
     }
-    ,branchID:{
+    ,branchId:{
         type:String,
         required:true,
     }

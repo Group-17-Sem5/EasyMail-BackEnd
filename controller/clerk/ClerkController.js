@@ -1,6 +1,6 @@
 const Clerk = require('../../services/clerk/ClerkService')
 const SendMail = require('../../config/Mail')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const {randomId} = require('../../config/Random')
 
 
