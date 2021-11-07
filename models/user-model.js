@@ -33,11 +33,13 @@ const User= Schema({
         type:String,
         required:true,
         validate: {
+
                         validator: function(v) {
                             return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
                         },
                         message: "Please enter a valid email"
                     },
+
     },status:{
         type:Boolean,
         required:true,

@@ -4,8 +4,10 @@ exports.findAll = () => {
     return Branch.find()
 }
 
+
 exports.createBranch = (branchID,branchName,mobileNumber,address ) => {
     const branch = new Branch({branchID,branchName,mobileNumber,address })
+
     return branch.save()
 }
 

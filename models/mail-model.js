@@ -35,6 +35,7 @@ const Mail= Schema({
     },isAssigned:{
         type:Boolean,
         required:false,
+
         default: false
     },isDelivered:{
         type: Boolean,
@@ -44,6 +45,7 @@ const Mail= Schema({
         type:Boolean,
         required:false,
         default: false
+
     }
 },{ timestamps: true });
 

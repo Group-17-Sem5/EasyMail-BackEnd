@@ -9,4 +9,5 @@ router.post('/add',branchController.createBranch)
 router.delete('/delete/:id',ensureLogin,branchController.deleteBranch)
 router.post('/update/:id',ensureLogin,branchController.updateBranch)
 
+
 module.exports = router;

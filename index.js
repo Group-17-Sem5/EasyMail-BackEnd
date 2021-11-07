@@ -1,4 +1,7 @@
+
+const mongoose = require('mongoose');
 const express=require('express');
+
 
 
 const cors = require('cors');
@@ -8,6 +11,7 @@ const dotenv = require('dotenv')
 const http = require('http');
 
 const bcrypt = require("bcrypt");
+
 
 //const mongoose = require('mongoose');
 const routes= require('./routes/index');
@@ -27,6 +31,21 @@ const Port = process.env.PORT || 5000;
 app.use(cors())
 app.use(express.json());
 
+//app.use(passport.initialize());
+
+//app.use('/', require('./routes/index'))
+
+
+//app.listen(Port,()=>console.log('listning to port '+Port ));
+
+
+//mongoose.connect('mongodb+srv://kaja:Kajanan1234@electro.u9gv5.mongodb.net/EasyMailDB', {useNewUrlParser: true,useCreateIndex:true,useUnifiedTopology:true});
+//const connection =mongoose.connection;
+//connection.once("open", () => {
+    //console.log("mongoDB connected");
+//});
+
+
 app.use(passport.initialize());
 
 
@@ -35,3 +54,4 @@ app.use('/api',routes);
 
 
 app.listen(Port,()=>console.log('listning to port '+Port ));
+

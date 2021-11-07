@@ -9,4 +9,5 @@ router.post('/add',postmasterController.create)
 router.delete('/delete/:id',ensureLogin,postmasterController.del)
 router.post('/update/:id',ensureLogin,postmasterController.update)
 
+
 module.exports = router;

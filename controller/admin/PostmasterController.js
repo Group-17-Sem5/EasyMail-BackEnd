@@ -15,11 +15,13 @@ const getAll = (req,res) => {
 }
 
 const create =async (req,res) => {
+
     const { username,mobileNumber,branchID,email } = req.body
     const password = randomId(10)
     console.log(password)
     const hashPassword = await bcrypt.hash(password,10)
     Postmaster.create(username,hashPassword,mobileNumber,branchID,email)
+
     .then(result=>{
         res.json(result)
         SendMail(email,password)
@@ -42,8 +44,10 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
+
     const {username,mobileNumber,email} = req.body
     Postmaster.update(id,username,mobileNumber,email)
+
     .then(result=>{
         res.json(result)
     })
