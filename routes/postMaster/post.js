@@ -4,7 +4,7 @@ const postController = require('../../controller/postMaster/PostController');
 const {ensureLogin} = require('../../config/auth')
 
 router.get('/',ensureLogin,postController.getAll)
-router.get('/count',ensureLogin,postController.countByDate)
+router.get('/count',postController.countByDate)
 router.get('/allCount',ensureLogin,postController.count)
 router.post('/filter',ensureLogin,postController.filter)
 router.get('/count/:postmanID',ensureLogin,postController.countByDatePostman)

@@ -6,8 +6,8 @@ const express=require('express');
 
 const cors = require('cors');
 const HttpStatus = require('http-status');
-//const dotenv = require('dotenv')
-
+const dotenv = require('dotenv')
+dotenv.config();
 const http = require('http');
 
 const bcrypt = require("bcryptjs");
