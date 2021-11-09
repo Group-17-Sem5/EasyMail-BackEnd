@@ -1,5 +1,5 @@
-const Courier = require('../../models/courier-model')
 const mongoose = require('mongoose')
+const Courier = require('../../models/courier-model')
 
 // exports.findAll = () => {
 //     return Courier.aggregate([

@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const postManController = require('../../controller/postManController');
-const {ensureLogin} = require('../../config/auth')
+const {ifLogin} = require('../../config/auth')
 
-router.get('/', postManController.searchAddress);
+router.get('/',ifLogin, postManController.searchAddress);
 
 module.exports = router;

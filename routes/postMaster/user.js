@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../../controller/postMaster/UserController');
-const {ensureLogin} = require('../../config/auth')
+const {ifLogin} = require('../../config/auth')
 
-router.get('/',ensureLogin,userController.getAll)
-router.get('/:id',ensureLogin,userController.getOne)
-router.post('/add',ensureLogin,userController.create)
-router.delete('/delete/:id',ensureLogin,userController.del)
-router.post('/update/:id',ensureLogin,userController.update)
+router.get('/',ifLogin,userController.getAll)
+router.get('/:id',ifLogin,userController.getOne)
+router.post('/add',ifLogin,userController.create)
+router.delete('/delete/:id',ifLogin,userController.del)
+router.post('/update/:id',ifLogin,userController.update)
 
 module.exports = router;

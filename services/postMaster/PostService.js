@@ -1,5 +1,5 @@
-const Post = require('../../models/mail-model')
 const mongoose = require('mongoose')
+const Post = require('../../models/mail-model')
 const { TOO_MANY_REQUESTS } = require('http-status')
 
 // exports.findAll = () => {
