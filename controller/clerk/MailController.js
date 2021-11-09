@@ -12,9 +12,9 @@ const getAll = (req,res) => {
 }
 
 const create =async (req,res) => {
-    const sourceBranchID = req.user.branchId
-    const { lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
-    Mail.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+ 
+    const { senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID } = req.body
+    Mail.create(senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID)
     .then(result=>{
         res.json(result)
     })
@@ -36,8 +36,8 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const { sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
-    Mail.update(id,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+    const { senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID } = req.body
+    Mail.update(id, senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID)
     .then(result=>{
         res.json(result)
     })
@@ -59,9 +59,9 @@ const getOne = (req,res) => {
 }
 
 const filter = (req,res) => {
-    // const {startDate,endDate} = req.body
-    const startDate= "11-01-2021"
-    const endDate= "11-05-2021"
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
     
     Mail.filterByDate(startDate,endDate)
     .then(result=>{
@@ -72,7 +72,6 @@ const filter = (req,res) => {
         console.log(err)
     })
 }
-
 const countByDate = (req,res) => {
     Mail.countByDate()
     .then(result=>{
@@ -86,6 +85,36 @@ const countByDate = (req,res) => {
 
 const count = (req,res) => {
     Mail.count()
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+
+const countByDatePostman = (req,res) => {
+    const {postmanID} = req.params
+    Mail.countByDatePostman(postmanID)
+    .then(result=>{
+        res.json(result)
+        console.log(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const filterPostman = (req,res) => {
+    const {postmanID} = req.params
+    const {startDate,endDate} = req.body
+    // const startDate= "11-01-2021"
+    // const endDate= "11-05-2021"
+    
+    Mail.filterByDatePostman(startDate,endDate,postmanID)
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -104,7 +133,8 @@ module.exports= {
     getOne,
     filter,
     countByDate,
-    count
-
+    count,
+    countByDatePostman,
+    filterPostman
     
 }

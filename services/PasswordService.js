@@ -1,4 +1,4 @@
-const PostMaster = require('../models/postMaster')
+const PostMaster = require('../models/clerk')
 
 
 exports.ChangePassword = (id,hashPassword) => {
