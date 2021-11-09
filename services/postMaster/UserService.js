@@ -1,5 +1,6 @@
-const User = require('../../models/user-model')
 const mongoose = require('mongoose')
+const User = require('../../models/user-model')
+
 
 exports.findByEmail = (email) => {
     return User.findOne({email})
