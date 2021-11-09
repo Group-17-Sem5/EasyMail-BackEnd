@@ -3,17 +3,17 @@ const router = express.Router();
 const courierController = require('../../controller/postMaster/CourierController');
 const {ensureLogin} = require('../../config/auth')
 
-router.get('/',ensureLogin,courierController.getAll)
-router.get('/count',ensureLogin,courierController.countByDate)
-router.get('/allCount',ensureLogin,courierController.count)
-router.post('/filter',ensureLogin,courierController.filter)
-router.get('/count/:postmanID',ensureLogin,courierController.countByDatePostman)
-router.post('/filter/:postmanID',ensureLogin,courierController.filterPostman)
-router.get('/:id',ensureLogin,courierController.getOne)
-router.post('/add',ensureLogin,courierController.create)
-router.delete('/delete/:id',ensureLogin,courierController.del)
-router.post('/update/:id',ensureLogin,courierController.update)
-router.post('/updatePostman/:id',ensureLogin,courierController.updatePostman)
+router.get('/',ensureLogin,courierController.getAllCourier)
+router.get('/count',ensureLogin,courierController.countByDateCourier)
+router.get('/allCount',ensureLogin,courierController.countCourier)
+router.post('/filter',ensureLogin,courierController.filterCourier)
+router.get('/count/:postmanID',ensureLogin,courierController.countByDatePostmanCourier)
+router.post('/filter/:postmanID',ensureLogin,courierController.filterPostmanCourier)
+router.get('/:id',ensureLogin,courierController.getOneCourier)
+router.post('/add',ensureLogin,courierController.createCourier)
+router.delete('/delete/:id',ensureLogin,courierController.delCourier)
+router.post('/update/:id',ensureLogin,courierController.updateCourier)
+router.post('/updatePostman/:id',ensureLogin,courierController.updatePostmanCourier)
 
 
 module.exports = router;
