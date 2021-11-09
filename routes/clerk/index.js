@@ -7,5 +7,7 @@ router.use('/moneyorder',require('./moneyorder'))
 router.use('/user',require('./user'))
 router.use('/postman',require('./postman'))
 router.use('/clerk',require('./clerk'))
+router.use('/courier',require('./courier'))
+router.use('/address',require('./address'))
 
 module.exports = router
