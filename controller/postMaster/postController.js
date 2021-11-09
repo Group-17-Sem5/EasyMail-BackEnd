@@ -1,5 +1,5 @@
 const Post = require('../../services/postmaster/PostService')
-const express = require('express');
+
 
 const getAll = (req,res) => {
     Post.findAll()
