@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const express=require('express');
 const cors = require('cors');
 const HttpStatus = require('http-status');
+
+const dotenv = require('dotenv')
+dotenv.config();
+
 const http = require('http');
 const bcrypt = require("bcryptjs");
 const routes= require('./routes/index');
