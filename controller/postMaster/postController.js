@@ -1,4 +1,4 @@
-const Post = require('../../services/postmaster/PostService')
+const Post = require('../../services/postMaster/PostService')
 
 
 const getAll = (req,res) => {
