@@ -5,6 +5,7 @@ const {ensureLogin} = require('../../config/auth')
 
 router.get('/',ensureLogin,moneyorderController.getAll)
 router.get('/',ensureLogin,moneyorderController.getAll)
+router.post('/filter',ensureLogin,moneyorderController.filter)
 router.get('/count',ensureLogin,moneyorderController.countByDate)
 router.get('/count/:postmanID',ensureLogin,moneyorderController.countByDatePostman)
 router.get('/allCount',ensureLogin,moneyorderController.count)
