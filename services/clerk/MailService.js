@@ -1,6 +1,6 @@
 const Mail = require('../../models/mail-model')
 const mongoose = require('mongoose')
-
+const { TOO_MANY_REQUESTS } = require('http-status')
 exports.findAll = () => {
     return Mail.find()
     //return Mail.aggregate([
@@ -50,8 +50,8 @@ exports.findAll = () => {
     // ])
 }
 
-exports.create = (sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID) => {
-    const mail = new Mail({sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID})
+exports.create = (senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID) => {
+    const mail = new Mail({senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID})
     return mail.save()
 }
 
@@ -59,9 +59,9 @@ exports.del = (id) => {
     return Mail.findByIdAndDelete(id)
 }
 
-exports.update = (id,lastAppearedBranchID,senderID,receiverID,postManID,addressID) => {
+exports.update = (id,senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID) => {
     return Mail.updateOne({_id:id},{
-        $set: {lastAppearedBranchID,senderID,receiverID,postManID,addressID}
+        $set: {senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID}
     })
 }
 
@@ -156,13 +156,52 @@ exports.updatePostman = (id , postManID) => {
 }
 
 exports.filterByDate = (startDate,endDate) => {
-    return Mail.find({
-        // postManID: postManID,
-        createdAt: {
-            $gte: startDate,
-            $lt: endDate
-        }
-    })
+    return Mail.aggregate(
+        [
+            {
+                $match: {
+                    createdAt:{
+                        $gte: new Date(startDate),
+                        $lt: new Date(endDate)
+                    }
+                }
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
 }
 
 exports.count = () => {
@@ -186,6 +225,108 @@ exports.count = () => {
 exports.countByDate = () => {
     return Mail.aggregate(
         [
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
+}
+
+
+
+exports.countByDatePostman = (postmanID) => {
+    return Mail.aggregate(
+        [
+            {
+                $match: {postManID:postmanID}
+            },
+            {
+                $group:
+                {
+                    _id:
+                    {
+                        day: { $dayOfMonth: "$createdAt" },
+                        month: { $month: "$createdAt" }, 
+                        year: { $year: "$createdAt" }
+                    }, 
+                    totalcount: { $sum:1 },
+                    cancelledcount: { $sum: { $cond: [ { $eq: [ "$isCancelled", true ] }, 1, 0 ] } },
+                    deliveredcount: { $sum: { $cond: [ { $eq: [ "$isDelivered", true ] }, 1, 0 ] } },
+                    date: { $first: "$createdAt" },
+    
+                }
+            },
+            {
+                $project:
+                {
+                    date:
+                    {
+                        $dateToString: { format: "%m-%d-%Y", date: "$date" }
+                    },
+                    totalcount: 1,
+                    deliveredcount: 1,
+                    cancelledcount: 1,
+                    _id: 0,
+                   
+                }
+            },
+            {
+                $sort: {
+                  date: 1
+                }
+            }
+        ])
+}
+
+exports.filterByDatePostman = (startDate,endDate,postmanID) => {
+    return Mail.aggregate(
+        [
+            {
+                $match: {
+                    $and:[{
+                        createdAt:{
+                            $gte: new Date(startDate),
+                            $lt: new Date(endDate)
+                        }},
+                        
+                        {
+                            postManID:postmanID
+                        }
+                    ]
+                    
+                }
+            },
             {
                 $group:
                 {
