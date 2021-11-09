@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-// const courierController = require('../../controller/postMaster/CourierController');
-// const {ensureLogin} = require('../../config/auth')
+const courierController = require('../../controller/postMaster/CourierController');
+const {ensureLogin} = require('../../config/auth')
 
 // router.get('/',ensureLogin,courierController.getAllCourier)
 // router.get('/count',ensureLogin,courierController.countByDateCourier)
