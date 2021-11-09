@@ -10,7 +10,7 @@ router.use('/clerk',require('./clerk'))
 
 //postMan routes
 router.use('/postMan', postManRoutes);
-router.use('/postMaster',postMasterRoutes)
+//router.use('/postMaster',postMasterRoutes)
 router.use('/changepassword',require('./changepassword'))
 router.use('/admin',require('./admin'))
 
