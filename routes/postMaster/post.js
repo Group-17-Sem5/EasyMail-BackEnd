@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const postController = require('../../controller/postMaster/PostController');
-const {ensureLogin} = require('../../config/auth')
+const {ensureLogin} = require('../../config/auth');
 
 router.get('/',ensureLogin,postController.getAll)
 router.get('/count',ensureLogin,postController.countByDate)
