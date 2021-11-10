@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const postController = require('../../controller/postMaster/postController');
+
 const {ifLogin} = require('../../config/auth');
+
 
 
 router.get('/',ifLogin,postController.getAll)

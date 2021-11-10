@@ -140,6 +140,7 @@ const filterPostmanCourier = (req,res) => {
 }
 
 module.exports= {
+
     getAllCourier,
     createCourier,
     delCourier,

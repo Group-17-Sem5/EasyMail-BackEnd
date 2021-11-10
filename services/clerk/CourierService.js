@@ -1,167 +1,169 @@
-const Moneyorder = require('../../models/moneyOrder-model')
+const Courier = require('../../models/courier-model')
 const mongoose = require('mongoose')
 
+// exports.findAll = () => {
+//     return Courier.aggregate([
+//         {
+//             $lookup: {
+//                 from: "users",
+//                 localField: 'senderID',
+//                 foreignField: '_id',
+//                 as: "_users"
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "users",
+//                 localField: 'receiverID',
+//                 foreignField: '_id',
+//                 as: "_user"
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "branches",
+//                 localField: 'lastAppearedBranchID',
+//                 foreignField: '_id',
+//                 as: "_branches"
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "postmen",
+//                 localField: 'postManID',
+//                 foreignField: '_id',
+//                 as: "_postman"
+//             }
+//         },
+//         {
+//             $project: {
+//                 _id: '$_id',
+//                 senderID: { $arrayElemAt: ['$_users.name', 0] },
+//                 receiverID: { $arrayElemAt: ['$_user.name', 0] },
+//                 lastAppearedBranchID: { $arrayElemAt: ['$_branches.branchName', 0] },
+//                 sourceBranchID:1,
+//                 postManID: { $arrayElemAt: ['$_postman.username', 0] },
+//                 state:1,
+//                 weight:1
+//             }
+//         }
+//     ])
+// }
 exports.findAll = () => {
-    return Moneyorder.find()
-        // {
-        //     $lookup: {
-        //         from: "users",
-        //         localField: 'senderID',
-        //         foreignField: '_id',
-        //         as: "_users"
-        //     }
-        // },
-        // {
-        //     $lookup: {
-        //         from: "users",
-        //         localField: 'receiverID',
-        //         foreignField: '_id',
-        //         as: "_user"
-        //     }
-        // },
-        // {
-        //     $lookup: {
-        //         from: "branches",
-        //         localField: 'sourceBranchID',
-        //         foreignField: '_id',
-        //         as: "_branches"
-        //     }
-        // },
-        // {
-        //     $lookup: {
-        //         from: "postmen",
-        //         localField: 'postManID',
-        //         foreignField: '_id',
-        //         as: "_postman"
-        //     }
-        // },
-        // {
-        //     $project: {
-        //         _id: '$_id',
-        //         senderID: { $arrayElemAt: ['$_users.userName', 0] },
-        //         receiverID: { $arrayElemAt: ['$_user.userName', 0] },
-        //         sourceBranchID: { $arrayElemAt: ['$_branches.branchName', 0] },
-        //         sourceBranchID:1,
-        //         postManID: { $arrayElemAt: ['$_postman.userName', 0] },
-        //         postManID: 1,
-        //         state:1,
-        //         amount:1,
-        //         specialCode:1
-        //     }
-        // }
-    //])
+    return Courier.find()
 }
 
-exports.create = (senderID,receiverID,sourceBranchID,receivingBranchID,specialCode,amount) => {
-    const moneyorder = new Moneyorder({senderID,receiverID,sourceBranchID,receivingBranchID,specialCode,amount})
-    return moneyorder.save()
+exports.create = (senderID,receiverID,postManID,sourceBranchID,lastAppearedBranchID,receivingBranchID,addressID,weight) => {
+    const courier = new Courier({senderID,receiverID,postManID,sourceBranchID,lastAppearedBranchID,receivingBranchID,addressID,weight })
+    return courier.save()
 }
 
 exports.del = (id) => {
-    return Moneyorder.findByIdAndDelete(id)
+    return Courier.findByIdAndDelete(id)
 }
 
-
 exports.con = (id , isDelivered) => {
-    return Moneyorder.updateOne({_id:id},{
+    return Courier.updateOne({_id:id},{
         $set: {isDelivered : !isDelivered}
     })
 }
 
-exports.update = (id,senderID,receiverID,sourceBranchID,receivingBranchID,specialCode,amount) => {
-    return Moneyorder.updateOne({_id:id},{
-        $set: {senderID,receiverID,sourceBranchID,receivingBranchID,specialCode,amount}
+exports.update = (id,courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight ) => {
+    return Courier.updateOne({_id:id},{
+        $set: {courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight }
     })
 }
 
+// exports.getOne = (id) => {
+//     return Courier.aggregate([
+//         {
+//             $match: {
+//                 _id : mongoose.Types.ObjectId(id)
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "users",
+//                 localField: 'senderID',
+//                 foreignField: '_id',
+//                 as: "_users"
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "users",
+//                 localField: 'receiverID',
+//                 foreignField: '_id',
+//                 as: "_user"
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "branches",
+//                 localField: 'lastAppearedBranchID',
+//                 foreignField: '_id',
+//                 as: "_branches"
+//             }
+//         },
+//         {
+//             $lookup: {
+//                 from: "postmen",
+//                 localField: 'postManID',
+//                 foreignField: '_id',
+//                 as: "_postman"
+//             }
+//         },
+//         // {
+//         //     $lookup: {
+//         //         from: "addresses",
+//         //         localField: 'addressId',
+//         //         foreignField: '_id',
+//         //         as: "_usersAddress"
+//         //     }
+//         // },
+//         // {
+//         //     $lookup: {
+//         //         from: "addresses",
+//         //         localField: 'addressId',
+//         //         foreignField: '_id',
+//         //         as: "_userAddress"
+//         //     }
+//         // },
+//         {
+//             $project: {
+//                 _id: '$_id',
+//                 senderName: { $arrayElemAt: ['$_users.name', 0] },
+//                 senderID: 1,
+//                 senderPhone: { $arrayElemAt: ['$_users.mobileNumber', 0] },
+//                 // senderAddress: { $arrayElemAt: ['$_usersAddress.address', 0] },
+//                 // receiverAddress: { $arrayElemAt: ['$_userAddress.address', 0] },
+//                 receiverName: { $arrayElemAt: ['$_user.name', 0] },
+//                 receiverID: 1,
+//                 receiverPhone: { $arrayElemAt: ['$_user.mobileNumber', 0] },
+//                 lastAppearedBranchName: { $arrayElemAt: ['$_branches.branchName', 0] },
+//                 lastAppearedBranchID: 1,
+//                 sourceBranchID:1,
+//                 postManName: { $arrayElemAt: ['$_postman.username', 0] },
+//                 postManID: 1,
+//                 state:1,
+//                 weight:1
+//             }
+//         }
+//     ])
+// }
+
 exports.getOne = (id) => {
-    return Moneyorder.findById(id)
-    // return Moneyorder.aggregate([
-    //     {
-    //         $match: {
-    //             _id : mongoose.Types.ObjectId(id)
-    //         }
-    //     },
-    //     {
-    //         $lookup: {
-    //             from: "users",
-    //             localField: 'senderID',
-    //             foreignField: '_id',
-    //             as: "_users"
-    //         }
-    //     },
-    //     {
-    //         $lookup: {
-    //             from: "users",
-    //             localField: 'receiverID',
-    //             foreignField: '_id',
-    //             as: "_user"
-    //         }
-    //     },
-    //     {
-    //         $lookup: {
-    //             from: "branches",
-    //             localField: 'sourceBranchID',
-    //             foreignField: '_id',
-    //             as: "_branches"
-    //         }
-    //     },
-    //     {
-    //         $lookup: {
-    //             from: "postmen",
-    //             localField: 'postManID',
-    //             foreignField: '_id',
-    //             as: "_postman"
-    //         }
-    //     },
-        // {
-        //     $lookup: {
-        //         from: "addresses",
-        //         localField: 'addressId',
-        //         foreignField: '_id',
-        //         as: "_usersAddress"
-        //     }
-        // },
-        // {
-        //     $lookup: {
-        //         from: "addresses",
-        //         localField: 'addressId',
-        //         foreignField: '_id',
-        //         as: "_userAddress"
-        //     }
-        // },
-    //     {
-    //         $project: {
-    //             _id: '$_id',
-    //             senderName: { $arrayElemAt: ['$_users.userName', 0] },
-    //             senderID: 1,
-    //             senderPhone: { $arrayElemAt: ['$_users.mobileNumber', 0] },
-    //             // senderAddress: { $arrayElemAt: ['$_usersAddress.address', 0] },
-    //             // receiverAddress: { $arrayElemAt: ['$_userAddress.address', 0] },
-    //             receiverName: { $arrayElemAt: ['$_user.userName', 0] },
-    //             receiverID: 1,
-    //             receiverPhone: { $arrayElemAt: ['$_user.mobileNumber', 0] },
-    //             lastAppearedBranchName: { $arrayElemAt: ['$_branches.branchName', 0] },
-    //             sourceBranchID: 1,
-    //             sourceBranchID:1,
-    //             postManName: { $arrayElemAt: ['$_postman.userName', 0] },
-    //             postManID: 1,
-    //             state:1,
-    //             amount:1,
-    //             specialCode:1
-    //         }
-    //     }
-    // ])
+    return Courier.findById(id)
 }
 
 exports.updatePostman = (id , postManID) => {
-    return Moneyorder.updateOne({_id:id},{
-        $set: {postManID}
+    return Courier.updateOne({_id:id},{
+        $set: {postManID,isAssigned: true}
     })
 }
 
 exports.filterByDate = (startDate,endDate) => {
-    return Moneyorder.aggregate(
+    return Courier.aggregate(
         [
             {
                 $match: {
@@ -209,9 +211,8 @@ exports.filterByDate = (startDate,endDate) => {
         ])
 }
 
-
 exports.count = () => {
-    return Moneyorder.aggregate([
+    return Courier.aggregate([
         { 
             $group: { 
                 _id: null, 
@@ -229,7 +230,7 @@ exports.count = () => {
 }
 
 exports.countByDate = () => {
-    return Moneyorder.aggregate(
+    return Courier.aggregate(
         [
             {
                 $group:
@@ -271,10 +272,10 @@ exports.countByDate = () => {
 
 
 exports.countByDatePostman = (postmanID) => {
-    return Moneyorder.aggregate(
+    return Courier.aggregate(
         [
             {
-                $match: {postmanID:postmanID}
+                $match: {postManID:postmanID}
             },
             {
                 $group:
@@ -315,7 +316,7 @@ exports.countByDatePostman = (postmanID) => {
 }
 
 exports.filterByDatePostman = (startDate,endDate,postmanID) => {
-    return Moneyorder.aggregate(
+    return Courier.aggregate(
         [
             {
                 $match: {
@@ -326,7 +327,7 @@ exports.filterByDatePostman = (startDate,endDate,postmanID) => {
                         }},
                         
                         {
-                            postmanID:postmanID
+                            postManID:postmanID
                         }
                     ]
                     

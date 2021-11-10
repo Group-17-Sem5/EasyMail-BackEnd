@@ -1,8 +1,8 @@
-const Moneyorder = require('../../services/postMaster/MoneyorderService')
+const Courier = require('../../services/clerk/CourierService')
 
 
 const getAll = (req,res) => {
-    Moneyorder.findAll()
+    Courier.findAll()
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -13,9 +13,9 @@ const getAll = (req,res) => {
 }
 
 const create = (req,res) => { 
-    const sourceBranchID = req.user.branchId
-    const { receivingBranchID,specialCode,senderID,receiverID,postManID,amount } = req.body
-    Moneyorder.create(sourceBranchID,receivingBranchID,specialCode,senderID,receiverID,postManID,amount)
+   
+    const { senderID,receiverID,postManID,sourceBranchID,lastAppearedBranchID,receivingBranchID,addressID,weight } = req.body
+    Courier.create(senderID,receiverID,postManID,sourceBranchID,lastAppearedBranchID,receivingBranchID,addressID,weight )
     .then(result=>{
         console.log(result)
         res.json(result)
@@ -27,7 +27,21 @@ const create = (req,res) => {
 
 const del = (req,res) => {
     const {id} = req.params
-    Moneyorder.del(id)
+    console.log('id')
+    Courier.del(id)
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
+const con = (req,res) => {
+    const {id} = req.params
+    console.log('id')
+    const{isDelivered} = req.body
+    Courier.con(id,isDelivered)
     .then(result=>{
         res.json(result)
     })
@@ -38,8 +52,8 @@ const del = (req,res) => {
 
 const update = (req,res) => {
     const {id} = req.params
-    const { receivingBranchID,specialCode,senderID,receiverID,postManID,amount } = req.body
-    Moneyorder.update(id,receivingBranchID,specialCode,senderID,receiverID,postManID,amount)
+    const { courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight } = req.body
+    Courier.update(id,courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight)
     .then(result=>{
         res.json(result)
     })
@@ -50,7 +64,7 @@ const update = (req,res) => {
 
 const getOne = (req,res) => {
     const {id} = req.params
-    Moneyorder.getOne(id)
+    Courier.getOne(id)
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -63,7 +77,7 @@ const getOne = (req,res) => {
 const updatePostman = (req,res) => {
     const {id} = req.params
     const {postManID} = req.body
-    Moneyorder.updatePostman(id,postManID)
+    Courier.updatePostman(id,postManID)
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -73,13 +87,12 @@ const updatePostman = (req,res) => {
     })
 }
 
-
 const filter = (req,res) => {
     const {startDate,endDate} = req.body
     // const startDate= "11-01-2021"
     // const endDate= "11-05-2021"
     
-    Moneyorder.filterByDate(startDate,endDate)
+    Courier.filterByDate(startDate,endDate)
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -90,7 +103,7 @@ const filter = (req,res) => {
 }
 
 const countByDate = (req,res) => {
-    Moneyorder.countByDate()
+    Courier.countByDate()
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -101,7 +114,7 @@ const countByDate = (req,res) => {
 }
 
 const count = (req,res) => {
-    Moneyorder.count()
+    Courier.count()
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -113,7 +126,7 @@ const count = (req,res) => {
 
 const countByDatePostman = (req,res) => {
     const {postmanID} = req.params
-    Moneyorder.countByDatePostman(postmanID)
+    Courier.countByDatePostman(postmanID)
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -129,7 +142,7 @@ const filterPostman = (req,res) => {
     // const startDate= "11-01-2021"
     // const endDate= "11-05-2021"
     
-    Moneyorder.filterByDatePostman(startDate,endDate,postmanID)
+    Courier.filterByDatePostman(startDate,endDate,postmanID)
     .then(result=>{
         res.json(result)
         console.log(result)
@@ -143,12 +156,13 @@ module.exports= {
     getAll,
     create,
     del,
+    con,
     update,
     getOne,
     updatePostman,
     filter,
     countByDate,
     count,
-    filterPostman,
-    countByDatePostman
+    countByDatePostman,
+    filterPostman
 }

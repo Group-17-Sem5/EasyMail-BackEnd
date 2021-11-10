@@ -3,12 +3,17 @@ const router = express.Router();
 const PostController = require('../../controller/clerk/MailController');
 const {ifLogin} = require('../../config/auth')
 
-router.get('/',ifLogin,PostController.getAll)
-router.get('/:id',ifLogin,PostController.getOne)
-router.post('/add',ifLogin,PostController.create)
-router.delete('/delete/:id',ifLogin,PostController.del)
-router.post('/update/:id',ifLogin,PostController.update)
-router.get('/count',ifLogin,PostController.countByDate)
-router.get('/allCount',ifLogin,PostController.count)
-router.get('/filter',ifLogin,PostController.filter)
+
+router.get('/',ensureLogin,PostController.getAll)
+router.get('/:id',ensureLogin,PostController.getOne)
+router.post('/add',ensureLogin,PostController.create)
+router.delete('/delete/:id',ensureLogin,PostController.del)
+router.post('/confirm/:id',ensureLogin,PostController.con)
+router.post('/update/:id',ensureLogin,PostController.update)
+router.get('/count',PostController.countByDate)
+router.get('/allCount',PostController.count)
+router.get('/filter',PostController.filter)
+//router.get('/count/:postmanID',ensureLogin,PostController.countByDatePostman)
+//router.post('/filter/:postmanID',ensureLogin,PostController.filterPostman)
+
 module.exports = router;
