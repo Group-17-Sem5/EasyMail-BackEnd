@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const postController = require('../../controller/postMaster/PostController');
+const postController = require('../../controller/postMaster/postController');
 const {ensureLogin} = require('../../config/auth');
 
 
