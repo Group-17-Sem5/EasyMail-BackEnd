@@ -1,4 +1,4 @@
-const Moneyorder = require('../../services/postmaster/MoneyorderService')
+const Moneyorder = require('../../services/postMaster/MoneyorderService')
 
 
 const getAll = (req,res) => {
