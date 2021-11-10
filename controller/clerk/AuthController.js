@@ -17,7 +17,7 @@ const login = async (req, res, next) => {
                     { session: false },
                     async (error) => {
                         if (error) return next(error);console.log(user)
-                        const token = jwt.sign( user, process.env.JWT_SECRET);
+                        const token = jwt.sign( user,'easyMailPW');
                         return res.json({ status: true, token, user: user });
                     }
                 );

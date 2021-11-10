@@ -1,4 +1,4 @@
-const Moneyorder = require('../../models/moneyorder-model')
+const Moneyorder = require('../../models/moneyOrder-model')
 const mongoose = require('mongoose')
 
 exports.findAll = () => {
