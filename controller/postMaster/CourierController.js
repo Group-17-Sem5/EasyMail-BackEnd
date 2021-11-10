@@ -1,4 +1,4 @@
-const Courier = require('../../services/postmaster/CourierService')
+const Courier = require('../../services/postMaster/CourierService')
 
 
 const getAll = (req,res) => {
