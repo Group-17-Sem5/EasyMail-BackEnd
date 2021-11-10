@@ -62,6 +62,12 @@ exports.del = (id) => {
     return Courier.findByIdAndDelete(id)
 }
 
+exports.con = (id , isDelivered) => {
+    return Courier.updateOne({_id:id},{
+        $set: {isDelivered : !isDelivered}
+    })
+}
+
 exports.update = (id,courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight ) => {
     return Courier.updateOne({_id:id},{
         $set: {courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight }

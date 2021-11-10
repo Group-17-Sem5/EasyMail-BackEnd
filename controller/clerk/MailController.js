@@ -33,6 +33,18 @@ const del = (req,res) => {
         console.log(err)
     })
 }
+const con = (req,res) => {
+    const {id} = req.params
+    console.log('id')
+    const{isDelivered} = req.body
+    Mail.con(id,isDelivered)
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
 
 const update = (req,res) => {
     const {id} = req.params
@@ -129,6 +141,7 @@ module.exports= {
     getAll,
     create,
     del,
+    con,
     update,
     getOne,
     filter,

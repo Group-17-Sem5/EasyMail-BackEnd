@@ -59,6 +59,12 @@ exports.del = (id) => {
     return Mail.findByIdAndDelete(id)
 }
 
+exports.con = (id , isDelivered) => {
+    return Mail.updateOne({_id:id},{
+        $set: {isDelivered : !isDelivered}
+    })
+}
+
 exports.update = (id,senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID) => {
     return Mail.updateOne({_id:id},{
         $set: {senderID,receiverID,addressID,postManID,lastAppearedBranchID,sourceBranchID,receivingBranchID}

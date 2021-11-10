@@ -37,6 +37,19 @@ const del = (req,res) => {
     })
 }
 
+const con = (req,res) => {
+    const {id} = req.params
+    console.log('id')
+    const{isDelivered} = req.body
+    Courier.con(id,isDelivered)
+    .then(result=>{
+        res.json(result)
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
 const update = (req,res) => {
     const {id} = req.params
     const { courierID,senderID,receiverID,postManID,addressID,lastAppearedBranchID,receivingBranchID,weight } = req.body
@@ -143,6 +156,7 @@ module.exports= {
     getAll,
     create,
     del,
+    con,
     update,
     getOne,
     updatePostman,

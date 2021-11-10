@@ -36,9 +36,9 @@ beforeEach((done) => {
 
 
     test("GET clerk/post/", async () => {
-        const postList = await Mail.find({senderID:"Kamal01"});
+        const postList = await Mail.find();
       
-        await supertest(app).get("/clerk/senderID/Kamal01")
+        await supertest(app).get("/clerk/post")
           .expect(200)
           .then((res) => {
             // Check type and length
