@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const MoneyorderController = require('../../controller/clerk/MoneyOrderController');
-const {ensureLogin} = require('../../config/auth')
+const {ifLogin} = require('../../config/auth')
+
 
 router.get('/',ensureLogin,MoneyorderController.getAll)
 router.get('/:id',ensureLogin,MoneyorderController.getOne)
@@ -14,5 +15,6 @@ router.get('/count',ensureLogin,MoneyorderController.countByDate)
 //router.get('/count/:postmanID',ensureLogin,MoneyorderController.countByDatePostman)
 router.get('/allCount',ensureLogin,MoneyorderController.count)
 //router.post('/filter/:postmanID',ensureLogin,MoneyorderController.filterPostman)
+
 
 module.exports = router;

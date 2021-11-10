@@ -1,7 +1,7 @@
 const Courier = require('../../services/postMaster/CourierService')
 
 
-const getAll = (req,res) => {
+const getAllCourier = (req,res) => {
     Courier.findAll()
     .then(result=>{
         res.json(result)
@@ -12,7 +12,7 @@ const getAll = (req,res) => {
     })
 }
 
-const create = (req,res) => { 
+const createCourier = (req,res) => { 
     const sourceBranchID = req.user.branchId
     const { lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch } = req.body
     Courier.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch)
@@ -25,7 +25,7 @@ const create = (req,res) => {
     })
 }
 
-const del = (req,res) => {
+const delCourier = (req,res) => {
     const {id} = req.params
     console.log('id')
     Courier.del(id)
@@ -37,7 +37,7 @@ const del = (req,res) => {
     })
 }
 
-const update = (req,res) => {
+const updateCourier = (req,res) => {
     const {id} = req.params
     const { sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch } = req.body
     Courier.update(id,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,addressID,receivingBranch)
@@ -49,7 +49,7 @@ const update = (req,res) => {
     })
 }
 
-const getOne = (req,res) => {
+const getOneCourier = (req,res) => {
     const {id} = req.params
     Courier.getOne(id)
     .then(result=>{
@@ -61,7 +61,7 @@ const getOne = (req,res) => {
     })
 }
 
-const updatePostman = (req,res) => {
+const updatePostmanCourier = (req,res) => {
     const {id} = req.params
     const {postManID} = req.body
     Courier.updatePostman(id,postManID)
@@ -74,7 +74,7 @@ const updatePostman = (req,res) => {
     })
 }
 
-const filter = (req,res) => {
+const filterCourier = (req,res) => {
     const {startDate,endDate} = req.body
     // const startDate= "11-01-2021"
     // const endDate= "11-05-2021"
@@ -89,7 +89,7 @@ const filter = (req,res) => {
     })
 }
 
-const countByDate = (req,res) => {
+const countByDateCourier = (req,res) => {
     Courier.countByDate()
     .then(result=>{
         res.json(result)
@@ -100,7 +100,7 @@ const countByDate = (req,res) => {
     })
 }
 
-const count = (req,res) => {
+const countCourier = (req,res) => {
     Courier.count()
     .then(result=>{
         res.json(result)
@@ -111,7 +111,7 @@ const count = (req,res) => {
     })
 }
 
-const countByDatePostman = (req,res) => {
+const countByDatePostmanCourier = (req,res) => {
     const {postmanID} = req.params
     Courier.countByDatePostman(postmanID)
     .then(result=>{
@@ -123,7 +123,7 @@ const countByDatePostman = (req,res) => {
     })
 }
 
-const filterPostman = (req,res) => {
+const filterPostmanCourier = (req,res) => {
     const {postmanID} = req.params
     const {startDate,endDate} = req.body
     // const startDate= "11-01-2021"
@@ -140,15 +140,16 @@ const filterPostman = (req,res) => {
 }
 
 module.exports= {
-    getAll,
-    create,
-    del,
-    update,
-    getOne,
-    updatePostman,
-    filter,
-    countByDate,
-    count,
-    countByDatePostman,
-    filterPostman
+
+    getAllCourier,
+    createCourier,
+    delCourier,
+    updateCourier,
+    getOneCourier,
+    updatePostmanCourier,
+    filterCourier,
+    countByDateCourier,
+    countCourier,
+    countByDatePostmanCourier,
+    filterPostmanCourier
 }

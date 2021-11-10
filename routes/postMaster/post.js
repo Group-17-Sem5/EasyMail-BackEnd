@@ -1,20 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const postController = require('../../controller/postMaster/postController');
-const {ensureLogin} = require('../../config/auth');
+
+const {ifLogin} = require('../../config/auth');
 
 
-router.get('/',ensureLogin,postController.getAll)
+
+router.get('/',ifLogin,postController.getAll)
 router.get('/count',postController.countByDate)
-router.get('/allCount',ensureLogin,postController.count)
-router.post('/filter',ensureLogin,postController.filter)
-router.get('/count/:postmanID',ensureLogin,postController.countByDatePostman)
-router.post('/filter/:postmanID',ensureLogin,postController.filterPostman)
-router.get('/:id',ensureLogin,postController.getOne)
-router.post('/add',ensureLogin,postController.create)
-router.delete('/delete/:id',ensureLogin,postController.del)
-router.post('/update/:id',ensureLogin,postController.update)
-router.post('/updatePostman/:id',ensureLogin,postController.updatePostman)
+router.get('/allCount',ifLogin,postController.count)
+router.post('/filter',ifLogin,postController.filter)
+router.get('/count/:postmanID',ifLogin,postController.countByDatePostman)
+router.post('/filter/:postmanID',ifLogin,postController.filterPostman)
+router.get('/:id',ifLogin,postController.getOne)
+router.post('/add',ifLogin,postController.create)
+router.delete('/delete/:id',ifLogin,postController.del)
+router.post('/update/:id',ifLogin,postController.update)
+router.post('/updatePostman/:id',ifLogin,postController.updatePostman)
 
 
 module.exports = router;

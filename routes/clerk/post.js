@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const PostController = require('../../controller/clerk/MailController');
-const {ensureLogin} = require('../../config/auth')
+const {ifLogin} = require('../../config/auth')
+
 
 router.get('/',ensureLogin,PostController.getAll)
 router.get('/:id',ensureLogin,PostController.getOne)
@@ -14,4 +15,5 @@ router.get('/allCount',PostController.count)
 router.get('/filter',PostController.filter)
 //router.get('/count/:postmanID',ensureLogin,PostController.countByDatePostman)
 //router.post('/filter/:postmanID',ensureLogin,PostController.filterPostman)
+
 module.exports = router;
