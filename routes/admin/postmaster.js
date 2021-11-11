@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const postmasterController = require('../../controller/admin/PostmasterController');
-const {ifLogin} = require('../../config/auth')
+const {ensureLogin} = require('../../config/auth')
 
-router.get('/',ifLogin,postmasterController.getAll)
-router.get('/:id',ifLogin,postmasterController.getOne)
-router.post('/add',ifLogin,postmasterController.create)
-router.delete('/delete/:id',ifLogin,postmasterController.del)
-router.post('/update/:id',ifLogin,postmasterController.update)
+router.get('/',ensureLogin,postmasterController.getAll)
+router.get('/:id',ensureLogin,postmasterController.getOne)
+router.post('/add',ensureLogin,postmasterController.create)
+router.delete('/delete/:id',ensureLogin,postmasterController.del)
+router.post('/update/:id',ensureLogin,postmasterController.update)
 
 
 module.exports = router;

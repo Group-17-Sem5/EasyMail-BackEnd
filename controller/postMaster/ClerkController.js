@@ -23,6 +23,7 @@ const createClerk =async (req,res) => {
     .then(result=>{
         res.json(result)
         SendMail(email,password)
+        console.log('password: '+password)
     })
     .catch(err=>{
         console.log(err)
