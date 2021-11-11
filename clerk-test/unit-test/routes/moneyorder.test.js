@@ -21,7 +21,7 @@ const supertest =require('supertest');
 //   mongoose.connect(url, { useUnifiedTopology : true, useNewUrlParser : true  });
 // });
 beforeEach((done) => {
-    mongoose.connect("mongodb://localhost:27017/easyMail",
+    mongoose.connect("mongodb+srv://kaja:Kajanan1234@electro.u9gv5.mongodb.net/sepTest?retryWrites=true&w=majority",
       { useNewUrlParser: true, useUnifiedTopology: true },
       () => done());
   });

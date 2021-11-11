@@ -11,8 +11,7 @@ router.post('/confirm/:id',ensureLogin,MoneyorderController.con)
 router.post('/update/:id',ensureLogin,MoneyorderController.update)
 router.post('/updatePostman/:id',ensureLogin,MoneyorderController.updatePostman)
 router.get('/count',ensureLogin,MoneyorderController.countByDate)
-//router.get('/count/:postmanID',ensureLogin,MoneyorderController.countByDatePostman)
 router.get('/allCount',ensureLogin,MoneyorderController.count)
-//router.post('/filter/:postmanID',ensureLogin,MoneyorderController.filterPostman)
+
 
 module.exports = router;

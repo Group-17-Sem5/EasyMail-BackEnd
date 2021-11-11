@@ -15,6 +15,6 @@ describe('money orders',()=>{
             res.json(result)
           });
          
-        expect(res["addresses"]).toBe(addressLi);
+        expect(res["money orders"]).toBe(addressLi);
     });
 });

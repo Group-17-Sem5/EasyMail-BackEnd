@@ -12,6 +12,5 @@ router.post('/update/:id',ensureLogin,PostController.update)
 router.get('/count',PostController.countByDate)
 router.get('/allCount',PostController.count)
 router.get('/filter',PostController.filter)
-//router.get('/count/:postmanID',ensureLogin,PostController.countByDatePostman)
-//router.post('/filter/:postmanID',ensureLogin,PostController.filterPostman)
+
 module.exports = router;
