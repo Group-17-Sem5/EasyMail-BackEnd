@@ -83,10 +83,22 @@ const getOne = (req,res) => {
     })
 }
 
+const getUser = (req,res) => {
+    const {userID} = req.params
+    User.getUser(userID)
+    .then(result=>{
+        res.json(result[0])
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+}
+
 module.exports= {
     getAll,
     create,
     del,
     update,
-    getOne
+    getOne,
+    getUser
 }

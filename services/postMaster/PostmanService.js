@@ -6,7 +6,7 @@ exports.findAll = () => {
 }
 
 exports.createPostman = (username,hashPassword,email,mobileNumber,area,branchID) => {
-    const postman = new Postman({username,password:hashPassword,email,mobileNumber,area,branchID})
+    const postman = new Postman({username,password:hashPassword,email,mobileNumber,area,branchId:branchID})
     return postman.save()
 }
 

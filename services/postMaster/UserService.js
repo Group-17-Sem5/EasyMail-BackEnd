@@ -92,3 +92,32 @@ exports.getAddressId = (id) => {
         }
     ])
 }
+
+exports.getUser = (userID) => {
+    return User.aggregate([
+        {
+            $match: {userName:userID}
+        },
+        {
+            $lookup: {
+                from: "addresses",
+                localField: 'addressId',
+                foreignField: 'addressID',
+                as: "_address"
+            }
+        },
+        {
+            $project: {
+               addressID:1,
+               _id:0,
+               mobileNumber:1,
+               email:1,
+               userName:1,
+               addressId:1,
+               address: { $arrayElemAt: ['$_address.description', 0] },
+               lat: { $arrayElemAt: ['$_address.lat', 0] },
+               lng: { $arrayElemAt: ['$_address.lng', 0] }
+            }
+        }
+    ])
+}
