@@ -16,7 +16,8 @@ const getAll = (req,res) => {
     })
 }
 
-const create =async (req,res) => {console.log(req.user)
+const create =async (req,res) => {
+    // console.log(req.user)
     const branchID = req.user.branchId
     const { email, mobileNumber, userName,address } = req.body
     const password = randomId(10)

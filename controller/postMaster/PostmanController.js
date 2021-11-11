@@ -58,7 +58,7 @@ const getPostman = (req,res) => {
     Postman.getPostman(id)
     .then(result=>{
         res.json(result)
-        console.log(result.username)
+        // console.log(result.username)
     })
     .catch(err=>{
         console.log(err)
@@ -67,7 +67,7 @@ const getPostman = (req,res) => {
 
 const getPostmanCount = (req,res) => {
     const branchID = req.user.branchID
-    console.log(req.user)
+    // console.log(req.user)
     Postman.getPostmanCount(branchID)
     .then(result=>{
         res.json(result[0])
@@ -80,7 +80,7 @@ const getPostmanCount = (req,res) => {
 const changeStatus = (req,res) => {
     const {id} = req.params
     const {status} = req.body
-    console.log(req.body)
+    // console.log(req.body)
     Postman.changeStatus(id,status)
     .then(result=>{
         res.json(result[0])

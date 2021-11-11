@@ -1,5 +1,5 @@
 const app = require('../server')
-const Clerk = require('../models/postMaster/clerk')
+const Clerk = require('../models/clerk')
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const Branch = require('../models/postMaster/branch')
@@ -10,6 +10,7 @@ beforeEach((done) => {
     mongoose.connect("mongodb+srv://kaja:Kajanan1234@electro.u9gv5.mongodb.net/sepTest?retryWrites=true&w=majority",
       { useNewUrlParser: true, useUnifiedTopology: true },
       () => done());
+      
   });
   
   afterEach( (done) => {

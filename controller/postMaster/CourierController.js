@@ -1,23 +1,37 @@
 const Courier = require('../../services/postMaster/CourierService')
-
+const User = require('../../services/postMaster/UserService')
 
 const getAllCourier = (req,res) => {
     Courier.findAll()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         res.send(err)
     })
 }
 
-const createCourier = (req,res) => { 
+const createCourier = async (req,res) => { 
     const sourceBranchID = req.user.branchId
     const { lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch } = req.body
+    if(addressID.length ==0){
+        await User.getUser(receiverID)
+        .then(resul=>{
+            // console.log(resul)
+            const addressID = resul[0].addressId
+            Courier.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch)
+                .then(result=>{
+                    res.json(result)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+        })
+    }
     Courier.create(sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,weight,courierID,addressID,receivingBranch)
     .then(result=>{
-        console.log(result)
+        // console.log(result)
         res.json(result)
     })
     .catch(err=>{
@@ -27,7 +41,7 @@ const createCourier = (req,res) => {
 
 const delCourier = (req,res) => {
     const {id} = req.params
-    console.log('id')
+    // console.log('id')
     Courier.del(id)
     .then(result=>{
         res.json(result)
@@ -54,7 +68,7 @@ const getOneCourier = (req,res) => {
     Courier.getOne(id)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -67,7 +81,7 @@ const updatePostmanCourier = (req,res) => {
     Courier.updatePostman(id,postManID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -82,7 +96,7 @@ const filterCourier = (req,res) => {
     Courier.filterByDate(startDate,endDate)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -93,7 +107,7 @@ const countByDateCourier = (req,res) => {
     Courier.countByDate()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -104,7 +118,7 @@ const countCourier = (req,res) => {
     Courier.count()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -116,7 +130,7 @@ const countByDatePostmanCourier = (req,res) => {
     Courier.countByDatePostman(postmanID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -132,7 +146,7 @@ const filterPostmanCourier = (req,res) => {
     Courier.filterByDatePostman(startDate,endDate,postmanID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)

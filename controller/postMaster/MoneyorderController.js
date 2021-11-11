@@ -5,7 +5,7 @@ const getAll = (req,res) => {
     Moneyorder.findAll()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         res.send(err)
@@ -17,7 +17,7 @@ const create = (req,res) => {
     const { receivingBranchID,specialCode,senderID,receiverID,postManID,amount } = req.body
     Moneyorder.create(sourceBranchID,receivingBranchID,specialCode,senderID,receiverID,postManID,amount)
     .then(result=>{
-        console.log(result)
+        // console.log(result)
         res.json(result)
     })
     .catch(err=>{
@@ -53,7 +53,7 @@ const getOne = (req,res) => {
     Moneyorder.getOne(id)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -66,7 +66,7 @@ const updatePostman = (req,res) => {
     Moneyorder.updatePostman(id,postManID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -82,7 +82,7 @@ const filter = (req,res) => {
     Moneyorder.filterByDate(startDate,endDate)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -93,7 +93,7 @@ const countByDate = (req,res) => {
     Moneyorder.countByDate()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -104,7 +104,7 @@ const count = (req,res) => {
     Moneyorder.count()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -116,7 +116,7 @@ const countByDatePostman = (req,res) => {
     Moneyorder.countByDatePostman(postmanID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -132,7 +132,7 @@ const filterPostman = (req,res) => {
     Moneyorder.filterByDatePostman(startDate,endDate,postmanID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)

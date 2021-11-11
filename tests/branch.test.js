@@ -1,5 +1,5 @@
 const app = require('../server')
-const Branch = require('../models/postMaster/branch')
+const Branch = require('../models/branch')
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 

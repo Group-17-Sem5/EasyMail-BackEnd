@@ -1,21 +1,36 @@
 const Post = require('../../services/postMaster/PostService')
-
+const User = require('../../services/postMaster/UserService')
 
 const getAll = (req,res) => {
     Post.findAll()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         res.send(err)
     })
 }
 
-const create = (req,res) => { 
+const create = async (req,res) => { 
     const sourceBranchID = req.user.branchId
 
     const { receivingBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID } = req.body
+    if(addressID.length ==0){
+        await User.getUser(receiverID)
+        .then(resul=>{
+            // console.log(resul)
+            const addressID = resul[0].addressId
+            Post.create(receivingBranchID,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
+
+                .then(result=>{
+                    res.json(result)
+                })
+                .catch(err=>{
+                    console.log(err)
+                })
+        })
+    }
     Post.create(receivingBranchID,sourceBranchID,lastAppearedBranchID,senderID,receiverID,postManID,addressID)
 
     .then(result=>{
@@ -28,7 +43,7 @@ const create = (req,res) => {
 
 const del = (req,res) => {
     const {id} = req.params
-    console.log('id')
+    // console.log('id')
     Post.del(id)
     .then(result=>{
         res.json(result)
@@ -56,9 +71,8 @@ const getOne = (req,res) => {
     const {id} = req.params
     Post.getOne(id)
     .then(result=>{
-
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -71,7 +85,7 @@ const updatePostman = (req,res) => {
     Post.updatePostman(id,postManID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -87,7 +101,7 @@ const filter = (req,res) => {
     Post.filterByDate(startDate,endDate)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -98,7 +112,7 @@ const countByDate = (req,res) => {
     Post.countByDate()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -109,7 +123,7 @@ const count = (req,res) => {
     Post.count()
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
 
     })
     .catch(err=>{
@@ -123,7 +137,7 @@ const countByDatePostman = (req,res) => {
     Post.countByDatePostman(postmanID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)
@@ -139,7 +153,7 @@ const filterPostman = (req,res) => {
     Post.filterByDatePostman(startDate,endDate,postmanID)
     .then(result=>{
         res.json(result)
-        console.log(result)
+        // console.log(result)
     })
     .catch(err=>{
         console.log(err)

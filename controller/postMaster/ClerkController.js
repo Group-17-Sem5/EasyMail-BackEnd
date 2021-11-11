@@ -57,7 +57,7 @@ const getClerk = (req,res) => {
     const {id} = req.params
     Clerk.getClerk(id)
     .then(result=>{
-        console.log(result)
+        // console.log(result)
         res.json(result)
     })
     .catch(err=>{

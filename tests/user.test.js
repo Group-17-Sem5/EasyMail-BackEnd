@@ -1,5 +1,5 @@
 const app = require('../server')
-const User = require('../models/postMaster/user')
+const User = require('../models/user-model')
 const mongoose = require("mongoose");
 const supertest = require("supertest");
 const Address = require('../models/postMaster/address')
