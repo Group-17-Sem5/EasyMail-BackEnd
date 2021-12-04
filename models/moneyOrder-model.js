@@ -7,10 +7,10 @@ const MoneyOrder= Schema({
         required: true,
         unique: true,
     },amount:{
-        type:String, 
+        type:Number, 
         required: true,
         validate: {
-            validator: weight => weight>0,
+            validator: amount => amount>0,
             message: "Incorrect value for amount"
         }
     },
